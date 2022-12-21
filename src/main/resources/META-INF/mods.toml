@@ -1,0 +1,34 @@
+modLoader="javafml"
+loaderVersion="[40,)"
+license="GPLv3"
+[[mods]]
+modId="tfc_minecolonies"
+version="${file.jarVersion}"
+displayName="TFC Minecolonies"
+logoFile="tfc_minecolonies.png"
+authors="natrow"
+description='''Provides compatibility between Minecolonies and TerraFirmaCraft'''
+[[dependencies.tfc_minecolonies]]
+    modId="forge"
+    mandatory=true
+    versionRange="[40,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.tfc_minecolonies]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.18.2,1.19)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.tfc_minecolonies]]
+    modId="tfc"
+    mandatory=true
+    versionRange="[2.2.2,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.tfc_minecolonies]]
+    modId="minecolonies"
+    mandatory=true
+    versionRange="[1.18.2-1.0.966-RELEASE,)"
+    ordering="NONE"
+    side="BOTH"
