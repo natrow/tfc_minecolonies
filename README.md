@@ -6,9 +6,12 @@ Integration between TerraFirmaCraft and Minecolonies mods
  - [X] Minecolonies Advancements
  - [ ] Recipes for Domum Ornamentum
  - [ ] Block compatibilities with Domum Ornamentum
+ - [ ] Recipe for multi-piston
  - [ ] Recipes for Minecolonies
  - [ ] Custom schematic(s) for Minecolonies
  - [ ] Functionality for Minecolonies
+ - [ ] TFC tag compatibility
+ - [ ] Minecolonies tag compatibility
 
 ## Progression Description
 
