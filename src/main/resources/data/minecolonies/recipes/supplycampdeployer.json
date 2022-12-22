@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "VV",
+    "VV"
+  ],
+  "key": {
+    "V": {
+      "item": "tfc:ceramic/large_vessel"
+    }
+  },
+  "result": {
+    "item": "minecolonies:supplycampdeployer"
+  }
+}

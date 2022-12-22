@@ -1,12 +1,12 @@
 {
     "type": "minecraft:crafting_shaped",
     "pattern": [
-        "C",
+        "T",
         "S"
     ],
     "key": {
-        "C": {
-            "tag": "minecraft:stone_crafting_materials"
+        "T": {
+            "item": "tfc:thatch"
         },
         "S": {
             "tag": "forge:rods/wooden"
