@@ -12,23 +12,47 @@ description='''Provides compatibility between Minecolonies and TerraFirmaCraft''
     modId="forge"
     mandatory=true
     versionRange="[40,)"
-    ordering="NONE"
+    ordering="AFTER"
     side="BOTH"
 [[dependencies.tfc_minecolonies]]
     modId="minecraft"
     mandatory=true
     versionRange="[1.18.2,1.19)"
-    ordering="NONE"
+    ordering="AFTER"
     side="BOTH"
 [[dependencies.tfc_minecolonies]]
     modId="tfc"
     mandatory=true
     versionRange="[2.2.2,)"
-    ordering="NONE"
+    ordering="AFTER"
     side="BOTH"
 [[dependencies.tfc_minecolonies]]
     modId="minecolonies"
     mandatory=true
     versionRange="[1.18.2-1.0.966-RELEASE,)"
-    ordering="NONE"
+    ordering="AFTER"
+    side="BOTH"
+[[dependencies.tfc_minecolonies]]
+    modId="structurize"
+    mandatory=true
+    versionRange="[1.18.2-1.0.424-ALPHA,)"
+    ordering="AFTER"
+    side="BOTH"
+[[dependencies.tfc_minecolonies]]
+    modId="blockui"
+    mandatory=true
+    versionRange="[1.18.2-0.0.55-ALPHA,)"
+    ordering="AFTER"
+    side="BOTH"
+[[dependencies.tfc_minecolonies]]
+    modId="multipiston"
+    mandatory=true
+    versionRange="[1.18.2-1.2.7-ALPHA,)"
+    ordering="AFTER"
+    side="BOTH"
+[[dependencies.tfc_minecolonies]]
+    modId="domum_ornamentum"
+    mandatory=true
+    versionRange="[1.18.2-1.0.41-ALPHA,)"
+    ordering="AFTER"
     side="BOTH"

@@ -1,0 +1,18 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "C",
+        "S"
+    ],
+    "key": {
+        "C": {
+            "tag": "minecraft:stone_crafting_materials"
+        },
+        "S": {
+            "tag": "forge:rods/wooden"
+        }
+    },
+    "result": {
+        "item": "structurize:sceptergold"
+    }
+}
