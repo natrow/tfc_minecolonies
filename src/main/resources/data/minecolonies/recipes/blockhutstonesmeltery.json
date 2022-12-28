@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "LBL",
+    "WWW",
+    "LLL"
+  ],
+  "key":
+  {
+    "B":
+    {
+      "item": "structurize:sceptergold"
+    },
+    "W":
+    {
+      "item": "minecraft:charcoal"
+    },
+    "L":
+    {
+      "tag": "minecraft:planks"
+    }
+  },
+  "result":
+  {
+    "item": "minecolonies:blockhutstonesmeltery",
+    "count": 1
+  }
+}

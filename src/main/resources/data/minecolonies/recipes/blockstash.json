@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    " T ",
+    "C C"
+  ],
+  "key":
+  {
+    "T":
+    {
+      "item": "structurize:sceptergold"
+    },
+    "C":
+    {
+      "tag": "forge:chests"
+    }
+  },
+  "result":
+  {
+    "item": "minecolonies:blockstash",
+    "count": 1
+  }
+}

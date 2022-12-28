@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "LBL",
+    "LWL",
+    "LLL"
+  ],
+  "key":
+  {
+    "B":
+    {
+      "item": "structurize:sceptergold"
+    },
+    "W":
+    {
+      "tag": "forge:double_ingots"
+    },
+    "L":
+    {
+      "tag": "minecraft:planks"
+    }
+  },
+  "result":
+  {
+    "item": "minecolonies:blockhutbarracks",
+    "count": 1
+  }
+}

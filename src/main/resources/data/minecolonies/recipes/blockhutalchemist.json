@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "LBL",
+    "LWL",
+    "LLL"
+  ],
+  "key":
+  {
+    "B":
+    {
+      "item": "structurize:sceptergold"
+    },
+    "W":
+    {
+      "item": "tfc:ceramic/vessel"
+    },
+    "L":
+    {
+      "tag": "minecraft:planks"
+    }
+  },
+  "result":
+  {
+    "item": "minecolonies:blockhutalchemist",
+    "count": 1
+  }
+}

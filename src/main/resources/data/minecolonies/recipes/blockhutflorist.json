@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "LBL",
+    "LWL",
+    "LLL"
+  ],
+  "key":
+  {
+    "B":
+    {
+      "item": "structurize:sceptergold"
+    },
+    "W":
+    {
+      "tag": "tfc:plants"
+    },
+    "L":
+    {
+      "tag": "minecraft:planks"
+    }
+  },
+  "result":
+  {
+    "item": "minecolonies:blockhutflorist",
+    "count": 1
+  }
+}

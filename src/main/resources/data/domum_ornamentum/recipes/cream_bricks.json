@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "GG",
+    "BB"
+  ],
+  "key":
+  {
+    "G":
+    {
+      "tag": "forge:sand"
+    },
+    "B":
+    {
+      "item": "minecraft:brick"
+    }
+  },
+  "result":
+  {
+    "item": "domum_ornamentum:cream_bricks",
+    "count": 4
+  }
+}

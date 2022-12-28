@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "C",
+    "C",
+    "S"
+  ],
+  "key":
+  {
+    "C":
+    {
+      "item": "tfc:wool_cloth"
+    },
+    "S":
+    {
+      "tag": "forge:rods/wooden"
+    }
+  },
+  "result":
+  {
+    "item": "minecolonies:colony_banner",
+    "count": 1
+  }
+}

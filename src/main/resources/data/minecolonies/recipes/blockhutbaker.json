@@ -1,0 +1,46 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "LBL",
+    "LWL",
+    "LLL"
+  ],
+  "key":
+  {
+    "B":
+    {
+      "item": "structurize:sceptergold"
+    },
+    "W":
+    [
+      {
+        "item": "tfc:food/barley"
+      },
+      {
+        "item": "tfc:food/maize"
+      },
+      {
+        "item": "tfc:food/oat"
+      },
+      {
+        "item": "tfc:food/rye"
+      },
+      {
+        "item": "tfc:food/rice"
+      },
+      {
+        "item": "tfc:food/wheat"
+      }
+    ],
+    "L":
+    {
+      "tag": "minecraft:planks"
+    }
+  },
+  "result":
+  {
+    "item": "minecolonies:blockhutbaker",
+    "count": 1
+  }
+}

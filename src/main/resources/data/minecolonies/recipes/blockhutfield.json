@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    " B ",
+    "LWL",
+    " L "
+  ],
+  "key":
+  {
+    "B":
+    {
+      "item": "tfc:thatch"
+    },
+    "W":
+    {
+      "item": "minecraft:leather"
+    },
+    "L":
+    {
+      "tag": "forge:rods/wooden"
+    }
+  },
+  "result":
+  {
+    "item": "minecolonies:blockhutfield",
+    "count": 1
+  }
+}
