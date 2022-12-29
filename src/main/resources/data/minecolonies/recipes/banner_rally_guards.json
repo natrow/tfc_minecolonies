@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "S",
+    "B",
+    "A"
+  ],
+  "key":
+  {
+    "S":
+    {
+      "tag": "tfc:swords"
+    },
+    "B":
+    {
+      "item": "minecolonies:colony_banner"
+    },
+    "A":
+    {
+      "item": "minecraft:bow"
+    }
+  },
+  "result":
+  {
+    "item": "minecolonies:banner_rally_guards",
+    "count": 1
+  }
+}

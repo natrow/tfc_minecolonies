@@ -1,0 +1,34 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients":
+  [
+    {
+      "item": "structurize:sceptergold"
+    },
+    [
+      {
+      "item": "tfc:stone/hammer/igneous_extrusive"
+      },
+      {
+        "item": "tfc:stone/hammer/igneous_intrusive"
+      },
+      {
+        "item": "tfc:stone/hammer/metamorphic"
+      },
+      {
+        "item": "tfc:stone/hammer/sedimentary"
+      }
+    ],
+    {
+      "item": "tfc:ceramic/large_vessel"
+    },
+    {
+      "tag": "forge:cobblestone"
+    }
+  ],
+  "result":
+  {
+    "item": "minecolonies:blockhutbuilder",
+    "count": 1
+  }
+}

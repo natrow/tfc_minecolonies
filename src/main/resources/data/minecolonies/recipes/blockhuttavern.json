@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients":
+  [
+    {
+      "item": "structurize:sceptergold"
+    },
+    {
+      "item": "tfc:large_raw_hide"
+    },
+    {
+      "item": "tfc:thatch"
+    },
+    {
+      "item": "tfc:thatch"
+    }
+  ],
+  "result":
+  {
+    "item": "minecolonies:blockhuttavern",
+    "count": 1
+  }
+}

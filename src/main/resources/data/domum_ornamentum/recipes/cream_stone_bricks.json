@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "BB",
+    "BB"
+  ],
+  "key":
+  {
+    "B":
+    {
+      "item": "domum_ornamentum:cream_bricks"
+    }
+  },
+  "result":
+  {
+    "item": "domum_ornamentum:cream_stone_bricks",
+    "count": 4
+  }
+}
