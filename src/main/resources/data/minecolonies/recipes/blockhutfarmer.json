@@ -1,26 +1,31 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern":
+  "type": "minecraft:crafting_shapeless",
+  "ingredients":
   [
-    "LBL",
-    "LWL",
-    "LLL"
-  ],
-  "key":
-  {
-    "B":
     {
       "item": "structurize:sceptergold"
     },
-    "W":
+    [
+      {
+        "item": "tfc:stone/hoe/igneous_extrusive"
+      },
+      {
+        "item": "tfc:stone/hoe/igneous_intrusive"
+      },
+      {
+        "item": "tfc:stone/hoe/metamorphic"
+      },
+      {
+        "item": "tfc:stone/hoe/sedimentary"
+      }
+    ],
     {
-        "tag": "tfc:hoes"
+      "item": "tfc:ceramic/large_vessel"
     },
-    "L":
     {
-      "tag": "minecraft:planks"
+      "tag": "forge:cobblestone"
     }
-  },
+  ],
   "result":
   {
     "item": "minecolonies:blockhutfarmer",

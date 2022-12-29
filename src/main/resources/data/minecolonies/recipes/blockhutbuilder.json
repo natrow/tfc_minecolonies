@@ -7,16 +7,16 @@
     },
     [
       {
-      "item": "tfc:stone/axe/igneous_extrusive"
+      "item": "tfc:stone/hammer/igneous_extrusive"
       },
       {
-        "item": "tfc:stone/axe/igneous_intrusive"
+        "item": "tfc:stone/hammer/igneous_intrusive"
       },
       {
-        "item": "tfc:stone/axe/metamorphic"
+        "item": "tfc:stone/hammer/metamorphic"
       },
       {
-        "item": "tfc:stone/axe/sedimentary"
+        "item": "tfc:stone/hammer/sedimentary"
       }
     ],
     {
@@ -25,11 +25,10 @@
     {
       "tag": "forge:cobblestone"
     }
-
   ],
   "result":
   {
-    "item": "minecolonies:blockhutlumberjack",
+    "item": "minecolonies:blockhutbuilder",
     "count": 1
   }
 }

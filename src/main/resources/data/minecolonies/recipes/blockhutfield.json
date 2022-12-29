@@ -2,19 +2,14 @@
   "type": "minecraft:crafting_shaped",
   "pattern":
   [
-    " B ",
-    "LWL",
-    " L "
+    "B",
+    "L"
   ],
   "key":
   {
     "B":
     {
       "item": "tfc:thatch"
-    },
-    "W":
-    {
-      "item": "minecraft:leather"
     },
     "L":
     {

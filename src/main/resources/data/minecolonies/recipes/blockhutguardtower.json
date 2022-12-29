@@ -7,16 +7,16 @@
     },
     [
       {
-      "item": "tfc:stone/axe/igneous_extrusive"
+      "item": "tfc:stone/javelin/igneous_extrusive"
       },
       {
-        "item": "tfc:stone/axe/igneous_intrusive"
+        "item": "tfc:stone/javelin/igneous_intrusive"
       },
       {
-        "item": "tfc:stone/axe/metamorphic"
+        "item": "tfc:stone/javelin/metamorphic"
       },
       {
-        "item": "tfc:stone/axe/sedimentary"
+        "item": "tfc:stone/javelin/sedimentary"
       }
     ],
     {
@@ -29,7 +29,7 @@
   ],
   "result":
   {
-    "item": "minecolonies:blockhutlumberjack",
+    "item": "minecolonies:blockhutguardtower",
     "count": 1
   }
 }

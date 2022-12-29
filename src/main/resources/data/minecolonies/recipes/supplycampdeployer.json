@@ -1,12 +1,12 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "V V",
-    "VVV"
+    "VV",
+    "VV"
   ],
   "key": {
     "V": {
-      "tag": "forge:chests"
+      "item": "tfc:ceramic/large_vessel"
     }
   },
   "result": {

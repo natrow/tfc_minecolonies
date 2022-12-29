@@ -1,26 +1,20 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern":
+  "type": "minecraft:crafting_shapeless",
+  "ingredients":
   [
-    "LBL",
-    "LWL",
-    "LLL"
-  ],
-  "key":
-  {
-    "B":
     {
       "item": "structurize:sceptergold"
     },
-    "W":
     {
-      "tag": "tfc:barrels"
+      "item": "tfc:large_raw_hide"
     },
-    "L":
     {
-      "tag": "minecraft:planks"
+      "item": "tfc:thatch"
+    },
+    {
+      "item": "tfc:thatch"
     }
-  },
+  ],
   "result":
   {
     "item": "minecolonies:blockhuttavern",

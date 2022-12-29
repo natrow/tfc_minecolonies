@@ -1,11 +1,22 @@
 {
-  "type": "minecraft:crafting_shapeless",
-  "ingredients":
+  "type": "minecraft:crafting_shaped",
+  "pattern":
   [
-    {
-      "tag": "forge:chests"
-    }
+    "PPP",
+    " W ",
+    "PPP"
   ],
+  "key":
+  {
+    "P":
+    {
+      "tag": "minecraft:planks"
+    },
+    "W":
+    {
+      "item": "structurize:sceptergold"
+    }
+  },
   "result":
   {
     "item": "minecolonies:blockminecoloniesrack",
