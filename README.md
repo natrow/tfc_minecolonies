@@ -4,10 +4,10 @@ Integration between TerraFirmaCraft and Minecolonies mods
 
  - [X] Recipes for Structurize items
  - [X] Minecolonies Advancements
- - [ ] Recipes for Domum Ornamentum
+ - [X] Recipes for Domum Ornamentum
  - [ ] Block compatibilities with Domum Ornamentum
- - [ ] Recipe for multi-piston
- - [ ] Recipes for Minecolonies
+ - [X] Recipe for multi-piston
+ - [X] Recipes for Minecolonies
  - [ ] Custom schematic(s) for Minecolonies
  - [ ] Functionality for Minecolonies
  - [ ] TFC tag compatibility
