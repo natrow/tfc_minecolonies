@@ -2,12 +2,12 @@
   "type": "minecraft:crafting_shaped",
   "pattern":
   [
-    "B",
+    "T",
     "L"
   ],
   "key":
   {
-    "B":
+    "T":
     {
       "item": "tfc:thatch"
     },
