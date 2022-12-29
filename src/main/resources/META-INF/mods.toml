@@ -6,7 +6,7 @@ modId="tfc_minecolonies"
 version="${file.jarVersion}"
 displayName="TFC Minecolonies"
 logoFile="tfc_minecolonies.png"
-authors="natrow"
+authors="natrow, Gaffgarion"
 description='''Provides compatibility between Minecolonies and TerraFirmaCraft'''
 [[dependencies.tfc_minecolonies]]
     modId="forge"
