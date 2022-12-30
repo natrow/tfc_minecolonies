@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "tfc:thatch",
+    "tfc_minecolonies:reinforced_thatch",
     "#forge:stone_bricks",
     "#forge:smooth_stone",
     "tfc:rock/chiseled/granite",
