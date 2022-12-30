@@ -1,0 +1,13 @@
+{
+  "type" : "recipe",
+  "crafter": "stonemason_crafting",
+  "inputs": [
+    {
+      "item" : "tfc:rock/raw/gabbro",
+      "count": 1
+    }
+  ],
+  "result": "tfc:rock/anvil/gabbro",
+  "count": 1,
+  "intermediate" : "minecraft:air"
+}

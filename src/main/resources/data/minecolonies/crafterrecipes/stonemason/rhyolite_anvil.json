@@ -1,0 +1,13 @@
+{
+  "type" : "recipe",
+  "crafter": "stonemason_crafting",
+  "inputs": [
+    {
+      "item" : "tfc:rock/raw/rhyolite",
+      "count": 1
+    }
+  ],
+  "result": "tfc:rock/anvil/rhyolite",
+  "count": 1,
+  "intermediate" : "minecraft:air"
+}

@@ -1,0 +1,23 @@
+{
+  "type" : "recipe",
+  "crafter": "lumberjack_custom",
+  "inputs": [
+    {
+      "item" : "tfc:wood/log/douglas_fir",
+      "count": 1
+    }
+  ],
+  "alternate-output" : [
+    {
+      "item" : "tfc:wood/wood/douglas_fir",
+      "count": 1
+    },
+    {
+      "item" : "tfc:wood/stripped_wood/douglas_fir",
+      "count": 1
+    }
+  ],
+  "result": "tfc:wood/stripped_log/douglas_fir",
+  "count": 1,
+  "intermediate" : "minecraft:air"
+}

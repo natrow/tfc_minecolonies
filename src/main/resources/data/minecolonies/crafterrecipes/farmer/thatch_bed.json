@@ -1,0 +1,16 @@
+{
+  "type" : "recipe",
+  "crafter": "farmer_crafting",
+  "inputs": [
+    {
+      "item" : "tfc:thatch",
+      "count": 2
+    },
+    {
+      "item" : "tfc:large_raw_hide"
+    }
+  ],
+  "result": "tfc:thatch_bed",
+  "count": 1,
+  "intermediate" : "minecraft:air"
+}

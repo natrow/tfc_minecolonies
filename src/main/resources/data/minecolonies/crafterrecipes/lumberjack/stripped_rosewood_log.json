@@ -1,0 +1,23 @@
+{
+  "type" : "recipe",
+  "crafter": "lumberjack_custom",
+  "inputs": [
+    {
+      "item" : "tfc:wood/log/rosewood",
+      "count": 1
+    }
+  ],
+  "alternate-output" : [
+    {
+      "item" : "tfc:wood/wood/rosewood",
+      "count": 1
+    },
+    {
+      "item" : "tfc:wood/stripped_wood/rosewood",
+      "count": 1
+    }
+  ],
+  "result": "tfc:wood/stripped_log/rosewood",
+  "count": 1,
+  "intermediate" : "minecraft:air"
+}
