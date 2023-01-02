@@ -1,28 +1,22 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern":
-  [
+  "pattern": [
     "LBL",
     "LWL",
     "LLL"
   ],
-  "key":
-  {
-    "B":
-    {
+  "key": {
+    "B": {
       "item": "structurize:sceptergold"
     },
-    "W":
-    {
-        "item": "tfc:torch"
+    "W": {
+      "item": "tfc:torch"
     },
-    "L":
-    {
+    "L": {
       "tag": "minecraft:planks"
     }
   },
-  "result":
-  {
+  "result": {
     "item": "minecolonies:blockhutcitizen",
     "count": 1
   }

@@ -1,18 +1,18 @@
 {
-    "type": "minecraft:crafting_shaped",
-    "pattern": [
-        "T",
-        "S"
-    ],
-    "key": {
-        "T": {
-            "item": "tfc:thatch"
-        },
-        "S": {
-            "tag": "forge:rods/wooden"
-        }
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "T",
+    "S"
+  ],
+  "key": {
+    "T": {
+      "item": "tfc:thatch"
     },
-    "result": {
-        "item": "structurize:sceptergold"
+    "S": {
+      "tag": "forge:rods/wooden"
     }
+  },
+  "result": {
+    "item": "structurize:sceptergold"
+  }
 }

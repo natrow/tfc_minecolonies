@@ -1,23 +1,23 @@
 {
-  "type" : "recipe",
+  "type": "recipe",
   "crafter": "lumberjack_custom",
   "inputs": [
     {
-      "item" : "tfc:wood/log/kapok",
+      "item": "tfc:wood/log/kapok",
       "count": 1
     }
   ],
-  "alternate-output" : [
+  "alternate-output": [
     {
-      "item" : "tfc:wood/wood/kapok",
+      "item": "tfc:wood/wood/kapok",
       "count": 1
     },
     {
-      "item" : "tfc:wood/stripped_wood/kapok",
+      "item": "tfc:wood/stripped_wood/kapok",
       "count": 1
     }
   ],
   "result": "tfc:wood/stripped_log/kapok",
   "count": 1,
-  "intermediate" : "minecraft:air"
+  "intermediate": "minecraft:air"
 }

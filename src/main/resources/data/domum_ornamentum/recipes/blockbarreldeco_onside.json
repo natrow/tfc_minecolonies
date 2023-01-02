@@ -1,19 +1,17 @@
 {
   "type": "minecraft:crafting_shapeless",
-  "ingredients":
+  "ingredients": [
     [
-        [
-          {
-            "tag": "tfc:barrels"
-          },
-          {
-            "item": "domum_ornamentum:blockbarreldeco_standing"
-          }
-        ]
-    ],
-  "result":
-    {
-      "item": "domum_ornamentum:blockbarreldeco_onside",
-      "count": 1
-    }
+      {
+        "tag": "tfc:barrels"
+      },
+      {
+        "item": "domum_ornamentum:blockbarreldeco_standing"
+      }
+    ]
+  ],
+  "result": {
+    "item": "domum_ornamentum:blockbarreldeco_onside",
+    "count": 1
+  }
 }

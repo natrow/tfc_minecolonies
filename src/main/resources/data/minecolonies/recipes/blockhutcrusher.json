@@ -1,28 +1,22 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern":
-  [
+  "pattern": [
     "LBL",
     "LWL",
     "LLL"
   ],
-  "key":
-  {
-    "B":
-    {
+  "key": {
+    "B": {
       "item": "structurize:sceptergold"
     },
-    "W":
-    {
+    "W": {
       "tag": "tfc:hammers"
     },
-    "L":
-    {
+    "L": {
       "tag": "minecraft:planks"
     }
   },
-  "result":
-  {
+  "result": {
     "item": "minecolonies:blockhutcrusher",
     "count": 1
   }

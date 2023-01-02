@@ -1,7 +1,6 @@
 {
   "type": "minecraft:crafting_shapeless",
-  "ingredients":
-  [
+  "ingredients": [
     {
       "item": "structurize:sceptergold"
     },
@@ -15,8 +14,7 @@
       "item": "tfc:thatch"
     }
   ],
-  "result":
-  {
+  "result": {
     "item": "minecolonies:blockhuttavern",
     "count": 1
   }

@@ -1,28 +1,22 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern":
-  [
+  "pattern": [
     "LBL",
     "LWL",
     "LLL"
   ],
-  "key":
-  {
-    "B":
-    {
+  "key": {
+    "B": {
       "item": "structurize:sceptergold"
     },
-    "W":
-    {
+    "W": {
       "tag": "minecraft:signs"
     },
-    "L":
-    {
+    "L": {
       "tag": "forge:smooth_stone"
     }
   },
-  "result":
-  {
+  "result": {
     "item": "minecolonies:blockhutgraveyard",
     "count": 1
   }

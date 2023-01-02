@@ -1,23 +1,23 @@
 {
-  "type" : "recipe",
+  "type": "recipe",
   "crafter": "lumberjack_custom",
   "inputs": [
     {
-      "item" : "tfc:wood/log/birch",
+      "item": "tfc:wood/log/birch",
       "count": 1
     }
   ],
-  "alternate-output" : [
+  "alternate-output": [
     {
-      "item" : "tfc:wood/wood/birch",
+      "item": "tfc:wood/wood/birch",
       "count": 1
     },
     {
-      "item" : "tfc:wood/stripped_wood/birch",
+      "item": "tfc:wood/stripped_wood/birch",
       "count": 1
     }
   ],
   "result": "tfc:wood/stripped_log/birch",
   "count": 1,
-  "intermediate" : "minecraft:air"
+  "intermediate": "minecraft:air"
 }

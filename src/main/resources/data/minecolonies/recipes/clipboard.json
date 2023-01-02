@@ -1,28 +1,22 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern":
-  [
+  "pattern": [
     "B",
     "P",
     "L"
   ],
-  "key":
-  {
-    "L":
-    {
+  "key": {
+    "L": {
       "tag": "tfc:lumber"
     },
-    "B":
-    {
+    "B": {
       "item": "structurize:sceptergold"
     },
-    "P":
-    {
+    "P": {
       "item": "minecraft:paper"
     }
   },
-  "result":
-  {
+  "result": {
     "item": "minecolonies:clipboard",
     "count": 1
   }

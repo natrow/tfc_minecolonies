@@ -1,23 +1,23 @@
 {
-  "type" : "recipe",
+  "type": "recipe",
   "crafter": "lumberjack_custom",
   "inputs": [
     {
-      "item" : "tfc:wood/log/pine",
+      "item": "tfc:wood/log/pine",
       "count": 1
     }
   ],
-  "alternate-output" : [
+  "alternate-output": [
     {
-      "item" : "tfc:wood/wood/pine",
+      "item": "tfc:wood/wood/pine",
       "count": 1
     },
     {
-      "item" : "tfc:wood/stripped_wood/pine",
+      "item": "tfc:wood/stripped_wood/pine",
       "count": 1
     }
   ],
   "result": "tfc:wood/stripped_log/pine",
   "count": 1,
-  "intermediate" : "minecraft:air"
+  "intermediate": "minecraft:air"
 }

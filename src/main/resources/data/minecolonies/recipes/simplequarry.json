@@ -1,32 +1,25 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern":
-  [
+  "pattern": [
     "LBL",
     "LWL",
     "LSL"
   ],
-  "key":
-  {
-    "B":
-    {
+  "key": {
+    "B": {
       "item": "structurize:sceptergold"
     },
-    "W":
-    {
+    "W": {
       "tag": "tfc:pickaxes"
     },
-    "L":
-    {
+    "L": {
       "tag": "minecraft:planks"
     },
-    "S":
-    {
+    "S": {
       "tag": "tfc:barrels"
     }
   },
-  "result":
-  {
+  "result": {
     "item": "minecolonies:simplequarry",
     "count": 1
   }

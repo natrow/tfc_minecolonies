@@ -1,13 +1,12 @@
 {
   "type": "minecraft:crafting_shapeless",
-  "ingredients":
-  [
+  "ingredients": [
     {
       "item": "structurize:sceptergold"
     },
     [
       {
-      "item": "tfc:stone/hammer/igneous_extrusive"
+        "item": "tfc:stone/hammer/igneous_extrusive"
       },
       {
         "item": "tfc:stone/hammer/igneous_intrusive"
@@ -26,8 +25,7 @@
       "tag": "forge:cobblestone"
     }
   ],
-  "result":
-  {
+  "result": {
     "item": "minecolonies:blockhutbuilder",
     "count": 1
   }

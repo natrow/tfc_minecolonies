@@ -1,28 +1,22 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern":
-  [
+  "pattern": [
     "LBL",
     "LWL",
     "LLL"
   ],
-  "key":
-  {
-    "B":
-    {
+  "key": {
+    "B": {
       "item": "structurize:sceptergold"
     },
-    "W":
-    {
+    "W": {
       "tag": "forge:gems"
     },
-    "L":
-    {
+    "L": {
       "tag": "minecraft:planks"
     }
   },
-  "result":
-  {
+  "result": {
     "item": "minecolonies:blockhutmysticalsite",
     "count": 1
   }

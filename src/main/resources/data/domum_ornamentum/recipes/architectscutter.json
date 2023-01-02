@@ -1,19 +1,15 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern":
-  [
+  "pattern": [
     "W W",
     "SNS",
     "W W"
   ],
-  "key":
-  {
-    "N":
-    {
+  "key": {
+    "N": {
       "tag": "tfc:axes"
     },
-    "S":
-    [
+    "S": [
       {
         "tag": "tfc:igneous_intrusive_rock"
       },
@@ -27,13 +23,11 @@
         "tag": "tfc:metamorphic_rock"
       }
     ],
-    "W":
-    {
+    "W": {
       "tag": "minecraft:logs"
     }
   },
-  "result":
-  {
+  "result": {
     "item": "domum_ornamentum:architectscutter",
     "count": 1
   }

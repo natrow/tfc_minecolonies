@@ -1,19 +1,15 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern":
-  [
+  "pattern": [
     "LBL",
     "LWL",
     "LLL"
   ],
-  "key":
-  {
-    "B":
-    {
+  "key": {
+    "B": {
       "item": "structurize:sceptergold"
     },
-    "W":
-    [
+    "W": [
       {
         "item": "tfc:food/barley"
       },
@@ -33,13 +29,11 @@
         "item": "tfc:food/wheat"
       }
     ],
-    "L":
-    {
+    "L": {
       "tag": "minecraft:planks"
     }
   },
-  "result":
-  {
+  "result": {
     "item": "minecolonies:blockhutbaker",
     "count": 1
   }

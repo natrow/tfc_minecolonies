@@ -1,24 +1,19 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern":
-  [
+  "pattern": [
     "PPP",
     " W ",
     "PPP"
   ],
-  "key":
-  {
-    "P":
-    {
+  "key": {
+    "P": {
       "tag": "minecraft:planks"
     },
-    "W":
-    {
+    "W": {
       "item": "structurize:sceptergold"
     }
   },
-  "result":
-  {
+  "result": {
     "item": "minecolonies:blockminecoloniesrack",
     "count": 1
   }

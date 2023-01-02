@@ -1,14 +1,12 @@
 {
   "type": "minecraft:crafting_shapeless",
-  "ingredients":
-    [
-          {
-            "item": "domum_ornamentum:blockbarreldeco_onside"
-          }
-    ],
-  "result":
+  "ingredients": [
     {
-      "item": "domum_ornamentum:blockbarreldeco_standing",
-      "count": 1
+      "item": "domum_ornamentum:blockbarreldeco_onside"
     }
+  ],
+  "result": {
+    "item": "domum_ornamentum:blockbarreldeco_standing",
+    "count": 1
+  }
 }

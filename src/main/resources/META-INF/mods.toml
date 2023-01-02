@@ -1,58 +1,58 @@
-modLoader="javafml"
-loaderVersion="[40,)"
-license="GPLv3"
+modLoader = "javafml"
+loaderVersion = "[40,)"
+license = "GPLv3"
 [[mods]]
-modId="tfc_minecolonies"
-version="${file.jarVersion}"
-displayName="TFC Minecolonies"
-logoFile="tfc_minecolonies.png"
-authors="natrow, Gaffgarion"
-description='''Provides compatibility between Minecolonies and TerraFirmaCraft'''
+modId = "tfc_minecolonies"
+version = "${file.jarVersion}"
+displayName = "TFC Minecolonies"
+logoFile = "tfc_minecolonies.png"
+authors = "natrow, Gaffgarion"
+description = '''Provides compatibility between Minecolonies and TerraFirmaCraft'''
 [[dependencies.tfc_minecolonies]]
-    modId="forge"
-    mandatory=true
-    versionRange="[40,)"
-    ordering="AFTER"
-    side="BOTH"
+modId = "forge"
+mandatory = true
+versionRange = "[40,)"
+ordering = "AFTER"
+side = "BOTH"
 [[dependencies.tfc_minecolonies]]
-    modId="minecraft"
-    mandatory=true
-    versionRange="[1.18.2,1.19)"
-    ordering="AFTER"
-    side="BOTH"
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.18.2,1.19)"
+ordering = "AFTER"
+side = "BOTH"
 [[dependencies.tfc_minecolonies]]
-    modId="tfc"
-    mandatory=true
-    versionRange="[2.2.2,)"
-    ordering="AFTER"
-    side="BOTH"
+modId = "tfc"
+mandatory = true
+versionRange = "[2.2.2,)"
+ordering = "AFTER"
+side = "BOTH"
 [[dependencies.tfc_minecolonies]]
-    modId="minecolonies"
-    mandatory=true
-    versionRange="[1.18.2-1.0.966-RELEASE,)"
-    ordering="AFTER"
-    side="BOTH"
+modId = "minecolonies"
+mandatory = true
+versionRange = "[1.18.2-1.0.966-RELEASE,)"
+ordering = "AFTER"
+side = "BOTH"
 [[dependencies.tfc_minecolonies]]
-    modId="structurize"
-    mandatory=true
-    versionRange="[1.18.2-1.0.424-ALPHA,)"
-    ordering="AFTER"
-    side="BOTH"
+modId = "structurize"
+mandatory = true
+versionRange = "[1.18.2-1.0.424-ALPHA,)"
+ordering = "AFTER"
+side = "BOTH"
 [[dependencies.tfc_minecolonies]]
-    modId="blockui"
-    mandatory=true
-    versionRange="[1.18.2-0.0.55-ALPHA,)"
-    ordering="AFTER"
-    side="BOTH"
+modId = "blockui"
+mandatory = true
+versionRange = "[1.18.2-0.0.55-ALPHA,)"
+ordering = "AFTER"
+side = "BOTH"
 [[dependencies.tfc_minecolonies]]
-    modId="multipiston"
-    mandatory=true
-    versionRange="[1.18.2-1.2.7-ALPHA,)"
-    ordering="AFTER"
-    side="BOTH"
+modId = "multipiston"
+mandatory = true
+versionRange = "[1.18.2-1.2.7-ALPHA,)"
+ordering = "AFTER"
+side = "BOTH"
 [[dependencies.tfc_minecolonies]]
-    modId="domum_ornamentum"
-    mandatory=true
-    versionRange="[1.18.2-1.0.41-ALPHA,)"
-    ordering="AFTER"
-    side="BOTH"
+modId = "domum_ornamentum"
+mandatory = true
+versionRange = "[1.18.2-1.0.41-ALPHA,)"
+ordering = "AFTER"
+side = "BOTH"

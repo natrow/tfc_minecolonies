@@ -1,23 +1,23 @@
 {
-  "type" : "recipe",
+  "type": "recipe",
   "crafter": "lumberjack_custom",
   "inputs": [
     {
-      "item" : "tfc:wood/log/sequoia",
+      "item": "tfc:wood/log/sequoia",
       "count": 1
     }
   ],
-  "alternate-output" : [
+  "alternate-output": [
     {
-      "item" : "tfc:wood/wood/sequoia",
+      "item": "tfc:wood/wood/sequoia",
       "count": 1
     },
     {
-      "item" : "tfc:wood/stripped_wood/sequoia",
+      "item": "tfc:wood/stripped_wood/sequoia",
       "count": 1
     }
   ],
   "result": "tfc:wood/stripped_log/sequoia",
   "count": 1,
-  "intermediate" : "minecraft:air"
+  "intermediate": "minecraft:air"
 }

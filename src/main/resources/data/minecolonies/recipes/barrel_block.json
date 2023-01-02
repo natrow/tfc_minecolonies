@@ -1,23 +1,18 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern":
-  [
+  "pattern": [
     "T",
     "B"
   ],
-  "key":
-  {
-    "T":
-    {
+  "key": {
+    "T": {
       "item": "structurize:sceptergold"
     },
-    "B":
-    {
+    "B": {
       "tag": "tfc:barrels"
     }
   },
-  "result":
-  {
+  "result": {
     "item": "minecolonies:barrel_block",
     "count": 1
   }

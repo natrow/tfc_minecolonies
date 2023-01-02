@@ -1,23 +1,18 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern":
-  [
+  "pattern": [
     "T",
     "L"
   ],
-  "key":
-  {
-    "T":
-    {
+  "key": {
+    "T": {
       "item": "tfc:thatch"
     },
-    "L":
-    {
+    "L": {
       "tag": "minecraft:logs"
     }
   },
-  "result":
-  {
+  "result": {
     "item": "minecolonies:blockhutfield",
     "count": 1
   }

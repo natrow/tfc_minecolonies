@@ -1,7 +1,6 @@
 {
   "type": "minecraft:crafting_shapeless",
-  "ingredients":
-  [
+  "ingredients": [
     {
       "item": "structurize:sceptergold"
     },
@@ -26,8 +25,7 @@
       "tag": "forge:cobblestone"
     }
   ],
-  "result":
-  {
+  "result": {
     "item": "minecolonies:blockhutfarmer",
     "count": 1
   }

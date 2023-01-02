@@ -1,20 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern":
-  [
+  "pattern": [
     "P",
     "P",
     "P"
   ],
-  "key":
-  {
-    "P":
-    {
+  "key": {
+    "P": {
       "item": "minecraft:paper"
     }
   },
-  "result":
-  {
+  "result": {
     "item": "minecolonies:resourcescroll",
     "count": 1
   }

@@ -1,13 +1,12 @@
 {
   "type": "minecraft:crafting_shapeless",
-  "ingredients":
-  [
+  "ingredients": [
     {
       "item": "structurize:sceptergold"
     },
     [
       {
-      "item": "tfc:stone/javelin/igneous_extrusive"
+        "item": "tfc:stone/javelin/igneous_extrusive"
       },
       {
         "item": "tfc:stone/javelin/igneous_intrusive"
@@ -25,10 +24,8 @@
     {
       "tag": "forge:cobblestone"
     }
-
   ],
-  "result":
-  {
+  "result": {
     "item": "minecolonies:blockhutguardtower",
     "count": 1
   }

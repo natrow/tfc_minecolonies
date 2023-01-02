@@ -1,19 +1,15 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern":
-  [
+  "pattern": [
     "BB",
     "BB"
   ],
-  "key":
-  {
-    "B":
-    {
+  "key": {
+    "B": {
       "item": "domum_ornamentum:beige_bricks"
     }
   },
-  "result":
-  {
+  "result": {
     "item": "domum_ornamentum:beige_stone_bricks",
     "count": 4
   }
