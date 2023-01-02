@@ -1,0 +1,8 @@
+{
+  "required": true,
+  "package": "com.natrow.tfc_minecolonies.mixin",
+  "minVersion": "0.8",
+  "mixins": [
+  ],
+  "refmap": "mixins.tfc_minecolonies.refmap.json"
+}

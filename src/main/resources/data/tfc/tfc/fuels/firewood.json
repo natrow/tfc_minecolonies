@@ -1,0 +1,10 @@
+{
+  "ingredient": [
+    {
+      "item": "tfc_minecolonies:firewood"
+    }
+  ],
+  "duration": 1000,
+  "temperature": 640,
+  "purity": 0.95
+}

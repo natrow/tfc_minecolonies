@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "tfc:firepit_logs"
+    }
+  ],
+  "result": {
+    "item": "tfc_minecolonies:firewood"
+  }
+}

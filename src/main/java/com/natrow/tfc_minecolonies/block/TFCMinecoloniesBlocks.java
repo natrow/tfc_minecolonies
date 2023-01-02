@@ -19,8 +19,14 @@ import net.dries007.tfc.common.blocks.TFCMaterials;
 
 public class TFCMinecoloniesBlocks
 {
-    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Constants.MOD_ID);
-    public static final RegistryObject<Block> REINFORCED_THATCH = register("reinforced_thatch", () -> new ExtendedBlock(ExtendedProperties.of(TFCMaterials.THATCH_COLOR_LEAVES).strength(0.6F, 0.4F).sound(TFCSounds.THATCH).flammable(50, 100)), TFCItemGroup.MISC);
+    public static final DeferredRegister<Block> BLOCKS;
+    public static final RegistryObject<Block> REINFORCED_THATCH;
+
+    static
+    {
+        BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Constants.MOD_ID);
+        REINFORCED_THATCH = register("reinforced_thatch", () -> new ExtendedBlock(ExtendedProperties.of(TFCMaterials.THATCH_COLOR_LEAVES).strength(0.6F, 0.4F).sound(TFCSounds.THATCH).flammable(50, 100)), TFCItemGroup.MISC);
+    }
 
     /*
      * Register BlockItems with a Creative Mode tab
