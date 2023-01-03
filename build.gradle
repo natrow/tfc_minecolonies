@@ -160,14 +160,14 @@ dependencies {
 
     // TFC & Dependencies
     implementation fg.deobf("curse.maven:tfc-302973:${tfc_identifier}")
-    implementation fg.deobf("curse.maven:patchouli-306770:${patchouli_identifier}")
+    runtimeOnly fg.deobf("curse.maven:patchouli-306770:${patchouli_identifier}")
 
     // Minecolonies & Dependencies
     implementation fg.deobf("curse.maven:minecolonies-245506:${minecolonies_identifier}")
     implementation fg.deobf("curse.maven:structurize-298744:${structurize_identifier}")
-    implementation fg.deobf("curse.maven:multi-piston-303278:${multi_piston_identifier}")
+    runtimeOnly fg.deobf("curse.maven:multi-piston-303278:${multi_piston_identifier}")
     runtimeOnly fg.deobf("curse.maven:blockui-522992:${blockui_identifier}")
-    implementation fg.deobf("curse.maven:domum-ornamentum-527361:${domum_ornamentum_identifier}")
+    runtimeOnly fg.deobf("curse.maven:domum-ornamentum-527361:${domum_ornamentum_identifier}")
 
     // JEI
     runtimeOnly fg.deobf("curse.maven:jei-238222:${jei_identifier}")
@@ -180,6 +180,8 @@ mixin {
     // MixinGradle Settings
     add sourceSets.main, 'mixins.tfc_minecolonies.refmap.json'
     config 'mixins.tfc_minecolonies.json'
+
+    quiet
 }
 
 // Example for how to get properties into the manifest for reading at runtime.

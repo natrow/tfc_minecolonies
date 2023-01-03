@@ -3,6 +3,8 @@
   "package": "com.natrow.tfc_minecolonies.mixin",
   "minVersion": "0.8",
   "mixins": [
+    "TierNamesMixin"
   ],
-  "refmap": "mixins.tfc_minecolonies.refmap.json"
+  "refmap": "mixins.tfc_minecolonies.refmap.json",
+  "compatibilityLevel": "JAVA_17"
 }
