@@ -2,9 +2,7 @@
   "required": true,
   "package": "com.natrow.tfc_minecolonies.mixin",
   "minVersion": "0.8",
-  "mixins": [
-    "TierNamesMixin"
-  ],
+  "mixins": ["CompatibilityManagerMixin", "ItemStackUtilsMixin", "ToolMixin", "ToolTypeMixin", "TreeMixin", "AI.EntityAIWorkLumberjackMixin"],
   "refmap": "mixins.tfc_minecolonies.refmap.json",
   "compatibilityLevel": "JAVA_17"
 }

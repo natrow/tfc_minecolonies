@@ -1,6 +1,6 @@
 package com.natrow.tfc_minecolonies.item;
 
-import com.natrow.tfc_minecolonies.Constants;
+import com.natrow.tfc_minecolonies.TFCMinecoloniesConstants;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.DeferredRegister;
@@ -16,8 +16,8 @@ public class TFCMinecoloniesItems
 
     static
     {
-        ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Constants.MOD_ID);
-        FIREWOOD = register("firewood", TFCItemGroup.MISC);
+        ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, TFCMinecoloniesConstants.MOD_ID);
+        FIREWOOD = register("firewood", TFCItemGroup.WOOD);
     }
 
     private static RegistryObject<Item> register(String name, CreativeModeTab group)

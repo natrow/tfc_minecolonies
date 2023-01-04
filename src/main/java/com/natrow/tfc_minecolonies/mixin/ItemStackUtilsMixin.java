@@ -1,25 +1,36 @@
 package com.natrow.tfc_minecolonies.mixin;
 
 import com.minecolonies.api.util.ItemStackUtils;
+import com.minecolonies.api.util.constant.IToolType;
+import com.natrow.tfc_minecolonies.minecolonies.TFCMinecoloniesToolType;
+import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-/**
- * Mixin to change the names of different tool grades for Minecolonies' worker requests to match TFC item tiers.
- */
+import net.dries007.tfc.common.items.ScytheItem;
+
 @Mixin(value = ItemStackUtils.class, remap = false)
-public abstract class TierNamesMixin
+public abstract class ItemStackUtilsMixin
 {
     /**
-     * Get name from a given tool tier
-     *
-     * @param toolGrade item tier
-     * @param cir       callback info
+     * Determine whether a scythe is a valid tool.
+     */
+    @Inject(method = "isTool", at = @At("TAIL"), cancellable = true)
+    private static void isToolInjector(ItemStack itemStack, IToolType toolType, CallbackInfoReturnable<Boolean> cir)
+    {
+        if (TFCMinecoloniesToolType.SCYTHE.equals(toolType) && itemStack.getItem() instanceof ScytheItem)
+        {
+            cir.setReturnValue(true);
+        }
+    }
+
+    /**
+     * Get name for a given tool tier
      */
     @Inject(method = "swapToolGrade", at = @At("HEAD"), cancellable = true)
-    private static void swapToolGrade(int toolGrade, CallbackInfoReturnable<String> cir)
+    private static void swapToolGradeInjector(int toolGrade, CallbackInfoReturnable<String> cir)
     {
         cir.setReturnValue(switch (toolGrade)
             {
@@ -34,12 +45,9 @@ public abstract class TierNamesMixin
 
     /**
      * Get name from a given armor tier
-     *
-     * @param toolGrade armor tier
-     * @param cir       callback info
      */
     @Inject(method = "swapArmorGrade", at = @At("HEAD"), cancellable = true)
-    private static void swapArmorGrade(int toolGrade, CallbackInfoReturnable<String> cir)
+    private static void swapArmorGradeInjector(int toolGrade, CallbackInfoReturnable<String> cir)
     {
         cir.setReturnValue(switch (toolGrade)
             {

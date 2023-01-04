@@ -1,7 +1,7 @@
 package com.natrow.tfc_minecolonies.block;
 
 import java.util.function.Supplier;
-import com.natrow.tfc_minecolonies.Constants;
+import com.natrow.tfc_minecolonies.TFCMinecoloniesConstants;
 import com.natrow.tfc_minecolonies.item.TFCMinecoloniesItems;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
@@ -24,7 +24,7 @@ public class TFCMinecoloniesBlocks
 
     static
     {
-        BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Constants.MOD_ID);
+        BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, TFCMinecoloniesConstants.MOD_ID);
         REINFORCED_THATCH = register("reinforced_thatch", () -> new ExtendedBlock(ExtendedProperties.of(TFCMaterials.THATCH_COLOR_LEAVES).strength(0.6F, 0.4F).sound(TFCSounds.THATCH).flammable(50, 100)), TFCItemGroup.MISC);
     }
 

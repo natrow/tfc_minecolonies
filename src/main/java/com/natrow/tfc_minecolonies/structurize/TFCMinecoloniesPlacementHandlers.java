@@ -3,10 +3,9 @@ package com.natrow.tfc_minecolonies.structurize;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 import com.ldtteam.structurize.placement.handlers.placement.IPlacementHandler;
 import com.ldtteam.structurize.placement.handlers.placement.PlacementHandlers;
+import com.natrow.tfc_minecolonies.TFCMinecoloniesConstants;
 import com.natrow.tfc_minecolonies.item.TFCMinecoloniesItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -16,7 +15,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BedBlock;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BedPart;
 import org.jetbrains.annotations.Nullable;
@@ -30,7 +28,6 @@ import net.dries007.tfc.common.blocks.devices.GrillBlock;
 import net.dries007.tfc.common.blocks.devices.IngotPileBlock;
 import net.dries007.tfc.common.blocks.devices.PotBlock;
 import net.dries007.tfc.common.blocks.devices.SheetPileBlock;
-import net.dries007.tfc.common.blocks.rock.Rock;
 import net.dries007.tfc.common.blocks.rock.RockAnvilBlock;
 import net.dries007.tfc.common.blocks.soil.FarmlandBlock;
 import net.dries007.tfc.common.blocks.soil.ISoilBlock;
@@ -114,9 +111,6 @@ public final class TFCMinecoloniesPlacementHandlers
      */
     public static class TFCStoneAnvilPlacementHandler implements IPlacementHandler
     {
-        // Lazy initialization because this map must be created AFTER blocks are registered
-        private static Map<Block, Block> anvilToRockMap = null;
-
         @Override
         public boolean canHandle(Level world, BlockPos pos, BlockState blockState)
         {
@@ -133,18 +127,8 @@ public final class TFCMinecoloniesPlacementHandlers
         public List<ItemStack> getRequiredItems(Level world, BlockPos pos, BlockState blockState, @Nullable CompoundTag tileEntityData, boolean complete)
         {
             List<ItemStack> itemList = new ArrayList<>();
-            itemList.add(new ItemStack(getAnvilToRockMap().get(blockState.getBlock()).asItem(), 1));
+            itemList.add(new ItemStack(TFCMinecoloniesConstants.ANVIL_TO_ROCK.get().get(blockState.getBlock()).asItem(), 1));
             return itemList;
-        }
-
-        // Provides lazy initialization implementation
-        private Map<Block, Block> getAnvilToRockMap()
-        {
-            if (anvilToRockMap == null)
-            {
-                anvilToRockMap = TFCBlocks.ROCK_ANVILS.keySet().stream().collect(Collectors.toMap(e -> e.getAnvil().get(), e -> e.getBlock(Rock.BlockType.RAW).get()));
-            }
-            return anvilToRockMap;
         }
     }
 
