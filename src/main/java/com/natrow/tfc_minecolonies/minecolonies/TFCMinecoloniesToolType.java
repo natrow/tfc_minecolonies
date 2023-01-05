@@ -7,6 +7,9 @@ import com.minecolonies.api.util.constant.IToolType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 
+/**
+ * Extend minecolonies tool types with TFC-specific tools
+ */
 public enum TFCMinecoloniesToolType implements IToolType
 {
     SCYTHE("scythe", true, new TextComponent("Scythe"));

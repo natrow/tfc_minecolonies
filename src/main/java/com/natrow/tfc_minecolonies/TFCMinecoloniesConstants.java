@@ -16,11 +16,13 @@ public class TFCMinecoloniesConstants
 
     // TFC conversion maps, lazy loaded
     public static final Lazy<Map<Block, ItemStack>> LEAVES_TO_SAPLINGS;
+    public static final Lazy<Map<Block, ItemStack>> LOG_TO_SAPLINGS;
     public static final Lazy<Map<Block, Block>> ANVIL_TO_ROCK;
 
     static
     {
         LEAVES_TO_SAPLINGS = Lazy.of(() -> TFCBlocks.WOODS.keySet().stream().collect(Collectors.toMap(e -> e.getBlock(Wood.BlockType.LEAVES).get(), e -> new ItemStack(e.getBlock(Wood.BlockType.SAPLING).get().asItem(), 1))));
+        LOG_TO_SAPLINGS = Lazy.of(() -> TFCBlocks.WOODS.keySet().stream().collect(Collectors.toMap(e -> e.getBlock(Wood.BlockType.LOG).get(), e -> new ItemStack(e.getBlock(Wood.BlockType.SAPLING).get().asItem(), 1))));
         ANVIL_TO_ROCK = Lazy.of(() -> TFCBlocks.ROCK_ANVILS.keySet().stream().collect(Collectors.toMap(e -> e.getAnvil().get(), e -> e.getBlock(Rock.BlockType.RAW).get())));
     }
 }
