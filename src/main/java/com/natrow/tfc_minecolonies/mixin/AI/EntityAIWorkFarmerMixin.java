@@ -1,13 +1,17 @@
 package com.natrow.tfc_minecolonies.mixin.AI;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import com.google.common.reflect.TypeToken;
+import com.minecolonies.api.colony.requestsystem.requestable.StackList;
 import com.minecolonies.api.entity.ai.statemachine.states.AIWorkerState;
 import com.minecolonies.api.entity.ai.statemachine.states.IAIState;
 import com.minecolonies.api.tileentities.AbstractScarecrowTileEntity;
+import com.minecolonies.api.util.InventoryUtils;
+import com.minecolonies.api.util.Tuple;
+import com.minecolonies.api.util.constant.Constants;
+import com.minecolonies.api.util.constant.translation.RequestSystemTranslationConstants;
 import com.minecolonies.coremod.blocks.BlockScarecrow;
 import com.minecolonies.coremod.colony.buildings.modules.FarmerFieldModule;
 import com.minecolonies.coremod.colony.buildings.workerbuildings.BuildingFarmer;
@@ -23,6 +27,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
@@ -106,6 +111,41 @@ public abstract class EntityAIWorkFarmerMixin extends AbstractEntityAICrafting<J
         final List<ItemStack> items = Fertilizer.MANAGER.getValues().stream().flatMap(f -> f.getValidItems().stream().map(i -> new ItemStack(i, 1))).collect(Collectors.toList());
         LOGGER.warn("Overwriting fertilizer items... ({})", items);
         return items;
+    }
+
+    /**
+     * Try to get the correct type of fertilizer for the current field.
+     */
+    @Inject(method = "prepareForFarming", at = @At(value = "INVOKE", target = "Lcom/minecolonies/coremod/entity/ai/citizen/farmer/EntityAIWorkFarmer;checkIfShouldExecute(Lcom/minecolonies/coremod/tileentities/ScarecrowTileEntity;Ljava/util/function/Predicate;)Z", ordinal = 0), cancellable = true, locals = LocalCapture.CAPTURE_FAILEXCEPTION)
+    private void prepareForFarmingInjector(CallbackInfoReturnable<IAIState> cir, final FarmerFieldModule module, int int1, int int2, BlockPos currentField, BlockEntity entity)
+    {
+        ScarecrowTileEntity field = (ScarecrowTileEntity) entity;
+        Predicate<ItemStack> findFertilizers = isFertilizer(field);
+        if (findFertilizers == null) return;
+
+        // count amount of fertilizer available
+        final int fertilizerInBuilding = InventoryUtils.hasBuildingEnoughElseCount(building, findFertilizers, 1);
+        final int fertilizerInInventory = InventoryUtils.getItemCountInItemHandler(worker.getInventoryCitizen(), findFertilizers);
+
+        if (fertilizerInBuilding + fertilizerInInventory <= 0)
+        {
+            // attempt to request more
+            if (building.requestFertilizer() && !building.hasWorkerOpenRequestsOfType(worker.getCitizenData().getId(),
+                TypeToken.of(StackList.class)))
+            {
+                final List<ItemStack> fertilizerItems = getFertilizers(field);
+                if (fertilizerItems != null && !fertilizerItems.isEmpty())
+                {
+                    worker.getCitizenData().createRequestAsync(new StackList(fertilizerItems, RequestSystemTranslationConstants.REQUEST_TYPE_FERTILIZER, Constants.STACKSIZE, 1));
+                }
+            }
+        }
+        else if (fertilizerInInventory <= 0 && fertilizerInBuilding > 0)
+        {
+            // go back and gather materials
+            needsCurrently = new Tuple<>(findFertilizers, Constants.STACKSIZE);
+            cir.setReturnValue(AIWorkerState.GATHERING_REQUIRED_MATERIALS);
+        }
     }
 
     /**
@@ -208,7 +248,7 @@ public abstract class EntityAIWorkFarmerMixin extends AbstractEntityAICrafting<J
             }
 
             // check if soil can be amended
-            List<Item> validFertilizers = getValidFertilizers(position);
+            List<Item> validFertilizers = getFertilizers(crop, world.getBlockEntity(position, TFCBlockEntities.FARMLAND.get()).orElse(null));
             if (validFertilizers != null)
             {
                 // only do the amending if flag is enabled
@@ -231,7 +271,6 @@ public abstract class EntityAIWorkFarmerMixin extends AbstractEntityAICrafting<J
                         else return position;
                     }
                 }
-                return null;
             }
         }
 
@@ -323,56 +362,12 @@ public abstract class EntityAIWorkFarmerMixin extends AbstractEntityAICrafting<J
     }
 
     /**
-     * Retrieves all valid fertilizer items for the given block.
-     *
-     * @param position Position of TFC crop block.
-     * @return A list of valid fertilizers, or null if none exist.
-     */
-    private @Nullable List<Item> getValidFertilizers(BlockPos position)
-    {
-        BlockState state = world.getBlockState(position.above());
-        Block block = state.getBlock();
-
-        // normal crops
-        if (block instanceof CropBlock crop)
-        {
-            Optional<FarmlandBlockEntity> farmland = world.getBlockEntity(position, TFCBlockEntities.FARMLAND.get());
-            if (farmland.isPresent())
-            {
-                FarmlandBlockEntity.NutrientType nutrient = crop.getPrimaryNutrient();
-                float currentNutrient = farmland.get().getNutrient(nutrient);
-                // check if soil is already fertile
-                if (currentNutrient > 9.0F) return null;
-                List<Item> validFertilizers = new ArrayList<>();
-                for (Fertilizer fertilizer : Fertilizer.MANAGER.getValues())
-                {
-                    float newNutrient = getNutrient(fertilizer, nutrient);
-                    if (newNutrient != 0 && newNutrient + currentNutrient <= 1.0F)
-                    {
-                        validFertilizers.addAll(fertilizer.getValidItems());
-                    }
-                }
-                // if any valid fertilizers exist, attempt to use them
-                if (!validFertilizers.isEmpty())
-                {
-                    // try using the best fertilizers first (sorted in descending order)
-                    validFertilizers.sort((item1, item2) -> Float.compare(getNutrient(new ItemStack(item2), nutrient), getNutrient(new ItemStack(item1), nutrient)));
-                    return validFertilizers;
-                }
-            }
-        }
-
-        return null;
-    }
-
-    /**
      * Helper method to get requested nutrient type from an item
      */
-    private float getNutrient(ItemStack item, FarmlandBlockEntity.NutrientType nutrient)
+    private float getNutrient(Item item, FarmlandBlockEntity.NutrientType nutrient)
     {
-        Fertilizer fertilizer = Fertilizer.get(item);
-        if (fertilizer == null) return 0F;
-        else return getNutrient(fertilizer, nutrient);
+        Fertilizer fertilizer = Fertilizer.get(new ItemStack(item, 1));
+        return fertilizer == null ? 0.0F : getNutrient(fertilizer, nutrient);
     }
 
     /**
@@ -389,6 +384,20 @@ public abstract class EntityAIWorkFarmerMixin extends AbstractEntityAICrafting<J
     }
 
     /**
+     * Attempt to get a crop using a field's seed slot
+     */
+    private CropBlock getCrop(ScarecrowTileEntity field)
+    {
+        ItemStack seed = field.getSeed();
+        if (seed != null)
+        {
+            Block cropBlock = ((BlockItem) seed.getItem()).getBlock();
+            if (cropBlock instanceof CropBlock crop) return crop;
+        }
+        return null;
+    }
+
+    /**
      * Similar to normal checkIfShouldExecute except it returns the block it finds.
      */
     private void findNextWorkableCell(@NotNull final ScarecrowTileEntity field, @NotNull final Predicate<BlockPos> predicate)
@@ -398,5 +407,50 @@ public abstract class EntityAIWorkFarmerMixin extends AbstractEntityAICrafting<J
             BlockPos position = field.getPosition().below().south(workingOffset.getZ()).east(workingOffset.getX());
             if (predicate.test(position)) return;
         }
+    }
+
+    /**
+     * Determines whether an item stack is valid fertilizer for a given field.
+     */
+    private Predicate<ItemStack> isFertilizer(ScarecrowTileEntity field)
+    {
+        CropBlock crop = getCrop(field);
+        if (crop == null) return null;
+        FarmlandBlockEntity.NutrientType nutrient = crop.getPrimaryNutrient();
+        return itemStack -> {
+            Fertilizer fertilizer = Fertilizer.get(itemStack);
+            if (fertilizer == null) return false;
+            else return getNutrient(fertilizer, nutrient) > 0.0F;
+        };
+    }
+
+    /**
+     * Finds all valid fertilizer items for a given field
+     */
+    private List<ItemStack> getFertilizers(ScarecrowTileEntity field)
+    {
+        CropBlock crop = getCrop(field);
+        if (crop == null) return null;
+        else return getFertilizers(crop, null).stream().map(ItemStack::new).toList();
+    }
+
+    /**
+     * Retrieves all valid fertilizer items for the given crop, without waste
+     */
+    private List<Item> getFertilizers(CropBlock crop, @Nullable FarmlandBlockEntity farmland)
+    {
+        FarmlandBlockEntity.NutrientType nutrient = crop.getPrimaryNutrient();
+        float currentNutrient = farmland == null ? 0.0F : farmland.getNutrient(nutrient);
+
+        return Fertilizer.MANAGER
+            .getValues()
+            .stream()
+            .filter(fertilizer -> {
+                float newNutrient = getNutrient(fertilizer, nutrient);
+                return newNutrient > 0.0F && newNutrient + currentNutrient <= 1.0F;
+            })
+            .flatMap(fertilizer -> fertilizer.getValidItems().stream())
+            .sorted((item1, item2) -> Float.compare(getNutrient(item1, nutrient), getNutrient(item2, nutrient)))
+            .toList();
     }
 }
