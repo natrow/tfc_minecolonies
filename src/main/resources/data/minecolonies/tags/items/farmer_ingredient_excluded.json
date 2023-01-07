@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "#tfc:lumber",
+    "#minecraft:planks",
+    "#minecraft:logs"
+  ]
+}

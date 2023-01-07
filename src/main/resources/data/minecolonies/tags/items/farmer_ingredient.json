@@ -2,6 +2,8 @@
   "replace": false,
   "values": [
     "tfc:straw",
-    "#tfc:mud"
+    "#tfc:mud",
+    "#minecraft:dirt",
+    "tfc:thatch"
   ]
 }

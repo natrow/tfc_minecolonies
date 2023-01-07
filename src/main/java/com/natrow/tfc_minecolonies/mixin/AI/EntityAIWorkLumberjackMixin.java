@@ -13,7 +13,7 @@ import com.minecolonies.coremod.colony.jobs.JobLumberjack;
 import com.minecolonies.coremod.entity.ai.basic.AbstractEntityAICrafting;
 import com.minecolonies.coremod.entity.ai.citizen.lumberjack.EntityAIWorkLumberjack;
 import com.minecolonies.coremod.util.WorkerUtil;
-import com.natrow.tfc_minecolonies.minecolonies.TFCMinecoloniesBreakActions;
+import com.natrow.tfc_minecolonies.minecolonies.TFCMinecoloniesFakePlayerManager;
 import com.natrow.tfc_minecolonies.minecolonies.TFCMinecoloniesToolType;
 import com.natrow.tfc_minecolonies.minecolonies.TFCMinecoloniesTreeExtension;
 import net.minecraft.core.BlockPos;
@@ -159,7 +159,7 @@ public abstract class EntityAIWorkLumberjackMixin extends AbstractEntityAICrafti
             // custom handling on scythes
             if (!building.getOptionalSetting(AbstractBuilding.USE_SHEARS).orElse(new BoolSetting(true)).getValue())
             {
-                if (!mineBlock(leaf, workFrom, false, false, TFCMinecoloniesBreakActions.getToolBreakAction(world, leaf, worker.getItemInHand(InteractionHand.MAIN_HAND), worker.blockPosition(), worker.getCitizenItemHandler())))
+                if (!mineBlock(leaf, workFrom, false, false, TFCMinecoloniesFakePlayerManager.getToolBreakAction(world, leaf, worker.getItemInHand(InteractionHand.MAIN_HAND), worker.blockPosition(), worker.getCitizenItemHandler())))
                 {
                     cir.setReturnValue(getState());
                     return;
@@ -198,7 +198,7 @@ public abstract class EntityAIWorkLumberjackMixin extends AbstractEntityAICrafti
             }
             else
             {
-                if (!mineBlock(log, workFrom, false, false, TFCMinecoloniesBreakActions.getToolBreakAction(world, log, worker.getItemInHand(InteractionHand.MAIN_HAND), worker.blockPosition(), worker.getCitizenItemHandler())))
+                if (!mineBlock(log, workFrom, false, false, TFCMinecoloniesFakePlayerManager.getToolBreakAction(world, log, worker.getItemInHand(InteractionHand.MAIN_HAND), worker.blockPosition(), worker.getCitizenItemHandler())))
                 {
                     cir.setReturnValue(getState());
                     return;

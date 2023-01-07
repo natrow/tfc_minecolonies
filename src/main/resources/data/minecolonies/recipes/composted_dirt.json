@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "DDD",
+    "DCD",
+    "DDD"
+  ],
+  "key": {
+    "D": {
+      "tag": "minecraft:dirt"
+    },
+    "C": {
+      "item": "tfc:compost"
+    }
+  },
+  "result": {
+    "item": "minecolonies:composted_dirt",
+    "count": 1
+  }
+}
