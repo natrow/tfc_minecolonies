@@ -4,21 +4,22 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import com.minecolonies.api.util.constant.IToolType;
+import com.natrow.tfc_minecolonies.TFCMTranslationConstants;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 
 /**
  * Extend minecolonies tool types with TFC-specific tools
  */
-public enum TFCMinecoloniesToolType implements IToolType
+public enum TFCMToolType implements IToolType
 {
-    SCYTHE("scythe", true, new TextComponent("Scythe"));
+    SCYTHE("scythe", true, new TranslatableComponent(TFCMTranslationConstants.SCYTHE));
 
     private static final Map<String, IToolType> tools = new HashMap<>();
 
     static
     {
-        for (final TFCMinecoloniesToolType type : values())
+        for (final TFCMToolType type : values())
         {
             tools.put(type.getName(), type);
         }
@@ -43,7 +44,7 @@ public enum TFCMinecoloniesToolType implements IToolType
     private final boolean hasVariableMaterials;
     private final Component displayName;
 
-    TFCMinecoloniesToolType(final String name, final boolean hasVariableMaterials, final Component displayName)
+    TFCMToolType(final String name, final boolean hasVariableMaterials, final Component displayName)
     {
         this.name = name;
         this.hasVariableMaterials = hasVariableMaterials;

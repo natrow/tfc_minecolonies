@@ -11,7 +11,7 @@ import net.dries007.tfc.common.blocks.rock.Rock;
 import net.dries007.tfc.common.blocks.soil.SoilBlockType;
 import net.dries007.tfc.common.blocks.wood.Wood;
 
-public class TFCMinecoloniesConstants
+public class TFCMConstants
 {
     public static final String MOD_ID = "tfc_minecolonies";
 

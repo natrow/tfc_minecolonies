@@ -180,7 +180,6 @@ mixin {
     // MixinGradle Settings
     add sourceSets.main, 'mixins.tfc_minecolonies.refmap.json'
     config 'mixins.tfc_minecolonies.json'
-
     quiet
 }
 

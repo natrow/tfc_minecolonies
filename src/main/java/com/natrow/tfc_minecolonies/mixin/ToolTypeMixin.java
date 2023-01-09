@@ -2,7 +2,7 @@ package com.natrow.tfc_minecolonies.mixin;
 
 import com.minecolonies.api.util.constant.IToolType;
 import com.minecolonies.api.util.constant.ToolType;
-import com.natrow.tfc_minecolonies.minecolonies.TFCMinecoloniesToolType;
+import com.natrow.tfc_minecolonies.minecolonies.TFCMToolType;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -17,6 +17,6 @@ public class ToolTypeMixin
     @Inject(method = "getToolType", at = @At("HEAD"), cancellable = true)
     private static void getToolTypeInjector(String tool, CallbackInfoReturnable<IToolType> cir)
     {
-        TFCMinecoloniesToolType.getToolType(tool).ifPresent(cir::setReturnValue);
+        TFCMToolType.getToolType(tool).ifPresent(cir::setReturnValue);
     }
 }

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import com.google.common.reflect.TypeToken;
+import com.minecolonies.api.colony.interactionhandling.ChatPriority;
 import com.minecolonies.api.colony.requestsystem.requestable.StackList;
 import com.minecolonies.api.entity.ai.statemachine.states.AIWorkerState;
 import com.minecolonies.api.entity.ai.statemachine.states.IAIState;
@@ -15,27 +16,36 @@ import com.minecolonies.api.util.constant.translation.RequestSystemTranslationCo
 import com.minecolonies.coremod.blocks.BlockScarecrow;
 import com.minecolonies.coremod.colony.buildings.modules.FarmerFieldModule;
 import com.minecolonies.coremod.colony.buildings.workerbuildings.BuildingFarmer;
+import com.minecolonies.coremod.colony.interactionhandling.PosBasedInteraction;
 import com.minecolonies.coremod.colony.jobs.JobFarmer;
 import com.minecolonies.coremod.entity.ai.basic.AbstractEntityAICrafting;
 import com.minecolonies.coremod.entity.ai.citizen.farmer.EntityAIWorkFarmer;
 import com.minecolonies.coremod.tileentities.ScarecrowTileEntity;
 import com.mojang.logging.LogUtils;
-import com.natrow.tfc_minecolonies.TFCMinecoloniesConstants;
-import com.natrow.tfc_minecolonies.TFCMinecoloniesTags;
-import com.natrow.tfc_minecolonies.minecolonies.TFCMinecoloniesFakePlayerManager;
+import com.natrow.tfc_minecolonies.TFCMConstants;
+import com.natrow.tfc_minecolonies.TFCMTranslationConstants;
+import com.natrow.tfc_minecolonies.minecolonies.TFCMFakePlayerManager;
+import com.natrow.tfc_minecolonies.minecolonies.TFCMFarmerExtension;
+import com.natrow.tfc_minecolonies.tags.TFCMTags;
+import com.natrow.tfc_minecolonies.util.TFCMCropUtil;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.WebBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.util.FakePlayer;
+import net.minecraftforge.common.util.TriPredicate;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
@@ -48,20 +58,22 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-import net.dries007.tfc.common.TFCTags;
-import net.dries007.tfc.common.blockentities.FarmlandBlockEntity;
 import net.dries007.tfc.common.blockentities.TFCBlockEntities;
 import net.dries007.tfc.common.blocks.TFCBlocks;
-import net.dries007.tfc.common.blocks.crop.Crop;
 import net.dries007.tfc.common.blocks.crop.CropBlock;
 import net.dries007.tfc.common.blocks.crop.CropHelpers;
 import net.dries007.tfc.common.blocks.crop.DeadCropBlock;
 import net.dries007.tfc.common.blocks.crop.DecayingBlock;
-import net.dries007.tfc.common.items.TFCItems;
+import net.dries007.tfc.common.blocks.crop.DoubleCropBlock;
+import net.dries007.tfc.common.blocks.crop.FloodedCropBlock;
+import net.dries007.tfc.common.blocks.crop.SpreadingCropBlock;
+import net.dries007.tfc.common.blocks.soil.FarmlandBlock;
 import net.dries007.tfc.util.Fertilizer;
+import net.dries007.tfc.util.climate.Climate;
+import net.dries007.tfc.util.climate.ClimateRange;
 
 @Mixin(value = EntityAIWorkFarmer.class, remap = false)
-public abstract class EntityAIWorkFarmerMixin extends AbstractEntityAICrafting<JobFarmer, BuildingFarmer>
+public abstract class EntityAIWorkFarmerMixin extends AbstractEntityAICrafting<JobFarmer, BuildingFarmer> implements TFCMFarmerExtension
 {
     private static final Logger LOGGER = LogUtils.getLogger();
     @Shadow @Final private static int MAX_DEPTH;
@@ -72,6 +84,30 @@ public abstract class EntityAIWorkFarmerMixin extends AbstractEntityAICrafting<J
     public EntityAIWorkFarmerMixin(@NotNull JobFarmer job)
     {
         super(job);
+    }
+
+    @Override
+    public boolean checkField(BlockPos fieldPos, TriPredicate<BlockPos, ClimateRange, Level> predicate)
+    {
+        BlockEntity blockEntity = world.getBlockEntity(fieldPos);
+        if (blockEntity instanceof ScarecrowTileEntity field)
+        {
+            CropBlock crop = TFCMCropUtil.getCrop(field);
+            if (crop == null) return true;
+            ClimateRange climate = crop.getClimateRange();
+
+            BlockPos start = field.getPosition();
+            for (int z = -field.getRadius(Direction.NORTH); z <= field.getRadius(Direction.SOUTH); z++)
+            {
+                for (int x = -field.getRadius(Direction.WEST); x <= field.getRadius(Direction.EAST); x++)
+                {
+                    if (x == 0 && z == 0) continue; // skip field block itself
+                    BlockPos pos = getSurfacePos(start.south(z).east(x));
+                    if (!predicate.test(pos, climate, world)) return false;
+                }
+            }
+        }
+        return true;
     }
 
     @Shadow
@@ -120,7 +156,7 @@ public abstract class EntityAIWorkFarmerMixin extends AbstractEntityAICrafting<J
     private void prepareForFarmingInjector(CallbackInfoReturnable<IAIState> cir, final FarmerFieldModule module, int int1, int int2, BlockPos currentField, BlockEntity entity)
     {
         ScarecrowTileEntity field = (ScarecrowTileEntity) entity;
-        Predicate<ItemStack> findFertilizers = isFertilizer(field);
+        Predicate<ItemStack> findFertilizers = TFCMCropUtil.isFertilizer(field);
         if (findFertilizers == null) return;
 
         // count amount of fertilizer available
@@ -133,7 +169,7 @@ public abstract class EntityAIWorkFarmerMixin extends AbstractEntityAICrafting<J
             if (building.requestFertilizer() && !building.hasWorkerOpenRequestsOfType(worker.getCitizenData().getId(),
                 TypeToken.of(StackList.class)))
             {
-                final List<ItemStack> fertilizerItems = getFertilizers(field);
+                final List<ItemStack> fertilizerItems = TFCMCropUtil.getFertilizers(field);
                 if (fertilizerItems != null && !fertilizerItems.isEmpty())
                 {
                     worker.getCitizenData().createRequestAsync(new StackList(fertilizerItems, RequestSystemTranslationConstants.REQUEST_TYPE_FERTILIZER, Constants.STACKSIZE, 1));
@@ -155,7 +191,7 @@ public abstract class EntityAIWorkFarmerMixin extends AbstractEntityAICrafting<J
     private void hoeIfAbleInjector(BlockPos position, ScarecrowTileEntity field, CallbackInfoReturnable<Boolean> cir)
     {
         position = findHoeableSurface(position, field);
-        world.setBlockAndUpdate(position, TFCMinecoloniesConstants.SOIL_TO_FARMLAND.get().getOrDefault(world.getBlockState(position).getBlock(), Blocks.FARMLAND).defaultBlockState());
+        world.setBlockAndUpdate(position, TFCMConstants.SOIL_TO_FARMLAND.get().getOrDefault(world.getBlockState(position).getBlock(), Blocks.FARMLAND).defaultBlockState());
         world.playSound(null, position, SoundEvents.HOE_TILL, SoundSource.BLOCKS, 1.0F, 1.0F);
         worker.getCitizenItemHandler().damageItemInHand(InteractionHand.MAIN_HAND, 1);
         worker.decreaseSaturationForContinuousAction();
@@ -171,7 +207,8 @@ public abstract class EntityAIWorkFarmerMixin extends AbstractEntityAICrafting<J
     private void findHoeableSurfaceInjector(BlockPos position, ScarecrowTileEntity field, CallbackInfoReturnable<BlockPos> cir)
     {
         position = getSurfacePos(position);
-        if (position != null && !field.isNoPartOfField(world, position) && !(world.getBlockState(position.above()).getBlock() instanceof CropBlock) && !(world.getBlockState(position.above()).getBlock() instanceof BlockScarecrow) && world.getBlockState(position).is(TFCMinecoloniesTags.Blocks.HOEABLE))
+        // todo: replace with simpler function
+        if (position != null && !field.isNoPartOfField(world, position) && !(world.getBlockState(position.above()).getBlock() instanceof CropBlock) && !(world.getBlockState(position.above()).getBlock() instanceof BlockScarecrow) && world.getBlockState(position).is(TFCMTags.Blocks.HOEABLE))
         {
             cir.setReturnValue(position);
         }
@@ -182,21 +219,75 @@ public abstract class EntityAIWorkFarmerMixin extends AbstractEntityAICrafting<J
     }
 
     /**
-     * By default, minecolonies only checks for vanilla-compatible farmland. I've changed
-     * this to use TFC-compatible farmland blocks ONLY.
+     * Checks whether the field meets climate requirements for target crop
+     */
+    @Inject(method = "canGoPlanting", at = @At(value = "INVOKE", target = "Lcom/minecolonies/api/colony/ICitizenData;setIdleAtJob(Z)V", ordinal = 1), cancellable = true)
+    private void canGoPlantingInjector(ScarecrowTileEntity currentField, BuildingFarmer buildingFarmer, CallbackInfoReturnable<IAIState> cir)
+    {
+        final BlockPos fieldPos = currentField.getPosition();
+        final Component cropName = currentField.getSeed().getDisplayName(); // this is null-checked in the target method
+        if (!checkField(fieldPos, (farmlandPos, climate, world) -> checkClimate(climate, farmlandPos, fieldPos, cropName)))
+        {
+            final FarmerFieldModule module = buildingFarmer.getFirstModuleOccurance(FarmerFieldModule.class);
+            module.setCurrentField(null);
+            worker.getCitizenData().setIdleAtJob(true);
+            cir.setReturnValue(AIWorkerState.PREPARING);
+        }
+    }
+
+    /**
+     * By default, minecolonies uses several hardcoded values in this check. This checks against
+     * TFC criteria including climate, correct block types, and whether crops have space to grow.
      */
     @Inject(method = "findPlantableSurface", at = @At("HEAD"), cancellable = true)
     private void findPlantableSurfaceInjector(BlockPos position, ScarecrowTileEntity field, CallbackInfoReturnable<BlockPos> cir)
     {
         position = getSurfacePos(position);
-        if (position != null && !field.isNoPartOfField(world, position) && !(world.getBlockState(position.above()).getBlock() instanceof CropBlock) && !(world.getBlockState(position.above()).getBlock() instanceof BlockScarecrow) && world.getBlockState(position).is(TFCTags.Blocks.FARMLAND))
+        if (position != null && !field.isNoPartOfField(world, position) && world.getBlockState(position).getBlock() instanceof FarmlandBlock)
         {
-            cir.setReturnValue(position);
+            CropBlock crop = TFCMCropUtil.getCrop(field);
+
+            if (crop instanceof SpreadingCropBlock)
+            {
+                // spreading crops need adjacent blocks to also be empty
+                if (world.isEmptyBlock(position.above())
+                    && world.isEmptyBlock(position.north().above())
+                    && world.isEmptyBlock(position.south().above())
+                    && world.isEmptyBlock(position.east().above())
+                    && world.isEmptyBlock(position.west().above()))
+                {
+                    cir.setReturnValue(position);
+                    return;
+                }
+            }
+            else if (crop instanceof DoubleCropBlock)
+            {
+                // double crops need the block above them to also be empty
+                if (world.isEmptyBlock(position.above())
+                    && world.isEmptyBlock(position.above().above()))
+                {
+                    cir.setReturnValue(position);
+                    return;
+                }
+            }
+            else if (crop instanceof FloodedCropBlock)
+            {
+                // flooded crops can only grow in water
+                if (world.getBlockState(position.above()).is(Blocks.WATER))
+                {
+                    cir.setReturnValue(position);
+                    return;
+                }
+            }
+            // regular crops don't need any special requirements
+            else if (crop != null && world.isEmptyBlock(position.above()))
+            {
+                // allow other crops to be grown
+                cir.setReturnValue(position);
+                return;
+            }
         }
-        else
-        {
-            cir.setReturnValue(null);
-        }
+        cir.setReturnValue(null);
     }
 
     /**
@@ -241,14 +332,16 @@ public abstract class EntityAIWorkFarmerMixin extends AbstractEntityAICrafting<J
         // normal crops
         if (block instanceof CropBlock crop)
         {
-            // Crop.isMaxAge() doesn't work on TFC crops - potential bug
-            if (crop.isMaxAge(state))
+            // harvest fully grown crops (except spreading blocks like pumpkin stems)
+            if (crop.isMaxAge(state) && !(crop instanceof SpreadingCropBlock))
             {
                 return position;
             }
 
+            // todo: place sticks for climbing crops
+
             // check if soil can be amended
-            List<Item> validFertilizers = getFertilizers(crop, world.getBlockEntity(position, TFCBlockEntities.FARMLAND.get()).orElse(null));
+            List<Item> validFertilizers = TFCMCropUtil.getFertilizers(crop, world.getBlockEntity(position, TFCBlockEntities.FARMLAND.get()).orElse(null));
             if (validFertilizers != null)
             {
                 // only do the amending if flag is enabled
@@ -262,7 +355,7 @@ public abstract class EntityAIWorkFarmerMixin extends AbstractEntityAICrafting<J
                         {
                             // use item
                             worker.getCitizenItemHandler().setMainHeldItem(slot);
-                            FakePlayer fake = TFCMinecoloniesFakePlayerManager.setupFakePlayer(world, worker.blockPosition(), worker.getMainHandItem());
+                            FakePlayer fake = TFCMFakePlayerManager.setupFakePlayer(world, worker.blockPosition(), worker.getMainHandItem());
                             CropHelpers.useFertilizer(world, fake, InteractionHand.MAIN_HAND, position);
                             world.playSound(null, position, SoundEvents.BONE_MEAL_USE, SoundSource.BLOCKS, 1.0F, 1.0F);
                             // return so more items aren't used
@@ -283,13 +376,19 @@ public abstract class EntityAIWorkFarmerMixin extends AbstractEntityAICrafting<J
     @Inject(method = "plantCrop", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;setBlockAndUpdate(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Z"), locals = LocalCapture.CAPTURE_FAILEXCEPTION, cancellable = true)
     private void plantCropInjector(ItemStack item, BlockPos position, CallbackInfoReturnable<Boolean> cir, int slot, Item seed)
     {
-        // normal check only looks at vanilla seeds, TFC has their own version of pumpkins & melons
-        if ((seed == TFCItems.CROP_SEEDS.get(Crop.PUMPKIN).get() || seed == TFCItems.CROP_SEEDS.get(Crop.MELON).get()) && prevPos != null && !world.isEmptyBlock(prevPos.above()))
+        // check for neighboring spreading crops
+        // todo - test without this? it probably will still work
+        if (((BlockItem) seed).getBlock() instanceof SpreadingCropBlock
+            && (world.getBlockState(position.north().above()).getBlock() instanceof SpreadingCropBlock
+            || world.getBlockState(position.south().above()).getBlock() instanceof SpreadingCropBlock
+            || world.getBlockState(position.east().above()).getBlock() instanceof SpreadingCropBlock
+            || world.getBlockState(position.west().above()).getBlock() instanceof SpreadingCropBlock))
         {
             cir.setReturnValue(true);
             return;
         }
-        // play a little sound
+        // hold seed & play a sound
+        worker.getCitizenItemHandler().setMainHeldItem(slot);
         world.playSound(null, position, SoundEvents.CROP_PLANTED, SoundSource.BLOCKS, 1.0F, 1.0F);
     }
 
@@ -362,42 +461,6 @@ public abstract class EntityAIWorkFarmerMixin extends AbstractEntityAICrafting<J
     }
 
     /**
-     * Helper method to get requested nutrient type from an item
-     */
-    private float getNutrient(Item item, FarmlandBlockEntity.NutrientType nutrient)
-    {
-        Fertilizer fertilizer = Fertilizer.get(new ItemStack(item, 1));
-        return fertilizer == null ? 0.0F : getNutrient(fertilizer, nutrient);
-    }
-
-    /**
-     * Helper method to get nutrient type from a fertilizer definition
-     */
-    private float getNutrient(Fertilizer fertilizer, FarmlandBlockEntity.NutrientType nutrient)
-    {
-        return switch (nutrient)
-            {
-                case NITROGEN -> fertilizer.getNitrogen();
-                case PHOSPHOROUS -> fertilizer.getPhosphorus();
-                case POTASSIUM -> fertilizer.getPotassium();
-            };
-    }
-
-    /**
-     * Attempt to get a crop using a field's seed slot
-     */
-    private CropBlock getCrop(ScarecrowTileEntity field)
-    {
-        ItemStack seed = field.getSeed();
-        if (seed != null)
-        {
-            Block cropBlock = ((BlockItem) seed.getItem()).getBlock();
-            if (cropBlock instanceof CropBlock crop) return crop;
-        }
-        return null;
-    }
-
-    /**
      * Similar to normal checkIfShouldExecute except it returns the block it finds.
      */
     private void findNextWorkableCell(@NotNull final ScarecrowTileEntity field, @NotNull final Predicate<BlockPos> predicate)
@@ -410,47 +473,48 @@ public abstract class EntityAIWorkFarmerMixin extends AbstractEntityAICrafting<J
     }
 
     /**
-     * Determines whether an item stack is valid fertilizer for a given field.
+     * Determines whether a crop should be planted or not, and displays a warning message
+     *
+     * @param climate     climate the field needs to be
+     * @param farmlandPos position of farmland block
+     * @param fieldPos    position of field
+     * @return true if climate is valid
      */
-    private Predicate<ItemStack> isFertilizer(ScarecrowTileEntity field)
+    private boolean checkClimate(ClimateRange climate, BlockPos farmlandPos, BlockPos fieldPos, Component cropName)
     {
-        CropBlock crop = getCrop(field);
-        if (crop == null) return null;
-        FarmlandBlockEntity.NutrientType nutrient = crop.getPrimaryNutrient();
-        return itemStack -> {
-            Fertilizer fertilizer = Fertilizer.get(itemStack);
-            if (fertilizer == null) return false;
-            else return getNutrient(fertilizer, nutrient) > 0.0F;
-        };
-    }
+        final float currentTemp = Climate.getTemperature(world, farmlandPos);
+        final int currentHydration = FarmlandBlock.getHydration(world, farmlandPos);
 
-    /**
-     * Finds all valid fertilizer items for a given field
-     */
-    private List<ItemStack> getFertilizers(ScarecrowTileEntity field)
-    {
-        CropBlock crop = getCrop(field);
-        if (crop == null) return null;
-        else return getFertilizers(crop, null).stream().map(ItemStack::new).toList();
-    }
+        // Display warnings for hydration levels
+        switch (climate.checkHydration(currentHydration, false))
+        {
+            case LOW -> worker.getCitizenData().triggerInteraction(new PosBasedInteraction(
+                new TranslatableComponent(TFCMTranslationConstants.CROP_TOO_DRY, cropName, fieldPos.getX(), fieldPos.getY(), fieldPos.getZ()),
+                ChatPriority.BLOCKING,
+                new TranslatableComponent(TFCMTranslationConstants.CROP_TOO_DRY),
+                fieldPos));
+            case HIGH -> worker.getCitizenData().triggerInteraction(new PosBasedInteraction(
+                new TranslatableComponent(TFCMTranslationConstants.CROP_TOO_WET, cropName, fieldPos.getX(), fieldPos.getY(), fieldPos.getZ()),
+                ChatPriority.BLOCKING,
+                new TranslatableComponent(TFCMTranslationConstants.CROP_TOO_WET),
+                fieldPos));
+        }
 
-    /**
-     * Retrieves all valid fertilizer items for the given crop, without waste
-     */
-    private List<Item> getFertilizers(CropBlock crop, @Nullable FarmlandBlockEntity farmland)
-    {
-        FarmlandBlockEntity.NutrientType nutrient = crop.getPrimaryNutrient();
-        float currentNutrient = farmland == null ? 0.0F : farmland.getNutrient(nutrient);
+        // Display warnings for temperature levels
+        switch (climate.checkTemperature(currentTemp, false))
+        {
+            case LOW -> worker.getCitizenData().triggerInteraction(new PosBasedInteraction(
+                new TranslatableComponent(TFCMTranslationConstants.CROP_TOO_COLD, cropName, fieldPos.getX(), fieldPos.getY(), fieldPos.getZ()),
+                ChatPriority.BLOCKING,
+                new TranslatableComponent(TFCMTranslationConstants.CROP_TOO_COLD),
+                fieldPos));
+            case HIGH -> worker.getCitizenData().triggerInteraction(new PosBasedInteraction(
+                new TranslatableComponent(TFCMTranslationConstants.CROP_TOO_HOT, cropName, fieldPos.getX(), fieldPos.getY(), fieldPos.getZ()),
+                ChatPriority.BLOCKING,
+                new TranslatableComponent(TFCMTranslationConstants.CROP_TOO_HOT),
+                fieldPos));
+        }
 
-        return Fertilizer.MANAGER
-            .getValues()
-            .stream()
-            .filter(fertilizer -> {
-                float newNutrient = getNutrient(fertilizer, nutrient);
-                return newNutrient > 0.0F && newNutrient + currentNutrient <= 1.0F;
-            })
-            .flatMap(fertilizer -> fertilizer.getValidItems().stream())
-            .sorted((item1, item2) -> Float.compare(getNutrient(item1, nutrient), getNutrient(item2, nutrient)))
-            .toList();
+        return climate.checkBoth(currentHydration, currentTemp, false);
     }
 }

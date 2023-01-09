@@ -5,8 +5,8 @@ import java.util.Collections;
 import java.util.List;
 import com.ldtteam.structurize.placement.handlers.placement.IPlacementHandler;
 import com.ldtteam.structurize.placement.handlers.placement.PlacementHandlers;
-import com.natrow.tfc_minecolonies.TFCMinecoloniesConstants;
-import com.natrow.tfc_minecolonies.item.TFCMinecoloniesItems;
+import com.natrow.tfc_minecolonies.TFCMConstants;
+import com.natrow.tfc_minecolonies.item.TFCMItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -42,7 +42,7 @@ import static com.ldtteam.structurize.api.util.constant.Constants.UPDATE_FLAG;
  * Placement Handlers determine the behavior the builder uses while creating structures in survival mode.
  * Several TFC blocks require custom support to function as intended.
  */
-public final class TFCMinecoloniesPlacementHandlers
+public final class TFCMPlacementHandlers
 {
     public static void registerHandlers()
     {
@@ -127,7 +127,7 @@ public final class TFCMinecoloniesPlacementHandlers
         public List<ItemStack> getRequiredItems(Level world, BlockPos pos, BlockState blockState, @Nullable CompoundTag tileEntityData, boolean complete)
         {
             List<ItemStack> itemList = new ArrayList<>();
-            itemList.add(new ItemStack(TFCMinecoloniesConstants.ANVIL_TO_ROCK.get().get(blockState.getBlock()).asItem(), 1));
+            itemList.add(new ItemStack(TFCMConstants.ANVIL_TO_ROCK.get().get(blockState.getBlock()).asItem(), 1));
             return itemList;
         }
     }
@@ -244,7 +244,7 @@ public final class TFCMinecoloniesPlacementHandlers
         {
             List<ItemStack> itemList = new ArrayList<>();
 
-            itemList.add(new ItemStack(TFCMinecoloniesItems.FIREWOOD.get(), 1));
+            itemList.add(new ItemStack(TFCMItems.FIREWOOD.get(), 1));
             itemList.add(new ItemStack(Items.STICK, 3));
 
             if (blockState.getBlock() instanceof PotBlock)

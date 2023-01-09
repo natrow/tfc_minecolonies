@@ -13,9 +13,9 @@ import com.minecolonies.coremod.colony.jobs.JobLumberjack;
 import com.minecolonies.coremod.entity.ai.basic.AbstractEntityAICrafting;
 import com.minecolonies.coremod.entity.ai.citizen.lumberjack.EntityAIWorkLumberjack;
 import com.minecolonies.coremod.util.WorkerUtil;
-import com.natrow.tfc_minecolonies.minecolonies.TFCMinecoloniesFakePlayerManager;
-import com.natrow.tfc_minecolonies.minecolonies.TFCMinecoloniesToolType;
-import com.natrow.tfc_minecolonies.minecolonies.TFCMinecoloniesTreeExtension;
+import com.natrow.tfc_minecolonies.minecolonies.TFCMFakePlayerManager;
+import com.natrow.tfc_minecolonies.minecolonies.TFCMToolType;
+import com.natrow.tfc_minecolonies.minecolonies.TFCMTreeExtension;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionHand;
@@ -76,7 +76,7 @@ public abstract class EntityAIWorkLumberjackMixin extends AbstractEntityAICrafti
     {
         final IToolType axe = ToolType.AXE;
         final IToolType secondary = building.getOptionalSetting(AbstractBuilding.USE_SHEARS).orElse(new BoolSetting(true)).getValue() ?
-            ToolType.SHEARS : building.getSetting(BuildingLumberjack.DEFOLIATE).getValue() ? TFCMinecoloniesToolType.SCYTHE : ToolType.HOE; // Speed up defoliation
+            ToolType.SHEARS : building.getSetting(BuildingLumberjack.DEFOLIATE).getValue() ? TFCMToolType.SCYTHE : ToolType.HOE; // Speed up defoliation
 
         // require axe and either shears, a hoe, or a scythe depending on the building's settings.
         if (checkForToolOrWeapon(axe) || checkForToolOrWeapon(secondary))
@@ -159,7 +159,7 @@ public abstract class EntityAIWorkLumberjackMixin extends AbstractEntityAICrafti
             // custom handling on scythes
             if (!building.getOptionalSetting(AbstractBuilding.USE_SHEARS).orElse(new BoolSetting(true)).getValue())
             {
-                if (!mineBlock(leaf, workFrom, false, false, TFCMinecoloniesFakePlayerManager.getToolBreakAction(world, leaf, worker.getItemInHand(InteractionHand.MAIN_HAND), worker.blockPosition(), worker.getCitizenItemHandler())))
+                if (!mineBlock(leaf, workFrom, false, false, TFCMFakePlayerManager.getToolBreakAction(world, leaf, worker.getItemInHand(InteractionHand.MAIN_HAND), worker.blockPosition(), worker.getCitizenItemHandler())))
                 {
                     cir.setReturnValue(getState());
                     return;
@@ -171,7 +171,7 @@ public abstract class EntityAIWorkLumberjackMixin extends AbstractEntityAICrafti
                 return;
             }
             job.getTree().pollNextLeaf();
-            ((TFCMinecoloniesTreeExtension) job.getTree()).recalcLeaves(world);
+            ((TFCMTreeExtension) job.getTree()).recalcLeaves(world);
         }
 
         // remove trunk
@@ -198,14 +198,14 @@ public abstract class EntityAIWorkLumberjackMixin extends AbstractEntityAICrafti
             }
             else
             {
-                if (!mineBlock(log, workFrom, false, false, TFCMinecoloniesFakePlayerManager.getToolBreakAction(world, log, worker.getItemInHand(InteractionHand.MAIN_HAND), worker.blockPosition(), worker.getCitizenItemHandler())))
+                if (!mineBlock(log, workFrom, false, false, TFCMFakePlayerManager.getToolBreakAction(world, log, worker.getItemInHand(InteractionHand.MAIN_HAND), worker.blockPosition(), worker.getCitizenItemHandler())))
                 {
                     cir.setReturnValue(getState());
                     return;
                 }
             }
             job.getTree().pollNextLog();
-            int blocksBroken = ((TFCMinecoloniesTreeExtension) job.getTree()).recalcWood(world);
+            int blocksBroken = ((TFCMTreeExtension) job.getTree()).recalcWood(world);
             for (int i = 0; i < blocksBroken; i++) this.incrementActionsDone();
             worker.decreaseSaturationForContinuousAction();
         }

@@ -1,11 +1,12 @@
-package com.natrow.tfc_minecolonies;
+package com.natrow.tfc_minecolonies.tags;
 
+import com.natrow.tfc_minecolonies.TFCMConstants;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 
-public class TFCMinecoloniesTags
+public class TFCMTags
 {
     public static class Blocks
     {
@@ -15,7 +16,7 @@ public class TFCMinecoloniesTags
 
         private static TagKey<Block> create(final String id)
         {
-            return TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(TFCMinecoloniesConstants.MOD_ID, id));
+            return TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(TFCMConstants.MOD_ID, id));
         }
     }
 }

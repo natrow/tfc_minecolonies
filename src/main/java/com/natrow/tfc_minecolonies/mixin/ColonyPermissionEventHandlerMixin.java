@@ -2,7 +2,7 @@ package com.natrow.tfc_minecolonies.mixin;
 
 import com.minecolonies.api.colony.permissions.Action;
 import com.minecolonies.coremod.permissions.ColonyPermissionEventHandler;
-import com.natrow.tfc_minecolonies.minecolonies.TFCMinecoloniesFakePlayerManager;
+import com.natrow.tfc_minecolonies.minecolonies.TFCMFakePlayerManager;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -24,7 +24,7 @@ public abstract class ColonyPermissionEventHandlerMixin
     {
         if (playerIn instanceof FakePlayer fakePlayer)
         {
-            if (TFCMinecoloniesFakePlayerManager.isFakePlayer(fakePlayer)) cir.setReturnValue(false);
+            if (TFCMFakePlayerManager.isFakePlayer(fakePlayer)) cir.setReturnValue(false);
         }
     }
 }

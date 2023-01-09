@@ -6,8 +6,8 @@ import java.util.List;
 import com.minecolonies.api.crafting.ItemStorage;
 import com.minecolonies.api.util.ItemStackUtils;
 import com.minecolonies.coremod.entity.ai.citizen.lumberjack.Tree;
-import com.natrow.tfc_minecolonies.TFCMinecoloniesConstants;
-import com.natrow.tfc_minecolonies.minecolonies.TFCMinecoloniesTreeExtension;
+import com.natrow.tfc_minecolonies.TFCMConstants;
+import com.natrow.tfc_minecolonies.minecolonies.TFCMTreeExtension;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
@@ -27,7 +27,7 @@ import net.dries007.tfc.common.blocks.wood.LogBlock;
 import net.dries007.tfc.common.blocks.wood.TFCLeavesBlock;
 
 @Mixin(value = Tree.class, remap = false)
-public abstract class TreeMixin implements TFCMinecoloniesTreeExtension
+public abstract class TreeMixin implements TFCMTreeExtension
 {
     /**
      * Converts a leaf block to a sapling using a lookup map rather than loot tables.
@@ -41,7 +41,7 @@ public abstract class TreeMixin implements TFCMinecoloniesTreeExtension
         if (block instanceof TFCLeavesBlock leaves)
         {
             ArrayList<ItemStack> list = new ArrayList<>();
-            list.add(TFCMinecoloniesConstants.LEAVES_TO_SAPLINGS.get().get(leaves));
+            list.add(TFCMConstants.LEAVES_TO_SAPLINGS.get().get(leaves));
             cir.setReturnValue(list);
         }
     }
@@ -60,7 +60,7 @@ public abstract class TreeMixin implements TFCMinecoloniesTreeExtension
             // TFC trees have an extra block state indicating whether they are natural
             if (currentState.getValue(LogBlock.NATURAL))
             {
-                final ItemStack sapling = TFCMinecoloniesConstants.LOG_TO_SAPLINGS.get().get(currentBlock);
+                final ItemStack sapling = TFCMConstants.LOG_TO_SAPLINGS.get().get(currentBlock);
                 for (final ItemStorage stack : treesToNotCut)
                 {
                     // Check if sapling is on blacklist

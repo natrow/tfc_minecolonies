@@ -14,7 +14,7 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.common.util.FakePlayer;
 import org.jetbrains.annotations.NotNull;
 
-public class TFCMinecoloniesFakePlayerManager
+public class TFCMFakePlayerManager
 {
     private static final Map<ResourceKey<Level>, FakePlayer> fakePlayers = new HashMap<>();
 
@@ -30,7 +30,7 @@ public class TFCMinecoloniesFakePlayerManager
     {
         if (world.getServer() == null)
         {
-            throw new NullPointerException("TFCMinecolonies: unexpected null while trying to get world");
+            throw new NullPointerException("TFC Minecolonies: unexpected null while trying to get world");
         }
 
         final ResourceKey<Level> dim = world.dimension();

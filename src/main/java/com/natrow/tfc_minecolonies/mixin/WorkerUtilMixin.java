@@ -4,7 +4,7 @@ import com.minecolonies.api.util.constant.IToolType;
 import com.minecolonies.coremod.colony.buildings.AbstractBuilding;
 import com.minecolonies.coremod.colony.buildings.workerbuildings.BuildingLumberjack;
 import com.minecolonies.coremod.util.WorkerUtil;
-import com.natrow.tfc_minecolonies.minecolonies.TFCMinecoloniesToolType;
+import com.natrow.tfc_minecolonies.minecolonies.TFCMToolType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -30,7 +30,7 @@ public abstract class WorkerUtilMixin
             {
                 if (building.getSetting(BuildingLumberjack.DEFOLIATE).getValue())
                 {
-                    cir.setReturnValue(TFCMinecoloniesToolType.SCYTHE);
+                    cir.setReturnValue(TFCMToolType.SCYTHE);
                 }
             }
         }

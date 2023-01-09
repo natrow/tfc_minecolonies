@@ -2,7 +2,7 @@ package com.natrow.tfc_minecolonies.mixin;
 
 import com.minecolonies.api.util.ItemStackUtils;
 import com.minecolonies.api.util.constant.IToolType;
-import com.natrow.tfc_minecolonies.minecolonies.TFCMinecoloniesToolType;
+import com.natrow.tfc_minecolonies.minecolonies.TFCMToolType;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -20,7 +20,7 @@ public abstract class ItemStackUtilsMixin
     @Inject(method = "isTool", at = @At("TAIL"), cancellable = true)
     private static void isToolInjector(ItemStack itemStack, IToolType toolType, CallbackInfoReturnable<Boolean> cir)
     {
-        if (TFCMinecoloniesToolType.SCYTHE.equals(toolType) && itemStack.getItem() instanceof ScytheItem)
+        if (TFCMToolType.SCYTHE.equals(toolType) && itemStack.getItem() instanceof ScytheItem)
         {
             cir.setReturnValue(true);
         }
