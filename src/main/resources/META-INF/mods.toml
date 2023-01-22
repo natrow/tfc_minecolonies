@@ -29,7 +29,7 @@ side = "BOTH"
 [[dependencies.tfc_minecolonies]]
 modId = "minecolonies"
 mandatory = true
-versionRange = "[1.18.2-1.0.1164-ALPHA,)"
+versionRange = "[1.18.2-1.0.1197-ALPHA,)"
 ordering = "AFTER"
 side = "BOTH"
 [[dependencies.tfc_minecolonies]]

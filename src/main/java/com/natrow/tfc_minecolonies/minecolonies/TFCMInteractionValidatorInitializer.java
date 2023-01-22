@@ -8,8 +8,11 @@ import com.natrow.tfc_minecolonies.TFCMTranslationConstants;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.util.TriPredicate;
 
+import net.dries007.tfc.common.blocks.crop.DoubleCropBlock;
+import net.dries007.tfc.common.blocks.crop.FloodedCropBlock;
 import net.dries007.tfc.common.blocks.soil.FarmlandBlock;
 import net.dries007.tfc.util.climate.Climate;
 import net.dries007.tfc.util.climate.ClimateRange;
@@ -32,6 +35,10 @@ public class TFCMInteractionValidatorInitializer
             climateValidator((pos, climate, world) -> climate.checkTemperature(Climate.getTemperature(world, pos), false) != ClimateRange.Result.LOW));
         InteractionValidatorRegistry.registerPosBasedPredicate(new TranslatableComponent(TFCMTranslationConstants.CROP_TOO_HOT),
             climateValidator((pos, climate, world) -> climate.checkTemperature(Climate.getTemperature(world, pos), false) != ClimateRange.Result.HIGH));
+        InteractionValidatorRegistry.registerPosBasedPredicate(new TranslatableComponent(TFCMTranslationConstants.CROP_TOO_TALL),
+            climateValidator((pos, climate, world) -> world.isEmptyBlock(pos.above().above()) || world.getBlockState(pos.above().above()).getBlock() instanceof DoubleCropBlock));
+        InteractionValidatorRegistry.registerPosBasedPredicate(new TranslatableComponent(TFCMTranslationConstants.CROP_NO_WATER),
+            climateValidator((pos, climate, world) -> !(world.getBlockState(pos).getBlock() instanceof FarmlandBlock) || world.getBlockState(pos.above()).is(Blocks.WATER) || world.getBlockState(pos.above()).getBlock() instanceof FloodedCropBlock));
     }
 
     /**

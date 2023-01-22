@@ -163,8 +163,8 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:patchouli-306770:${patchouli_identifier}")
 
     // Minecolonies & Dependencies
-    implementation fg.deobf("curse.maven:minecolonies-245506:${minecolonies_identifier}")
-    implementation fg.deobf("curse.maven:structurize-298744:${structurize_identifier}")
+    implementation fg.deobf("curse.maven:minecolonies-245506:${minecolonies_identifier}-sources-${minecolonies_sources_identifier}")
+    implementation fg.deobf("curse.maven:structurize-298744:${structurize_identifier}-sources-${structurize_sources_identifier}")
     runtimeOnly fg.deobf("curse.maven:multi-piston-303278:${multi_piston_identifier}")
     runtimeOnly fg.deobf("curse.maven:blockui-522992:${blockui_identifier}")
     runtimeOnly fg.deobf("curse.maven:domum-ornamentum-527361:${domum_ornamentum_identifier}")
