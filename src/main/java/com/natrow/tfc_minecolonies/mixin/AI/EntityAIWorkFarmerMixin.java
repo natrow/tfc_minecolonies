@@ -253,7 +253,6 @@ public abstract class EntityAIWorkFarmerMixin extends AbstractEntityAICrafting<J
     {
         LOGGER.debug("TFCM findHoeableSurfaceInjector() {}", position);
         position = getSurfacePos(position);
-        // todo: replace with simpler function
         if (position != null && !field.isNoPartOfField(world, position) && !(world.getBlockState(position.above()).getBlock() instanceof CropBlock) && !(world.getBlockState(position.above()).getBlock() instanceof BlockScarecrow) && world.getBlockState(position).is(TFCMTags.Blocks.HOEABLE))
         {
             cir.setReturnValue(position);
@@ -457,7 +456,6 @@ public abstract class EntityAIWorkFarmerMixin extends AbstractEntityAICrafting<J
         LOGGER.debug("TFCM plantCropInjector() {}", position);
 
         // check for neighboring spreading crops
-        // todo - test without this? it probably will still work
         if (((BlockItem) seed).getBlock() instanceof SpreadingCropBlock
             && (world.getBlockState(position.north().above()).getBlock() instanceof SpreadingCropBlock
             || world.getBlockState(position.south().above()).getBlock() instanceof SpreadingCropBlock
