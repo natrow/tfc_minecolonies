@@ -1,6 +1,7 @@
 package com.natrow.tfc_minecolonies;
 
 import com.natrow.tfc_minecolonies.block.TFCMBlocks;
+import com.natrow.tfc_minecolonies.events.TFCMEvents;
 import com.natrow.tfc_minecolonies.item.TFCMItems;
 import com.natrow.tfc_minecolonies.minecolonies.TFCMInteractionValidatorInitializer;
 import com.natrow.tfc_minecolonies.structurize.TFCMPlacementHandlers;
@@ -21,5 +22,7 @@ public class TFCM
 
         TFCMPlacementHandlers.registerHandlers();
         TFCMInteractionValidatorInitializer.registerValidators();
+
+        TFCMEvents.init(bus);
     }
 }

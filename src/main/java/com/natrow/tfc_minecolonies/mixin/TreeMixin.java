@@ -7,7 +7,7 @@ import com.minecolonies.api.crafting.ItemStorage;
 import com.minecolonies.api.util.ItemStackUtils;
 import com.minecolonies.coremod.entity.ai.citizen.lumberjack.Tree;
 import com.natrow.tfc_minecolonies.TFCMConstants;
-import com.natrow.tfc_minecolonies.minecolonies.TFCMTreeExtension;
+import com.natrow.tfc_minecolonies.minecolonies.ITreeExtension;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
@@ -27,7 +27,7 @@ import net.dries007.tfc.common.blocks.wood.LogBlock;
 import net.dries007.tfc.common.blocks.wood.TFCLeavesBlock;
 
 @Mixin(value = Tree.class, remap = false)
-public abstract class TreeMixin implements TFCMTreeExtension
+public abstract class TreeMixin implements ITreeExtension
 {
     /**
      * Converts a leaf block to a sapling using a lookup map rather than loot tables.

@@ -53,7 +53,7 @@ public class TFCMInteractionValidatorInitializer
             // farmers have to check against the entire field
             if (citizen.getJob() instanceof JobFarmer)
             {
-                return !((TFCMFarmerExtension) citizen.getJob().getWorkerAI()).checkField(pos, predicate);
+                return !((IFarmerExtension) citizen.getJob().getWorkerAI()).checkField(pos, predicate);
             }
             // unknown job
             return false;

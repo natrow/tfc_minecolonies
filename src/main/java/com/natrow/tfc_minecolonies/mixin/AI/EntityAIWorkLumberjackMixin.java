@@ -15,7 +15,7 @@ import com.minecolonies.coremod.entity.ai.citizen.lumberjack.EntityAIWorkLumberj
 import com.minecolonies.coremod.util.WorkerUtil;
 import com.natrow.tfc_minecolonies.minecolonies.TFCMFakePlayerManager;
 import com.natrow.tfc_minecolonies.minecolonies.TFCMToolType;
-import com.natrow.tfc_minecolonies.minecolonies.TFCMTreeExtension;
+import com.natrow.tfc_minecolonies.minecolonies.ITreeExtension;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionHand;
@@ -171,7 +171,7 @@ public abstract class EntityAIWorkLumberjackMixin extends AbstractEntityAICrafti
                 return;
             }
             job.getTree().pollNextLeaf();
-            ((TFCMTreeExtension) job.getTree()).recalcLeaves(world);
+            ((ITreeExtension) job.getTree()).recalcLeaves(world);
         }
 
         // remove trunk
@@ -205,7 +205,7 @@ public abstract class EntityAIWorkLumberjackMixin extends AbstractEntityAICrafti
                 }
             }
             job.getTree().pollNextLog();
-            int blocksBroken = ((TFCMTreeExtension) job.getTree()).recalcWood(world);
+            int blocksBroken = ((ITreeExtension) job.getTree()).recalcWood(world);
             for (int i = 0; i < blocksBroken; i++) this.incrementActionsDone();
             worker.decreaseSaturationForContinuousAction();
         }

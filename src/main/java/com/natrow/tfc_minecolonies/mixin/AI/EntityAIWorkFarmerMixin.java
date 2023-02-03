@@ -26,7 +26,7 @@ import com.mojang.logging.LogUtils;
 import com.natrow.tfc_minecolonies.TFCMConstants;
 import com.natrow.tfc_minecolonies.TFCMTranslationConstants;
 import com.natrow.tfc_minecolonies.minecolonies.TFCMFakePlayerManager;
-import com.natrow.tfc_minecolonies.minecolonies.TFCMFarmerExtension;
+import com.natrow.tfc_minecolonies.minecolonies.IFarmerExtension;
 import com.natrow.tfc_minecolonies.tags.TFCMTags;
 import com.natrow.tfc_minecolonies.util.TFCMCropUtil;
 import net.minecraft.core.BlockPos;
@@ -79,7 +79,7 @@ import net.dries007.tfc.util.climate.Climate;
 import net.dries007.tfc.util.climate.ClimateRange;
 
 @Mixin(value = EntityAIWorkFarmer.class, remap = false)
-public abstract class EntityAIWorkFarmerMixin extends AbstractEntityAICrafting<JobFarmer, BuildingFarmer> implements TFCMFarmerExtension
+public abstract class EntityAIWorkFarmerMixin extends AbstractEntityAICrafting<JobFarmer, BuildingFarmer> implements IFarmerExtension
 {
     private static final Logger LOGGER = LogUtils.getLogger();
     @Shadow @Final private static int MAX_DEPTH;
