@@ -1,7 +1,7 @@
 package com.natrow.tfc_minecolonies.mixin;
 
 import com.ldtteam.structurize.helpers.Settings;
-import com.natrow.tfc_minecolonies.structurize.ISettingsExtention;
+import com.natrow.tfc_minecolonies.structurize.ISettingsExtension;
 import net.minecraft.nbt.CompoundTag;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin(value = Settings.class, remap = false)
-public abstract class SettingsMixin implements ISettingsExtention
+public abstract class SettingsMixin implements ISettingsExtension
 {
     private String woodType = "";
     private String stoneType = "";

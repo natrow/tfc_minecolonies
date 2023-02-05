@@ -8,10 +8,9 @@ import com.ldtteam.structurize.client.gui.AbstractWindowSkeleton;
 import com.ldtteam.structurize.client.gui.WindowBuildTool;
 import com.ldtteam.structurize.helpers.Settings;
 import com.natrow.tfc_minecolonies.TFCMConstants;
-import com.natrow.tfc_minecolonies.structurize.ISettingsExtention;
+import com.natrow.tfc_minecolonies.structurize.ISettingsExtension;
 import net.minecraft.core.BlockPos;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -170,7 +169,7 @@ public abstract class WindowBuildToolMixin extends AbstractWindowSkeleton
      */
     private void onDropDownSelect(final DropDownList list)
     {
-        ISettingsExtention settings = ((ISettingsExtention) (Object) Settings.instance);
+        ISettingsExtension settings = ((ISettingsExtension) (Object) Settings.instance);
         if (list == woodTypesDropDownList)
         {
             settings.setWoodType(woodTypes.get(list.getSelectedIndex()));
@@ -191,21 +190,33 @@ public abstract class WindowBuildToolMixin extends AbstractWindowSkeleton
         stoneTypes = Arrays.stream(Rock.values()).map(Enum::toString).toList();
         soilTypes = Arrays.stream(SoilBlockType.Variant.values()).map(Enum::toString).toList();
 
-        ISettingsExtention settings = ((ISettingsExtention) (Object) Settings.instance);
+        ISettingsExtension settings = ((ISettingsExtension) (Object) Settings.instance);
 
         if(settings.getWoodType() != null && woodTypes.contains(settings.getWoodType()))
         {
             woodTypesDropDownList.setSelectedIndex(woodTypes.indexOf(settings.getWoodType()));
+        }
+        else
+        {
+            woodTypesDropDownList.setSelectedIndex(0);
         }
 
         if(settings.getStoneType() != null && stoneTypes.contains(settings.getStoneType()))
         {
             stoneTypesDropDownList.setSelectedIndex(stoneTypes.indexOf(settings.getStoneType()));
         }
+        else
+        {
+            stoneTypesDropDownList.setSelectedIndex(0);
+        }
 
         if(settings.getSoilType() != null && soilTypes.contains(settings.getSoilType()))
         {
             soilTypesDropDownList.setSelectedIndex(soilTypes.indexOf(settings.getSoilType()));
+        }
+        else
+        {
+            soilTypesDropDownList.setSelectedIndex(0);
         }
     }
 }
