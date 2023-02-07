@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "tfc_minecolonies:block/wood/twig/placeholder",
+        "y": 90
+      },
+      {
+        "model": "tfc_minecolonies:block/wood/twig/placeholder"
+      },
+      {
+        "model": "tfc_minecolonies:block/wood/twig/placeholder",
+        "y": 180
+      },
+      {
+        "model": "tfc_minecolonies:block/wood/twig/placeholder",
+        "y": 270
+      }
+    ]
+  }
+}

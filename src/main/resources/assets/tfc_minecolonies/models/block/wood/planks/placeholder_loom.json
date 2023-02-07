@@ -1,0 +1,7 @@
+{
+  "parent": "tfc:block/loom",
+  "textures": {
+    "texture": "tfc_minecolonies:block/wood/planks/placeholder",
+    "particle": "tfc_minecolonies:block/wood/planks/placeholder"
+  }
+}

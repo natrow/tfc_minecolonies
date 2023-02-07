@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "tfc_minecolonies:block/wood/planks/placeholder_loom",
+      "y": 270
+    },
+    "facing=north": {
+      "model": "tfc_minecolonies:block/wood/planks/placeholder_loom",
+      "y": 180
+    },
+    "facing=south": {
+      "model": "tfc_minecolonies:block/wood/planks/placeholder_loom"
+    },
+    "facing=west": {
+      "model": "tfc_minecolonies:block/wood/planks/placeholder_loom",
+      "y": 90
+    }
+  }
+}

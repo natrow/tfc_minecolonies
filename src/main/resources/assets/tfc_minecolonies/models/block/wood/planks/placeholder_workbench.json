@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "tfc_minecolonies:block/wood/planks/placeholder_workbench_front",
+    "north": "tfc_minecolonies:block/wood/planks/placeholder_workbench_front",
+    "south": "tfc_minecolonies:block/wood/planks/placeholder_workbench_side",
+    "east": "tfc_minecolonies:block/wood/planks/placeholder_workbench_side",
+    "west": "tfc_minecolonies:block/wood/planks/placeholder_workbench_front",
+    "up": "tfc_minecolonies:block/wood/planks/placeholder_workbench_top",
+    "down": "tfc_minecolonies:block/wood/planks/placeholder"
+  }
+}

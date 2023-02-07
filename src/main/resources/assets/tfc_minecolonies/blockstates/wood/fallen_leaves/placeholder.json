@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "tfc_minecolonies:block/wood/fallen_leaves/placeholder",
+        "y": 90
+      },
+      {
+        "model": "tfc_minecolonies:block/wood/fallen_leaves/placeholder"
+      },
+      {
+        "model": "tfc_minecolonies:block/wood/fallen_leaves/placeholder",
+        "y": 180
+      },
+      {
+        "model": "tfc_minecolonies:block/wood/fallen_leaves/placeholder",
+        "y": 270
+      }
+    ]
+  }
+}

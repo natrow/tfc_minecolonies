@@ -1,0 +1,7 @@
+{
+  "parent": "block/door_top",
+  "textures": {
+    "top": "tfc_minecolonies:block/wood/planks/placeholder_door_top",
+    "bottom": "tfc_minecolonies:block/wood/planks/placeholder_door_bottom"
+  }
+}

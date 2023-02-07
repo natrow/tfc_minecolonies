@@ -1,0 +1,7 @@
+{
+  "parent": "tfc:block/tool_rack",
+  "textures": {
+    "texture": "tfc_minecolonies:block/wood/planks/placeholder",
+    "particle": "tfc_minecolonies:block/wood/planks/placeholder"
+  }
+}

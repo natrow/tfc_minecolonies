@@ -1,0 +1,8 @@
+{
+  "parent": "block/cube_column",
+  "textures": {
+    "north": "tfc_minecolonies:block/wood/planks/placeholder_bookshelf_stage1",
+    "side": "tfc_minecolonies:block/wood/planks/placeholder_bookshelf_side",
+    "end": "tfc_minecolonies:block/wood/planks/placeholder_bookshelf_top"
+  }
+}

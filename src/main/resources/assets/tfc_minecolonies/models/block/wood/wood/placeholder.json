@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_column",
+  "textures": {
+    "end": "tfc_minecolonies:block/wood/log/placeholder",
+    "side": "tfc_minecolonies:block/wood/log/placeholder"
+  }
+}

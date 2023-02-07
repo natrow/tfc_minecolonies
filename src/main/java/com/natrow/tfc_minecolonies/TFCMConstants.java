@@ -2,6 +2,7 @@ package com.natrow.tfc_minecolonies;
 
 import java.util.Map;
 import java.util.stream.Collectors;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.util.Lazy;
@@ -48,4 +49,7 @@ public class TFCMConstants
     public static final String BUTTON_NEXT_SOIL_ID = "nextSoilType";
     public static final String BUTTON_PREVIOUS_SOIL_ID = "previousSoilType";
 
+    public static ResourceLocation getResourceLocation(String resource) {
+        return new ResourceLocation(MOD_ID, resource);
+    }
 }

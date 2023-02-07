@@ -1,0 +1,7 @@
+{
+  "parent": "tfc:block/log_fence_inventory",
+  "textures": {
+    "log": "tfc_minecolonies:block/wood/log/placeholder",
+    "planks": "tfc_minecolonies:block/wood/planks/placeholder"
+  }
+}

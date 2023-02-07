@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=y": {
+      "model": "tfc_minecolonies:block/wood/stripped_log/placeholder"
+    },
+    "axis=z": {
+      "model": "tfc_minecolonies:block/wood/stripped_log/placeholder",
+      "x": 90
+    },
+    "axis=x": {
+      "model": "tfc_minecolonies:block/wood/stripped_log/placeholder",
+      "x": 90,
+      "y": 90
+    }
+  }
+}

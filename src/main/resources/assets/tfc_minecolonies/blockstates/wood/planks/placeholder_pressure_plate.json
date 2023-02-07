@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "tfc_minecolonies:block/wood/planks/placeholder_pressure_plate"
+    },
+    "powered=true": {
+      "model": "tfc_minecolonies:block/wood/planks/placeholder_pressure_plate_down"
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "tfc_minecolonies:block/wood/trapped_chest/placeholder"
+    }
+  }
+}

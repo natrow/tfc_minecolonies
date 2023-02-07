@@ -1,0 +1,6 @@
+{
+  "parent": "tfc:block/sluice_upper",
+  "textures": {
+    "texture": "tfc_minecolonies:block/wood/sheet/placeholder"
+  }
+}
