@@ -1,0 +1,11 @@
+{
+  "parent": "minecraft:block/lectern",
+  "textures": {
+    "bottom": "tfc_minecolonies:block/wood/planks/placeholder",
+    "base": "tfc_minecolonies:block/wood/lectern/placeholder/base",
+    "front": "tfc_minecolonies:block/wood/lectern/placeholder/front",
+    "sides": "tfc_minecolonies:block/wood/lectern/placeholder/sides",
+    "top": "tfc_minecolonies:block/wood/lectern/placeholder/top",
+    "particle": "tfc_minecolonies:block/wood/lectern/placeholder/sides"
+  }
+}

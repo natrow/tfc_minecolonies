@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=y": {
+      "model": "tfc_minecolonies:block/wood/wood/placeholder"
+    },
+    "axis=z": {
+      "model": "tfc_minecolonies:block/wood/wood/placeholder",
+      "x": 90
+    },
+    "axis=x": {
+      "model": "tfc_minecolonies:block/wood/wood/placeholder",
+      "x": 90,
+      "y": 90
+    }
+  }
+}

@@ -6,7 +6,7 @@ import net.minecraftforge.common.util.TriPredicate;
 
 import net.dries007.tfc.util.climate.ClimateRange;
 
-public interface TFCMFarmerExtension
+public interface IFarmerExtension
 {
 
     /**

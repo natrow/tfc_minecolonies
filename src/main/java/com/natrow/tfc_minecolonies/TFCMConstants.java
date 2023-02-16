@@ -2,6 +2,7 @@ package com.natrow.tfc_minecolonies;
 
 import java.util.Map;
 import java.util.stream.Collectors;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.util.Lazy;
@@ -36,5 +37,19 @@ public class TFCMConstants
             .stream()
             .flatMap(e -> e.entrySet().stream())
             .collect(Collectors.toMap(e -> e.getValue().get(), e -> TFCBlocks.SOIL.get(SoilBlockType.FARMLAND).get(e.getKey()).get())));
+    }
+
+    public static final String DROPDOWN_WOOD_ID = "woodType";
+    public static final String BUTTON_NEXT_WOOD_ID = "nextWoodType";
+    public static final String BUTTON_PREVIOUS_WOOD_ID = "previousWoodType";
+    public static final String DROPDOWN_STONE_ID = "stoneType";
+    public static final String BUTTON_NEXT_STONE_ID = "nextStoneType";
+    public static final String BUTTON_PREVIOUS_STONE_ID = "previousStoneType";
+    public static final String DROPDOWN_SOIL_ID = "soilType";
+    public static final String BUTTON_NEXT_SOIL_ID = "nextSoilType";
+    public static final String BUTTON_PREVIOUS_SOIL_ID = "previousSoilType";
+
+    public static ResourceLocation getResourceLocation(String resource) {
+        return new ResourceLocation(MOD_ID, resource);
     }
 }

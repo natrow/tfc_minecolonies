@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(value = ToolType.class, remap = false)
-public class ToolTypeMixin
+public abstract class ToolTypeMixin
 {
     /**
      * Attempts to get TFC tool types before looking for minecolonies ones.

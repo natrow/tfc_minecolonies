@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "sealed=true": {
+      "model": "tfc_minecolonies:block/wood/barrel_sealed/placeholder"
+    },
+    "sealed=false": {
+      "model": "tfc_minecolonies:block/wood/barrel/placeholder"
+    }
+  }
+}

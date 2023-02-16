@@ -1,0 +1,11 @@
+{
+  "parent": "tfc_minecolonies:block/wood/barrel/placeholder",
+  "overrides": [
+    {
+      "predicate": {
+        "tfc_minecolonies:sealed": 1.0
+      },
+      "model": "tfc_minecolonies:block/wood/barrel_sealed/placeholder"
+    }
+  ]
+}
