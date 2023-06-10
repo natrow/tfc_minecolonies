@@ -1,19 +1,20 @@
 {
+  "__comment__": "This file was automatically created by mcresources",
   "variants": {
     "": [
       {
-        "model": "tfc_minecolonies:block/wood/twig/placeholder",
+        "model": "tfc:block/wood/twig/oak",
         "y": 90
       },
       {
-        "model": "tfc_minecolonies:block/wood/twig/placeholder"
+        "model": "tfc:block/wood/twig/oak"
       },
       {
-        "model": "tfc_minecolonies:block/wood/twig/placeholder",
+        "model": "tfc:block/wood/twig/oak",
         "y": 180
       },
       {
-        "model": "tfc_minecolonies:block/wood/twig/placeholder",
+        "model": "tfc:block/wood/twig/oak",
         "y": 270
       }
     ]

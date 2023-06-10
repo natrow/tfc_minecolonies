@@ -57,7 +57,7 @@ public class TFCMCommonEventHandler
                 };
 
                 PackMetadataSection metadata = pack.getMetadataSection(PackMetadataSection.SERIALIZER);
-                if(metadata != null)
+                if (metadata != null)
                 {
                     LOGGER.info("Injecting TFCM override pack...");
                     event.addRepositorySource((consumer, constructor) ->
@@ -73,13 +73,13 @@ public class TFCMCommonEventHandler
 
     private static void onCommonSetup(FMLCommonSetupEvent event)
     {
-        extendBlockEntityType(TFCBlockEntities.CHEST.get(), TFCMBlocks.WOODS.get(Wood.BlockType.CHEST).stream());
-        extendBlockEntityType(TFCBlockEntities.TRAPPED_CHEST.get(), TFCMBlocks.WOODS.get(Wood.BlockType.TRAPPED_CHEST).stream());
-        extendBlockEntityType(TFCBlockEntities.BARREL.get(), TFCMBlocks.WOODS.get(Wood.BlockType.BARREL).stream());
-        extendBlockEntityType(TFCBlockEntities.LOOM.get(), TFCMBlocks.WOODS.get(Wood.BlockType.LOOM).stream());
-        extendBlockEntityType(TFCBlockEntities.SLUICE.get(), TFCMBlocks.WOODS.get(Wood.BlockType.SLUICE).stream());
-        extendBlockEntityType(TFCBlockEntities.TOOL_RACK.get(), TFCMBlocks.WOODS.get(Wood.BlockType.TOOL_RACK).stream());
-        extendBlockEntityType(TFCBlockEntities.BOOKSHELF.get(), TFCMBlocks.WOODS.get(Wood.BlockType.BOOKSHELF).stream());
+        extendBlockEntityType(TFCBlockEntities.CHEST.get(), TFCMBlocks.PLACEHOLDER_WOODS.get(Wood.BlockType.CHEST).stream());
+        extendBlockEntityType(TFCBlockEntities.TRAPPED_CHEST.get(), TFCMBlocks.PLACEHOLDER_WOODS.get(Wood.BlockType.TRAPPED_CHEST).stream());
+        extendBlockEntityType(TFCBlockEntities.BARREL.get(), TFCMBlocks.PLACEHOLDER_WOODS.get(Wood.BlockType.BARREL).stream());
+        extendBlockEntityType(TFCBlockEntities.LOOM.get(), TFCMBlocks.PLACEHOLDER_WOODS.get(Wood.BlockType.LOOM).stream());
+        extendBlockEntityType(TFCBlockEntities.SLUICE.get(), TFCMBlocks.PLACEHOLDER_WOODS.get(Wood.BlockType.SLUICE).stream());
+        extendBlockEntityType(TFCBlockEntities.TOOL_RACK.get(), TFCMBlocks.PLACEHOLDER_WOODS.get(Wood.BlockType.TOOL_RACK).stream());
+        extendBlockEntityType(TFCBlockEntities.BOOKSHELF.get(), TFCMBlocks.PLACEHOLDER_WOODS.get(Wood.BlockType.BOOKSHELF).stream());
 
     }
 

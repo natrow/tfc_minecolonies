@@ -1,6 +1,0 @@
-{
-  "parent": "block/template_orientable_trapdoor_bottom",
-  "textures": {
-    "texture": "tfc_minecolonies:block/wood/planks/placeholder_trapdoor"
-  }
-}

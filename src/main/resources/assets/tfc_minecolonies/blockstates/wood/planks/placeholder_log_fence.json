@@ -1,8 +1,9 @@
 {
+  "__comment__": "This file was automatically created by mcresources",
   "multipart": [
     {
       "apply": {
-        "model": "tfc_minecolonies:block/wood/planks/placeholder_log_fence_post"
+        "model": "tfc:block/wood/planks/oak_log_fence_post"
       }
     },
     {
@@ -10,7 +11,7 @@
         "north": "true"
       },
       "apply": {
-        "model": "tfc_minecolonies:block/wood/planks/placeholder_log_fence_side",
+        "model": "tfc:block/wood/planks/oak_log_fence_side",
         "uvlock": true
       }
     },
@@ -19,7 +20,7 @@
         "east": "true"
       },
       "apply": {
-        "model": "tfc_minecolonies:block/wood/planks/placeholder_log_fence_side",
+        "model": "tfc:block/wood/planks/oak_log_fence_side",
         "y": 90,
         "uvlock": true
       }
@@ -29,7 +30,7 @@
         "south": "true"
       },
       "apply": {
-        "model": "tfc_minecolonies:block/wood/planks/placeholder_log_fence_side",
+        "model": "tfc:block/wood/planks/oak_log_fence_side",
         "y": 180,
         "uvlock": true
       }
@@ -39,7 +40,7 @@
         "west": "true"
       },
       "apply": {
-        "model": "tfc_minecolonies:block/wood/planks/placeholder_log_fence_side",
+        "model": "tfc:block/wood/planks/oak_log_fence_side",
         "y": 270,
         "uvlock": true
       }

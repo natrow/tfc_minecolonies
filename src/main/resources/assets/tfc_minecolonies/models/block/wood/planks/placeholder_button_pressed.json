@@ -1,6 +1,0 @@
-{
-  "parent": "block/button_pressed",
-  "textures": {
-    "texture": "tfc_minecolonies:block/wood/planks/placeholder"
-  }
-}

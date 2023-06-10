@@ -1,6 +1,0 @@
-{
-  "parent": "block/leaves",
-  "textures": {
-    "all": "tfc_minecolonies:block/wood/leaves/placeholder"
-  }
-}

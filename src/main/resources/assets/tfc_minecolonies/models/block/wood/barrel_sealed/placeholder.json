@@ -1,9 +1,0 @@
-{
-  "parent": "tfc:block/barrel_sealed",
-  "textures": {
-    "particle": "tfc_minecolonies:block/wood/planks/placeholder",
-    "planks": "tfc_minecolonies:block/wood/planks/placeholder",
-    "sheet": "tfc_minecolonies:block/wood/sheet/placeholder",
-    "hoop": "tfc:block/barrel_hoop"
-  }
-}

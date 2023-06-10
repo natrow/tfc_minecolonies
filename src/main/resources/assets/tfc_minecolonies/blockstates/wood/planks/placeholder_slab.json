@@ -1,13 +1,14 @@
 {
+  "__comment__": "This file was automatically created by mcresources",
   "variants": {
     "type=bottom": {
-      "model": "tfc_minecolonies:block/wood/planks/placeholder_slab"
+      "model": "tfc:block/wood/planks/oak_slab"
     },
     "type=top": {
-      "model": "tfc_minecolonies:block/wood/planks/placeholder_slab_top"
+      "model": "tfc:block/wood/planks/oak_slab_top"
     },
     "type=double": {
-      "model": "tfc_minecolonies:block/wood/planks/placeholder"
+      "model": "tfc:block/wood/planks/oak"
     }
   }
 }

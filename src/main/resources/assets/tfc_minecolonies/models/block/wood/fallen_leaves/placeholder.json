@@ -1,6 +1,0 @@
-{
-  "parent": "tfc:block/groundcover/fallen_leaves",
-  "textures": {
-    "all": "tfc_minecolonies:block/wood/leaves/placeholder"
-  }
-}

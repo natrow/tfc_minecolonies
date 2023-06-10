@@ -1,6 +1,0 @@
-{
-  "parent": "block/cross",
-  "textures": {
-    "cross": "tfc_minecolonies:block/wood/sapling/placeholder"
-  }
-}

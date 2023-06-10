@@ -1,19 +1,20 @@
 {
+  "__comment__": "This file was automatically created by mcresources",
   "variants": {
     "": [
       {
-        "model": "tfc_minecolonies:block/wood/fallen_leaves/placeholder",
+        "model": "tfc:block/wood/fallen_leaves/oak",
         "y": 90
       },
       {
-        "model": "tfc_minecolonies:block/wood/fallen_leaves/placeholder"
+        "model": "tfc:block/wood/fallen_leaves/oak"
       },
       {
-        "model": "tfc_minecolonies:block/wood/fallen_leaves/placeholder",
+        "model": "tfc:block/wood/fallen_leaves/oak",
         "y": 180
       },
       {
-        "model": "tfc_minecolonies:block/wood/fallen_leaves/placeholder",
+        "model": "tfc:block/wood/fallen_leaves/oak",
         "y": 270
       }
     ]

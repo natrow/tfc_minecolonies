@@ -23,11 +23,11 @@ import net.dries007.tfc.common.blocks.wood.Wood;
 public abstract class WindowBuildToolMixin extends AbstractWindowSkeleton
 {
     private List<String> woodTypes = new ArrayList<>();
-    private List<String> stoneTypes = new ArrayList<>();
+    private List<String> rockTypes = new ArrayList<>();
     private List<String> soilTypes = new ArrayList<>();
 
     private DropDownList woodTypesDropDownList;
-    private DropDownList stoneTypesDropDownList;
+    private DropDownList rockTypesDropDownList;
     private DropDownList soilTypesDropDownList;
 
     /**
@@ -42,7 +42,7 @@ public abstract class WindowBuildToolMixin extends AbstractWindowSkeleton
     private void initInjector(BlockPos pos, int rot, int groundstyle, CallbackInfo ci)
     {
         initWoodTypesNavigation();
-        initStoneTypesNavigation();
+        initRockTypesNavigation();
         initSoilTypesNavigation();
         updateMaterialTypes();
     }
@@ -70,23 +70,23 @@ public abstract class WindowBuildToolMixin extends AbstractWindowSkeleton
         });
     }
 
-    private void initStoneTypesNavigation()
+    private void initRockTypesNavigation()
     {
-        registerButton(TFCMConstants.BUTTON_PREVIOUS_STONE_ID, this::previousStoneType);
-        registerButton(TFCMConstants.BUTTON_NEXT_STONE_ID, this::nextStoneType);
-        stoneTypesDropDownList = findPaneOfTypeByID(TFCMConstants.DROPDOWN_STONE_ID, DropDownList.class);
-        stoneTypesDropDownList.setHandler(this::onDropDownSelect);
-        stoneTypesDropDownList.setDataProvider(new DropDownList.DataProvider()
+        registerButton(TFCMConstants.BUTTON_PREVIOUS_ROCK_ID, this::previousRockType);
+        registerButton(TFCMConstants.BUTTON_NEXT_ROCK_ID, this::nextRockType);
+        rockTypesDropDownList = findPaneOfTypeByID(TFCMConstants.DROPDOWN_ROCK_ID, DropDownList.class);
+        rockTypesDropDownList.setHandler(this::onDropDownSelect);
+        rockTypesDropDownList.setDataProvider(new DropDownList.DataProvider()
         {
             @Override
-            public int getElementCount() {return stoneTypes.size();}
+            public int getElementCount() {return rockTypes.size();}
 
             @Override
             public String getLabel(int index)
             {
-                if (index >= 0 && index < stoneTypes.size())
+                if (index >= 0 && index < rockTypes.size())
                 {
-                    return stoneTypes.get(index);
+                    return rockTypes.get(index);
                 }
                 return "";
             }
@@ -133,19 +133,19 @@ public abstract class WindowBuildToolMixin extends AbstractWindowSkeleton
     }
 
     /**
-     * Change to the next stone type
+     * Change to the next rock type
      */
-    private void nextStoneType()
+    private void nextRockType()
     {
-        stoneTypesDropDownList.selectNext();
+        rockTypesDropDownList.selectNext();
     }
 
     /**
-     * Change to the previous stone type
+     * Change to the previous rock type
      */
-    private void previousStoneType()
+    private void previousRockType()
     {
-        stoneTypesDropDownList.selectPrevious();
+        rockTypesDropDownList.selectPrevious();
     }
 
     /**
@@ -174,9 +174,9 @@ public abstract class WindowBuildToolMixin extends AbstractWindowSkeleton
         {
             settings.setWoodType(woodTypes.get(list.getSelectedIndex()));
         }
-        else if (list == stoneTypesDropDownList)
+        else if (list == rockTypesDropDownList)
         {
-            settings.setStoneType(stoneTypes.get(list.getSelectedIndex()));
+            settings.setRockType(rockTypes.get(list.getSelectedIndex()));
         }
         else if (list == soilTypesDropDownList)
         {
@@ -187,12 +187,12 @@ public abstract class WindowBuildToolMixin extends AbstractWindowSkeleton
     private void updateMaterialTypes()
     {
         woodTypes = Arrays.stream(Wood.values()).map(Enum::toString).toList();
-        stoneTypes = Arrays.stream(Rock.values()).map(Enum::toString).toList();
+        rockTypes = Arrays.stream(Rock.values()).map(Enum::toString).toList();
         soilTypes = Arrays.stream(SoilBlockType.Variant.values()).map(Enum::toString).toList();
 
         ISettingsExtension settings = ((ISettingsExtension) (Object) Settings.instance);
 
-        if(settings.getWoodType() != null && woodTypes.contains(settings.getWoodType()))
+        if (settings.getWoodType() != null && woodTypes.contains(settings.getWoodType()))
         {
             woodTypesDropDownList.setSelectedIndex(woodTypes.indexOf(settings.getWoodType()));
         }
@@ -201,16 +201,16 @@ public abstract class WindowBuildToolMixin extends AbstractWindowSkeleton
             woodTypesDropDownList.setSelectedIndex(0);
         }
 
-        if(settings.getStoneType() != null && stoneTypes.contains(settings.getStoneType()))
+        if (settings.getRockType() != null && rockTypes.contains(settings.getRockType()))
         {
-            stoneTypesDropDownList.setSelectedIndex(stoneTypes.indexOf(settings.getStoneType()));
+            rockTypesDropDownList.setSelectedIndex(rockTypes.indexOf(settings.getRockType()));
         }
         else
         {
-            stoneTypesDropDownList.setSelectedIndex(0);
+            rockTypesDropDownList.setSelectedIndex(0);
         }
 
-        if(settings.getSoilType() != null && soilTypes.contains(settings.getSoilType()))
+        if (settings.getSoilType() != null && soilTypes.contains(settings.getSoilType()))
         {
             soilTypesDropDownList.setSelectedIndex(soilTypes.indexOf(settings.getSoilType()));
         }

@@ -43,9 +43,11 @@ import net.minecraftforge.network.NetworkEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import static com.minecolonies.api.util.constant.Constants.*;
-import static com.minecolonies.api.util.constant.TranslationConstants.*;
-import static com.minecolonies.api.util.constant.translation.ProgressTranslationConstants.*;
+import static com.minecolonies.api.util.constant.Constants.INSTANT_PLACEMENT;
+import static com.minecolonies.api.util.constant.Constants.PLACEMENT_NBT;
+import static com.minecolonies.api.util.constant.TranslationConstants.WARNING_REMOVING_SUPPLY_CHEST;
+import static com.minecolonies.api.util.constant.TranslationConstants.WARNING_SUPPLY_CHEST_ALREADY_PLACED;
+import static com.minecolonies.api.util.constant.translation.ProgressTranslationConstants.PROGRESS_SUPPLY_CHEST_PLACED;
 
 /**
  * Send build tool data to the server. Verify the data on the server side and then place the building.
@@ -54,10 +56,96 @@ import static com.minecolonies.api.util.constant.translation.ProgressTranslation
 public class TFCMBuildToolPasteMessage implements IMessage
 {
     /**
+     * Handles the placement of huts.
+     *
+     * @param world    World the hut is being placed into.
+     * @param player   Who placed the hut.
+     * @param sn       The name of the structure.
+     * @param rotation The number of times the structure should be rotated.
+     * @param buildPos The location the hut is being placed.
+     * @param mirror   Whether or not the strcture is mirrored.
+     * @param state    The state of the hut.
+     * @param complete If complete or not.
+     * @param woodType The type of wood to use
+     * @param rockType The type of rock to use
+     * @param soilType The type of soil to use
+     */
+    private static void handleHut(@NotNull final Level world, @NotNull final Player player, final StructureName sn, final int rotation, @NotNull final BlockPos buildPos, final boolean mirror, final BlockState state, final boolean complete, final String woodType, final String rockType, final String soilType)
+    {
+        final IColony tempColony = IColonyManager.getInstance().getClosestColony(world, buildPos);
+        if (!complete && tempColony != null && !tempColony.getPermissions().hasPermission(player, Action.MANAGE_HUTS) && IColonyManager.getInstance().isFarEnoughFromColonies(world, buildPos))
+        {
+            return;
+        }
+
+        final String hut = sn.getSection();
+
+        final ItemStack stack = BuildingUtils.getItemStackForHutFromInventory(player.getInventory(), hut);
+        final Block block = stack.getItem() instanceof BlockItem ? ((BlockItem) stack.getItem()).getBlock() : null;
+        if (block != null && EventHandler.onBlockHutPlaced(world, player, block, buildPos))
+        {
+            world.destroyBlock(buildPos, true);
+            world.setBlockAndUpdate(buildPos, state);
+            if (!complete)
+            {
+                ((IAbstractBlockHutExtension) block).onBlockPlacedByBuildTool(world, buildPos, world.getBlockState(buildPos), player, null, mirror, sn.getStyle(), woodType, rockType, soilType);
+                setupBuilding(world, player, sn, rotation, buildPos, mirror);
+            }
+        }
+    }
+
+    /**
+     * setup the building once it has been placed.
+     *
+     * @param world    World the hut is being placed into.
+     * @param player   Who placed the hut.
+     * @param sn       The name of the structure.
+     * @param rotation The number of times the structure should be rotated.
+     * @param buildPos The location the hut is being placed.
+     * @param mirror   Whether or not the strcture is mirrored.
+     */
+    private static void setupBuilding(@NotNull final Level world, @NotNull final Player player, final StructureName sn, final int rotation, @NotNull final BlockPos buildPos, final boolean mirror)
+    {
+        @Nullable final IBuilding building = IColonyManager.getInstance().getBuilding(world, buildPos);
+
+        if (building == null)
+        {
+            Log.getLogger().error("BuildTool: building is null!", new Exception());
+        }
+        else
+        {
+            if (building.getTileEntity() != null)
+            {
+                final IColony colony = IColonyManager.getInstance().getColonyByPosFromWorld(world, buildPos);
+                if (colony == null)
+                {
+                    Log.getLogger().info("No colony for " + player.getName().getString());
+                }
+                else
+                {
+                    building.getTileEntity().setColony(colony);
+                }
+            }
+
+            // Don't set the building level here; that will be set later in
+            // readSchematicDataFromNBT (provided that the schematic has
+            // TAG_BLUEPRINTDATA, but buildings always should).  This allows
+            // level 0 -> N upgrade events to properly be triggered on paste.
+
+            building.setStyle(sn.getStyle());
+
+            if (!(building instanceof IRSComponent))
+            {
+                ConstructionTapeHelper.removeConstructionTape(building.getCorners(), world);
+            }
+
+            building.setIsMirrored(mirror);
+        }
+    }
+    /**
      * The state at the offset position.
      */
     private BlockState state;
-
     private boolean complete;
     private String structureName;
     private String workOrderName;
@@ -66,7 +154,7 @@ public class TFCMBuildToolPasteMessage implements IMessage
     private boolean isHut;
     private boolean mirror;
     private String woodType;
-    private String stoneType;
+    private String rockType;
     private String soilType;
 
     /**
@@ -89,10 +177,10 @@ public class TFCMBuildToolPasteMessage implements IMessage
      * @param complete      paste it complete (with structure blocks) or without.
      * @param state         the state.
      * @param woodType      the type of wood to use
-     * @param stoneType     the type of stone to use
+     * @param rockType      the type of rock to use
      * @param soilType      the type of soil to use
      */
-    public TFCMBuildToolPasteMessage(final String structureName, final String workOrderName, final BlockPos pos, final int rotation, final boolean isHut, final Mirror mirror, final boolean complete, final BlockState state, final String woodType, final String stoneType, final String soilType)
+    public TFCMBuildToolPasteMessage(final String structureName, final String workOrderName, final BlockPos pos, final int rotation, final boolean isHut, final Mirror mirror, final boolean complete, final BlockState state, final String woodType, final String rockType, final String soilType)
     {
         super();
         this.structureName = structureName;
@@ -104,36 +192,8 @@ public class TFCMBuildToolPasteMessage implements IMessage
         this.complete = complete;
         this.state = state;
         this.woodType = woodType;
-        this.stoneType = stoneType;
+        this.rockType = rockType;
         this.soilType = soilType;
-    }
-
-    /**
-     * Reads this packet from a {@link FriendlyByteBuf}.
-     *
-     * @param buf The buffer begin read from.
-     */
-    @Override
-    public void fromBytes(@NotNull final FriendlyByteBuf buf)
-    {
-        structureName = buf.readUtf(32767);
-        workOrderName = buf.readUtf(32767);
-
-        pos = new BlockPos(buf.readInt(), buf.readInt(), buf.readInt());
-
-        rotation = buf.readInt();
-
-        isHut = buf.readBoolean();
-
-        mirror = buf.readBoolean();
-
-        complete = buf.readBoolean();
-
-        state = Block.stateById(buf.readInt());
-
-        woodType = buf.readUtf(32767);
-        stoneType = buf.readUtf(32767);
-        soilType = buf.readUtf(32767);
     }
 
     /**
@@ -162,8 +222,36 @@ public class TFCMBuildToolPasteMessage implements IMessage
         buf.writeInt(Block.getId(state));
 
         buf.writeUtf(woodType);
-        buf.writeUtf(stoneType);
+        buf.writeUtf(rockType);
         buf.writeUtf(soilType);
+    }
+
+    /**
+     * Reads this packet from a {@link FriendlyByteBuf}.
+     *
+     * @param buf The buffer begin read from.
+     */
+    @Override
+    public void fromBytes(@NotNull final FriendlyByteBuf buf)
+    {
+        structureName = buf.readUtf(32767);
+        workOrderName = buf.readUtf(32767);
+
+        pos = new BlockPos(buf.readInt(), buf.readInt(), buf.readInt());
+
+        rotation = buf.readInt();
+
+        isHut = buf.readBoolean();
+
+        mirror = buf.readBoolean();
+
+        complete = buf.readBoolean();
+
+        state = Block.stateById(buf.readInt());
+
+        woodType = buf.readUtf(32767);
+        rockType = buf.readUtf(32767);
+        soilType = buf.readUtf(32767);
     }
 
     @Nullable
@@ -188,7 +276,7 @@ public class TFCMBuildToolPasteMessage implements IMessage
         {
             if (isHut)
             {
-                handleHut(CompatibilityUtils.getWorldFromEntity(player), player, sn, rotation, pos, mirror, state, complete, woodType, stoneType, soilType);
+                handleHut(CompatibilityUtils.getWorldFromEntity(player), player, sn, rotation, pos, mirror, state, complete, woodType, rockType, soilType);
                 CreativeBuildingStructureHandler.loadAndPlaceStructureWithRotation(player.level, structureName, pos, BlockPosUtil.getRotationFromRotations(rotation), mirror ? Mirror.FRONT_BACK : Mirror.NONE, !complete, player);
 
                 @Nullable final IBuilding building = IColonyManager.getInstance().getBuilding(CompatibilityUtils.getWorldFromEntity(player), pos);
@@ -256,93 +344,5 @@ public class TFCMBuildToolPasteMessage implements IMessage
     {
         final ItemStack mhItem = playerEntity.getMainHandItem();
         return !ItemStackUtils.isEmpty(mhItem) && mhItem.getTag() != null && mhItem.getTag().getString(PLACEMENT_NBT).equals(INSTANT_PLACEMENT);
-    }
-
-    /**
-     * Handles the placement of huts.
-     *
-     * @param world     World the hut is being placed into.
-     * @param player    Who placed the hut.
-     * @param sn        The name of the structure.
-     * @param rotation  The number of times the structure should be rotated.
-     * @param buildPos  The location the hut is being placed.
-     * @param mirror    Whether or not the strcture is mirrored.
-     * @param state     The state of the hut.
-     * @param complete  If complete or not.
-     * @param woodType  The type of wood to use
-     * @param stoneType The type of stone to use
-     * @param soilType  The type of soil to use
-     */
-    private static void handleHut(@NotNull final Level world, @NotNull final Player player, final StructureName sn, final int rotation, @NotNull final BlockPos buildPos, final boolean mirror, final BlockState state, final boolean complete, final String woodType, final String stoneType, final String soilType)
-    {
-        final IColony tempColony = IColonyManager.getInstance().getClosestColony(world, buildPos);
-        if (!complete && tempColony != null && !tempColony.getPermissions().hasPermission(player, Action.MANAGE_HUTS) && IColonyManager.getInstance().isFarEnoughFromColonies(world, buildPos))
-        {
-            return;
-        }
-
-        final String hut = sn.getSection();
-
-        final ItemStack stack = BuildingUtils.getItemStackForHutFromInventory(player.getInventory(), hut);
-        final Block block = stack.getItem() instanceof BlockItem ? ((BlockItem) stack.getItem()).getBlock() : null;
-        if (block != null && EventHandler.onBlockHutPlaced(world, player, block, buildPos))
-        {
-            world.destroyBlock(buildPos, true);
-            world.setBlockAndUpdate(buildPos, state);
-            if (!complete)
-            {
-                ((IAbstractBlockHutExtension) block).onBlockPlacedByBuildTool(world, buildPos, world.getBlockState(buildPos), player, null, mirror, sn.getStyle(), woodType, stoneType, soilType);
-                setupBuilding(world, player, sn, rotation, buildPos, mirror);
-            }
-        }
-    }
-
-    /**
-     * setup the building once it has been placed.
-     *
-     * @param world    World the hut is being placed into.
-     * @param player   Who placed the hut.
-     * @param sn       The name of the structure.
-     * @param rotation The number of times the structure should be rotated.
-     * @param buildPos The location the hut is being placed.
-     * @param mirror   Whether or not the strcture is mirrored.
-     */
-    private static void setupBuilding(@NotNull final Level world, @NotNull final Player player, final StructureName sn, final int rotation, @NotNull final BlockPos buildPos, final boolean mirror)
-    {
-        @Nullable final IBuilding building = IColonyManager.getInstance().getBuilding(world, buildPos);
-
-        if (building == null)
-        {
-            Log.getLogger().error("BuildTool: building is null!", new Exception());
-        }
-        else
-        {
-            if (building.getTileEntity() != null)
-            {
-                final IColony colony = IColonyManager.getInstance().getColonyByPosFromWorld(world, buildPos);
-                if (colony == null)
-                {
-                    Log.getLogger().info("No colony for " + player.getName().getString());
-                }
-                else
-                {
-                    building.getTileEntity().setColony(colony);
-                }
-            }
-
-            // Don't set the building level here; that will be set later in
-            // readSchematicDataFromNBT (provided that the schematic has
-            // TAG_BLUEPRINTDATA, but buildings always should).  This allows
-            // level 0 -> N upgrade events to properly be triggered on paste.
-
-            building.setStyle(sn.getStyle());
-
-            if (!(building instanceof IRSComponent))
-            {
-                ConstructionTapeHelper.removeConstructionTape(building.getCorners(), world);
-            }
-
-            building.setIsMirrored(mirror);
-        }
     }
 }

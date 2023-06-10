@@ -1,10 +1,11 @@
 {
+  "__comment__": "This file was automatically created by mcresources",
   "variants": {
     "powered=false": {
-      "model": "tfc_minecolonies:block/wood/planks/placeholder_pressure_plate"
+      "model": "tfc:block/wood/planks/oak_pressure_plate"
     },
     "powered=true": {
-      "model": "tfc_minecolonies:block/wood/planks/placeholder_pressure_plate_down"
+      "model": "tfc:block/wood/planks/oak_pressure_plate_down"
     }
   }
 }

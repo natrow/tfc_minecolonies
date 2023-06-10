@@ -1,6 +1,7 @@
 {
+  "__comment__": "This file was automatically created by mcresources",
   "parent": "item/chest",
   "textures": {
-    "particle": "tfc_minecolonies:block/wood/planks/placeholder"
+    "particle": "tfc:block/wood/planks/oak"
   }
 }

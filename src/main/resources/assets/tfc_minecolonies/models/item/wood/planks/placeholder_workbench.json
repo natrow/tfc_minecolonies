@@ -1,3 +1,4 @@
 {
-  "parent": "tfc_minecolonies:block/wood/planks/placeholder_workbench"
+  "__comment__": "This file was automatically created by mcresources",
+  "parent": "tfc:block/wood/planks/oak_workbench"
 }

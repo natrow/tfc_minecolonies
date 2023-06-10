@@ -44,8 +44,9 @@ public abstract class TFCChestBlockEntityRendererMixin extends ChestRenderer<TFC
     @Inject(method = "getMaterial(Lnet/dries007/tfc/common/blockentities/TFCChestBlockEntity;Lnet/minecraft/world/level/block/state/properties/ChestType;)Lnet/minecraft/client/resources/model/Material;", at = @At("HEAD"), cancellable = true)
     private void getMaterialInjector(TFCChestBlockEntity blockEntity, ChestType chestType, CallbackInfoReturnable<Material> cir)
     {
-        Stream.of(Wood.BlockType.CHEST, Wood.BlockType.TRAPPED_CHEST).map(type -> TFCMBlocks.WOODS.get(type).get()).forEach(block -> {
-            if(blockEntity.getBlockState().getBlock().equals(block)) {
+        Stream.of(Wood.BlockType.CHEST, Wood.BlockType.TRAPPED_CHEST).map(type -> TFCMBlocks.PLACEHOLDER_WOODS.get(type).get()).forEach(block -> {
+            if (blockEntity.getBlockState().getBlock().equals(block))
+            {
                 cir.setReturnValue(new Material(Sheets.CHEST_SHEET, TFCMConstants.getResourceLocation("entity/chest/" + getFolder(blockEntity, chestType) + "/" + wood)));
             }
         });

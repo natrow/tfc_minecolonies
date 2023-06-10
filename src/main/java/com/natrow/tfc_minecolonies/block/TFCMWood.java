@@ -23,6 +23,19 @@ public enum TFCMWood implements RegistryWood
 
     public static final TFCMWood[] VALUES = values();
 
+    public static Supplier<Block> create(Wood.BlockType type, RegistryWood wood)
+    {
+        if (type == Wood.BlockType.SAPLING)
+        {
+            return () -> new ExtendedBlock(ExtendedProperties.of(Material.PLANT).noCollission().randomTicks().strength(0.0F).sound(SoundType.GRASS).flammableLikeLeaves());
+        }
+        else if (type == Wood.BlockType.LOOM)
+        {
+            return () -> new TFCLoomBlock(ExtendedProperties.of(Material.WOOD, wood.woodColor()).sound(SoundType.WOOD).strength(2.5F).noOcclusion().flammableLikePlanks().blockEntity(TFCBlockEntities.LOOM).ticks(LoomBlockEntity::tick), TFCMConstants.getResourceLocation("block/wood/planks/" + wood.getSerializedName()));
+        }
+
+        return type.create(wood);
+    }
     private final String serializedName;
     private final MaterialColor woodColor;
     private final MaterialColor barkColor;
@@ -77,18 +90,6 @@ public enum TFCMWood implements RegistryWood
     @Override
     public Supplier<Block> getBlock(Wood.BlockType type)
     {
-        return TFCMBlocks.WOODS.get(type);
-    }
-
-    public static Supplier<Block> create(Wood.BlockType type, RegistryWood wood)
-    {
-        if (type == Wood.BlockType.SAPLING) {
-            return () -> new ExtendedBlock(ExtendedProperties.of(Material.PLANT).noCollission().randomTicks().strength(0.0F).sound(SoundType.GRASS).flammableLikeLeaves());
-        }
-        else if (type == Wood.BlockType.LOOM) {
-            return () -> new TFCLoomBlock(ExtendedProperties.of(Material.WOOD, wood.woodColor()).sound(SoundType.WOOD).strength(2.5F).noOcclusion().flammableLikePlanks().blockEntity(TFCBlockEntities.LOOM).ticks(LoomBlockEntity::tick), TFCMConstants.getResourceLocation("block/wood/planks/" + wood.getSerializedName()));
-        }
-
-        return type.create(wood);
+        return TFCMBlocks.PLACEHOLDER_WOODS.get(type);
     }
 }

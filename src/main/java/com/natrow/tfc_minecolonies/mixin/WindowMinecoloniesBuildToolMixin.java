@@ -45,12 +45,12 @@ public class WindowMinecoloniesBuildToolMixin extends WindowBuildTool
         final ISettingsExtension settings = (ISettingsExtension) (Object) Settings.instance;
 
         final String woodType = settings.getWoodType();
-        final String stoneType = settings.getStoneType();
+        final String rockType = settings.getRockType();
         final String soilType = settings.getSoilType();
 
         if (structureName.isHut())
         {
-            Network.getNetwork().sendToServer(new TFCMBuildToolPlaceMessage(structureName.toString(), structureName.getLocalizedName(), Settings.instance.getPosition(), Settings.instance.getRotation(), structureName.isHut(), Settings.instance.getMirror(), state, woodType, stoneType, soilType));
+            Network.getNetwork().sendToServer(new TFCMBuildToolPlaceMessage(structureName.toString(), structureName.getLocalizedName(), Settings.instance.getPosition(), Settings.instance.getRotation(), structureName.isHut(), Settings.instance.getMirror(), state, woodType, rockType, soilType));
         }
         else
         {
@@ -76,10 +76,10 @@ public class WindowMinecoloniesBuildToolMixin extends WindowBuildTool
         final ISettingsExtension settings = (ISettingsExtension) (Object) Settings.instance;
 
         final String woodType = settings.getWoodType();
-        final String stoneType = settings.getStoneType();
+        final String rockType = settings.getRockType();
         final String soilType = settings.getSoilType();
 
-        Network.getNetwork().sendToServer(new TFCMBuildToolPasteMessage(name.toString(), name.toString(), Settings.instance.getPosition(), Settings.instance.getRotation(), name.isHut(), Settings.instance.getMirror(), complete, state, woodType, stoneType, soilType));
+        Network.getNetwork().sendToServer(new TFCMBuildToolPasteMessage(name.toString(), name.toString(), Settings.instance.getPosition(), Settings.instance.getRotation(), name.isHut(), Settings.instance.getMirror(), complete, state, woodType, rockType, soilType));
 
         ci.cancel();
     }

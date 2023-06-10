@@ -1,3 +1,4 @@
 {
-  "parent": "tfc_minecolonies:block/wood/sluice/placeholder_lower"
+  "__comment__": "This file was automatically created by mcresources",
+  "parent": "tfc:block/wood/sluice/oak_lower"
 }

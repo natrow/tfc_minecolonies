@@ -9,5 +9,5 @@ import org.jetbrains.annotations.NotNull;
 
 public interface IAbstractBlockHutExtension
 {
-    void onBlockPlacedByBuildTool(@NotNull final Level worldIn, @NotNull final BlockPos pos, final BlockState state, final LivingEntity placer, final ItemStack stack, final boolean mirror, final String style, final String woodType, final String stoneType, final String soilType);
+    void onBlockPlacedByBuildTool(@NotNull final Level worldIn, @NotNull final BlockPos pos, final BlockState state, final LivingEntity placer, final ItemStack stack, final boolean mirror, final String style, final String woodType, final String rockType, final String soilType);
 }

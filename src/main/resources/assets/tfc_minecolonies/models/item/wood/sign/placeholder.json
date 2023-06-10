@@ -1,6 +1,7 @@
 {
+  "__comment__": "This file was automatically created by mcresources",
   "parent": "item/generated",
   "textures": {
-    "layer0": "tfc_minecolonies:item/wood/sign/placeholder"
+    "layer0": "tfc:item/wood/sign/oak"
   }
 }

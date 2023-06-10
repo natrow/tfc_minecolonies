@@ -37,9 +37,9 @@
         </view>
     </dropdown>
 
-    <button id="previousStoneType" size="15 15" pos="140 20" label="&lt;"/>
-    <button id="nextStoneType" size="15 15" pos="265 20" label="&gt;"/>
-    <dropdown id="stoneType" size="112 15" pos="154 20" maxContentHeight="75" dropDownSize="140 75">
+    <button id="previousRockType" size="15 15" pos="140 20" label="&lt;"/>
+    <button id="nextRockType" size="15 15" pos="265 20" label="&gt;"/>
+    <dropdown id="rockType" size="112 15" pos="154 20" maxContentHeight="75" dropDownSize="140 75">
         <view size="100% 15">
             <label id="id" size="100% 100%" label="" pos="0 0"/>
             <button id="button" size="100% 100%" label="" pos="0 0"/>

@@ -1,7 +1,8 @@
 {
+  "__comment__": "This file was automatically created by mcresources",
   "variants": {
     "": {
-      "model": "tfc_minecolonies:block/wood/potted_sapling/placeholder"
+      "model": "tfc:block/wood/potted_sapling/oak"
     }
   }
 }

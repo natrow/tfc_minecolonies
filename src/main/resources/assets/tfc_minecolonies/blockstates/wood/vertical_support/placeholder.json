@@ -1,8 +1,9 @@
 {
+  "__comment__": "This file was automatically created by mcresources",
   "multipart": [
     {
       "apply": {
-        "model": "tfc_minecolonies:block/wood/support/placeholder_vertical"
+        "model": "tfc:block/wood/support/oak_vertical"
       }
     },
     {
@@ -10,7 +11,7 @@
         "north": true
       },
       "apply": {
-        "model": "tfc_minecolonies:block/wood/support/placeholder_connection",
+        "model": "tfc:block/wood/support/oak_connection",
         "y": 270
       }
     },
@@ -19,7 +20,7 @@
         "east": true
       },
       "apply": {
-        "model": "tfc_minecolonies:block/wood/support/placeholder_connection"
+        "model": "tfc:block/wood/support/oak_connection"
       }
     },
     {
@@ -27,7 +28,7 @@
         "south": true
       },
       "apply": {
-        "model": "tfc_minecolonies:block/wood/support/placeholder_connection",
+        "model": "tfc:block/wood/support/oak_connection",
         "y": 90
       }
     },
@@ -36,7 +37,7 @@
         "west": true
       },
       "apply": {
-        "model": "tfc_minecolonies:block/wood/support/placeholder_connection",
+        "model": "tfc:block/wood/support/oak_connection",
         "y": 180
       }
     }

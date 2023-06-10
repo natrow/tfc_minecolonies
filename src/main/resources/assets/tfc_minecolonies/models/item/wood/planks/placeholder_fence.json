@@ -1,3 +1,4 @@
 {
-  "parent": "tfc_minecolonies:block/wood/planks/placeholder_fence_inventory"
+  "__comment__": "This file was automatically created by mcresources",
+  "parent": "tfc:block/wood/planks/oak_fence_inventory"
 }

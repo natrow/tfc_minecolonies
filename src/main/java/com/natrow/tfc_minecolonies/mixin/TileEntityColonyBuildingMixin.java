@@ -16,36 +16,18 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class TileEntityColonyBuildingMixin extends AbstractTileEntityColonyBuilding implements ITileEntityColonyBuildingExtension
 {
 
+    private static final String TAG_WOOD_TYPE = "wood_type";
+    private static final String TAG_ROCK_TYPE = "rock_type";
+    private static final String TAG_SOIL_TYPE = "soil_type";
+    private String woodType = "";
+    private String rockType = "";
+    private String soilType = "";
     /**
      * Dummy constructor
      */
     public TileEntityColonyBuildingMixin(BlockEntityType<? extends AbstractTileEntityColonyBuilding> type, BlockPos pos, BlockState state)
     {
         super(type, pos, state);
-    }
-
-    private static final String TAG_WOOD_TYPE = "wood_type";
-    private static final String TAG_STONE_TYPE = "stone_type";
-    private static final String TAG_SOIL_TYPE = "soil_type";
-
-    private String woodType = "";
-    private String stoneType = "";
-    private String soilType = "";
-
-    @Inject(method = "load", at = @At("TAIL"))
-    private void loadInjector(CompoundTag compound, CallbackInfo ci)
-    {
-        woodType = compound.getString(TAG_WOOD_TYPE);
-        stoneType = compound.getString(TAG_STONE_TYPE);
-        soilType = compound.getString(TAG_SOIL_TYPE);
-    }
-
-    @Inject(method = "saveAdditional", at = @At("TAIL"))
-    private void saveAdditionalInjector(CompoundTag compound, CallbackInfo ci)
-    {
-        compound.putString(TAG_WOOD_TYPE, woodType);
-        compound.putString(TAG_STONE_TYPE, stoneType);
-        compound.putString(TAG_SOIL_TYPE, soilType);
     }
 
     @Override
@@ -61,15 +43,15 @@ public abstract class TileEntityColonyBuildingMixin extends AbstractTileEntityCo
     }
 
     @Override
-    public String getStoneType()
+    public String getRockType()
     {
-        return stoneType;
+        return rockType;
     }
 
     @Override
-    public void setStoneType(String stoneType)
+    public void setRockType(String rockType)
     {
-        this.stoneType = stoneType;
+        this.rockType = rockType;
     }
 
     @Override
@@ -82,5 +64,21 @@ public abstract class TileEntityColonyBuildingMixin extends AbstractTileEntityCo
     public void setSoilType(String soilType)
     {
         this.soilType = soilType;
+    }
+
+    @Inject(method = "load", at = @At("TAIL"))
+    private void loadInjector(CompoundTag compound, CallbackInfo ci)
+    {
+        woodType = compound.getString(TAG_WOOD_TYPE);
+        rockType = compound.getString(TAG_ROCK_TYPE);
+        soilType = compound.getString(TAG_SOIL_TYPE);
+    }
+
+    @Inject(method = "saveAdditional", at = @At("TAIL"))
+    private void saveAdditionalInjector(CompoundTag compound, CallbackInfo ci)
+    {
+        compound.putString(TAG_WOOD_TYPE, woodType);
+        compound.putString(TAG_ROCK_TYPE, rockType);
+        compound.putString(TAG_SOIL_TYPE, soilType);
     }
 }

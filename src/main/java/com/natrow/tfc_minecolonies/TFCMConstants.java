@@ -21,6 +21,15 @@ public class TFCMConstants
     public static final Lazy<Map<Block, ItemStack>> LOG_TO_SAPLINGS;
     public static final Lazy<Map<Block, Block>> ANVIL_TO_ROCK;
     public static final Lazy<Map<Block, Block>> SOIL_TO_FARMLAND;
+    public static final String DROPDOWN_WOOD_ID = "woodType";
+    public static final String BUTTON_NEXT_WOOD_ID = "nextWoodType";
+    public static final String BUTTON_PREVIOUS_WOOD_ID = "previousWoodType";
+    public static final String DROPDOWN_ROCK_ID = "rockType";
+    public static final String BUTTON_NEXT_ROCK_ID = "nextRockType";
+    public static final String BUTTON_PREVIOUS_ROCK_ID = "previousRockType";
+    public static final String DROPDOWN_SOIL_ID = "soilType";
+    public static final String BUTTON_NEXT_SOIL_ID = "nextSoilType";
+    public static final String BUTTON_PREVIOUS_SOIL_ID = "previousSoilType";
 
     static
     {
@@ -39,17 +48,8 @@ public class TFCMConstants
             .collect(Collectors.toMap(e -> e.getValue().get(), e -> TFCBlocks.SOIL.get(SoilBlockType.FARMLAND).get(e.getKey()).get())));
     }
 
-    public static final String DROPDOWN_WOOD_ID = "woodType";
-    public static final String BUTTON_NEXT_WOOD_ID = "nextWoodType";
-    public static final String BUTTON_PREVIOUS_WOOD_ID = "previousWoodType";
-    public static final String DROPDOWN_STONE_ID = "stoneType";
-    public static final String BUTTON_NEXT_STONE_ID = "nextStoneType";
-    public static final String BUTTON_PREVIOUS_STONE_ID = "previousStoneType";
-    public static final String DROPDOWN_SOIL_ID = "soilType";
-    public static final String BUTTON_NEXT_SOIL_ID = "nextSoilType";
-    public static final String BUTTON_PREVIOUS_SOIL_ID = "previousSoilType";
-
-    public static ResourceLocation getResourceLocation(String resource) {
+    public static ResourceLocation getResourceLocation(String resource)
+    {
         return new ResourceLocation(MOD_ID, resource);
     }
 }

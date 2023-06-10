@@ -1,18 +1,19 @@
 {
+  "__comment__": "This file was automatically created by mcresources",
   "variants": {
     "facing=east": {
-      "model": "tfc_minecolonies:block/wood/scribing_table/placeholder",
+      "model": "tfc:block/wood/scribing_table/oak",
       "y": 90
     },
     "facing=north": {
-      "model": "tfc_minecolonies:block/wood/scribing_table/placeholder"
+      "model": "tfc:block/wood/scribing_table/oak"
     },
     "facing=south": {
-      "model": "tfc_minecolonies:block/wood/scribing_table/placeholder",
+      "model": "tfc:block/wood/scribing_table/oak",
       "y": 180
     },
     "facing=west": {
-      "model": "tfc_minecolonies:block/wood/scribing_table/placeholder",
+      "model": "tfc:block/wood/scribing_table/oak",
       "y": 270
     }
   }

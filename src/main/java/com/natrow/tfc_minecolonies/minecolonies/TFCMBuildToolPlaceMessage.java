@@ -44,8 +44,12 @@ import org.apache.commons.lang3.text.WordUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import static com.minecolonies.api.util.constant.NbtTagConstants.*;
-import static com.minecolonies.api.util.constant.TranslationConstants.*;
+import static com.minecolonies.api.util.constant.NbtTagConstants.TAG_COLONY_ID;
+import static com.minecolonies.api.util.constant.NbtTagConstants.TAG_OTHER_LEVEL;
+import static com.minecolonies.api.util.constant.NbtTagConstants.TAG_PASTEABLE;
+import static com.minecolonies.api.util.constant.TranslationConstants.INDESTRUCTIBLE_BLOCK_AT_POS;
+import static com.minecolonies.api.util.constant.TranslationConstants.NO_HUT_IN_INVENTORY;
+import static com.minecolonies.api.util.constant.TranslationConstants.WRONG_COLONY;
 
 /**
  * Send build tool data to the server. Verify the data on the server side and then place the building.
@@ -55,155 +59,20 @@ public class TFCMBuildToolPlaceMessage implements IMessage
 {
 
     /**
-     * The state at the offset position.
-     */
-    private BlockState state;
-
-    private String structureName;
-    private String workOrderName;
-    private int rotation;
-    private BlockPos pos;
-    private boolean isHut;
-    private boolean mirror;
-    public BlockPos builder = BlockPos.ZERO;
-    private String woodType;
-    private String stoneType;
-    private String soilType;
-
-    /**
-     * Empty constructor used when registering the
-     */
-    public TFCMBuildToolPlaceMessage()
-    {
-        super();
-    }
-
-    /**
-     * Create the building that was made with the build tool. Item in inventory required
-     *
-     * @param structureName String representation of a structure
-     * @param workOrderName String name of the work order
-     * @param pos           BlockPos
-     * @param rotation      int representation of the rotation
-     * @param isHut         true if hut, false if decoration
-     * @param mirror        the mirror of the building or decoration.
-     * @param state         the state.
-     */
-    public TFCMBuildToolPlaceMessage(final String structureName, final String workOrderName, final BlockPos pos, final int rotation, final boolean isHut, final Mirror mirror, final BlockState state, final String woodType, final String stoneType, final String soilType)
-    {
-        super();
-        this.structureName = structureName;
-        this.workOrderName = workOrderName;
-        this.pos = pos;
-        this.rotation = rotation;
-        this.isHut = isHut;
-        this.mirror = mirror == Mirror.FRONT_BACK;
-        this.state = state;
-        this.woodType = woodType;
-        this.stoneType = stoneType;
-        this.soilType = soilType;
-    }
-
-    /**
-     * Reads this packet from a {@link FriendlyByteBuf}.
-     *
-     * @param buf The buffer begin read from.
-     */
-    @Override
-    public void fromBytes(@NotNull final FriendlyByteBuf buf)
-    {
-        structureName = buf.readUtf(32767);
-        workOrderName = buf.readUtf(32767);
-
-        pos = new BlockPos(buf.readInt(), buf.readInt(), buf.readInt());
-
-        rotation = buf.readInt();
-
-        isHut = buf.readBoolean();
-
-        mirror = buf.readBoolean();
-
-        state = Block.stateById(buf.readInt());
-
-        builder = buf.readBlockPos();
-
-        woodType = buf.readUtf(32767);
-        stoneType = buf.readUtf(32767);
-        soilType = buf.readUtf(32767);
-    }
-
-    /**
-     * Writes this packet to a {@link FriendlyByteBuf}.
-     *
-     * @param buf The buffer being written to.
-     */
-    @Override
-    public void toBytes(@NotNull final FriendlyByteBuf buf)
-    {
-        buf.writeUtf(structureName);
-        buf.writeUtf(workOrderName);
-
-        buf.writeInt(pos.getX());
-        buf.writeInt(pos.getY());
-        buf.writeInt(pos.getZ());
-
-        buf.writeInt(rotation);
-
-        buf.writeBoolean(isHut);
-
-        buf.writeBoolean(mirror);
-
-        buf.writeInt(Block.getId(state));
-
-        buf.writeBlockPos(builder);
-
-        buf.writeUtf(woodType);
-        buf.writeUtf(stoneType);
-        buf.writeUtf(soilType);
-    }
-
-    @Nullable
-    @Override
-    public LogicalSide getExecutionSide()
-    {
-        return LogicalSide.SERVER;
-    }
-
-    @Override
-    public void onExecute(final NetworkEvent.Context ctxIn, final boolean isLogicalServer)
-    {
-        final Player player = ctxIn.getSender();
-        final StructureName sn = new StructureName(structureName);
-        if (!Structures.hasMD5(sn))
-        {
-            MessageUtils.format(new TextComponent("Can not build " + workOrderName + ": schematic missing!")).sendTo(player);
-            return;
-        }
-        if (isHut)
-        {
-            handleHut(CompatibilityUtils.getWorldFromEntity(player), player, sn, rotation, pos, mirror, state, woodType, stoneType, soilType);
-        }
-        else
-        {
-            handleDecoration(CompatibilityUtils.getWorldFromEntity(player), player, sn, workOrderName, rotation, pos, mirror, builder);
-        }
-    }
-
-    /**
      * Handles the placement of huts.
      *
-     * @param world     World the hut is being placed into.
-     * @param player    Who placed the hut.
-     * @param sn        The name of the structure.
-     * @param rotation  The number of times the structure should be rotated.
-     * @param buildPos  The location the hut is being placed.
-     * @param mirror    Whether or not the strcture is mirrored.
-     * @param state     the state.
-     * @param woodType  The type of wood to use
-     * @param stoneType The type of stone to use
-     * @param soilType  The type of soil to use
+     * @param world    World the hut is being placed into.
+     * @param player   Who placed the hut.
+     * @param sn       The name of the structure.
+     * @param rotation The number of times the structure should be rotated.
+     * @param buildPos The location the hut is being placed.
+     * @param mirror   Whether or not the strcture is mirrored.
+     * @param state    the state.
+     * @param woodType The type of wood to use
+     * @param rockType The type of rock to use
+     * @param soilType The type of soil to use
      */
-    private static void handleHut(@NotNull final Level world, @NotNull final Player player, final StructureName sn, final int rotation, @NotNull final BlockPos buildPos, final boolean mirror, final BlockState state, final String woodType, final String stoneType, final String soilType)
+    private static void handleHut(@NotNull final Level world, @NotNull final Player player, final StructureName sn, final int rotation, @NotNull final BlockPos buildPos, final boolean mirror, final BlockState state, final String woodType, final String rockType, final String soilType)
     {
         final BlockState stateAtPos = world.getBlockState(buildPos);
         final Block blockAtPos = stateAtPos.getBlock();
@@ -252,7 +121,7 @@ public class TFCMBuildToolPlaceMessage implements IMessage
 
                 world.destroyBlock(buildPos, true);
                 world.setBlockAndUpdate(buildPos, state);
-                ((IAbstractBlockHutExtension) block).onBlockPlacedByBuildTool(world, buildPos, world.getBlockState(buildPos), player, null, mirror, sn.getStyle(), woodType, stoneType, soilType);
+                ((IAbstractBlockHutExtension) block).onBlockPlacedByBuildTool(world, buildPos, world.getBlockState(buildPos), player, null, mirror, sn.getStyle(), woodType, rockType, soilType);
 
                 boolean complete = false;
                 int level = 0;
@@ -392,6 +261,139 @@ public class TFCMBuildToolPlaceMessage implements IMessage
             {
                 building.onUpgradeComplete(building.getBuildingLevel());
             }
+        }
+    }
+    public BlockPos builder = BlockPos.ZERO;
+    /**
+     * The state at the offset position.
+     */
+    private BlockState state;
+    private String structureName;
+    private String workOrderName;
+    private int rotation;
+    private BlockPos pos;
+    private boolean isHut;
+    private boolean mirror;
+    private String woodType;
+    private String rockType;
+    private String soilType;
+
+    /**
+     * Empty constructor used when registering the
+     */
+    public TFCMBuildToolPlaceMessage()
+    {
+        super();
+    }
+
+    /**
+     * Create the building that was made with the build tool. Item in inventory required
+     *
+     * @param structureName String representation of a structure
+     * @param workOrderName String name of the work order
+     * @param pos           BlockPos
+     * @param rotation      int representation of the rotation
+     * @param isHut         true if hut, false if decoration
+     * @param mirror        the mirror of the building or decoration.
+     * @param state         the state.
+     */
+    public TFCMBuildToolPlaceMessage(final String structureName, final String workOrderName, final BlockPos pos, final int rotation, final boolean isHut, final Mirror mirror, final BlockState state, final String woodType, final String rockType, final String soilType)
+    {
+        super();
+        this.structureName = structureName;
+        this.workOrderName = workOrderName;
+        this.pos = pos;
+        this.rotation = rotation;
+        this.isHut = isHut;
+        this.mirror = mirror == Mirror.FRONT_BACK;
+        this.state = state;
+        this.woodType = woodType;
+        this.rockType = rockType;
+        this.soilType = soilType;
+    }
+
+    /**
+     * Writes this packet to a {@link FriendlyByteBuf}.
+     *
+     * @param buf The buffer being written to.
+     */
+    @Override
+    public void toBytes(@NotNull final FriendlyByteBuf buf)
+    {
+        buf.writeUtf(structureName);
+        buf.writeUtf(workOrderName);
+
+        buf.writeInt(pos.getX());
+        buf.writeInt(pos.getY());
+        buf.writeInt(pos.getZ());
+
+        buf.writeInt(rotation);
+
+        buf.writeBoolean(isHut);
+
+        buf.writeBoolean(mirror);
+
+        buf.writeInt(Block.getId(state));
+
+        buf.writeBlockPos(builder);
+
+        buf.writeUtf(woodType);
+        buf.writeUtf(rockType);
+        buf.writeUtf(soilType);
+    }
+
+    /**
+     * Reads this packet from a {@link FriendlyByteBuf}.
+     *
+     * @param buf The buffer begin read from.
+     */
+    @Override
+    public void fromBytes(@NotNull final FriendlyByteBuf buf)
+    {
+        structureName = buf.readUtf(32767);
+        workOrderName = buf.readUtf(32767);
+
+        pos = new BlockPos(buf.readInt(), buf.readInt(), buf.readInt());
+
+        rotation = buf.readInt();
+
+        isHut = buf.readBoolean();
+
+        mirror = buf.readBoolean();
+
+        state = Block.stateById(buf.readInt());
+
+        builder = buf.readBlockPos();
+
+        woodType = buf.readUtf(32767);
+        rockType = buf.readUtf(32767);
+        soilType = buf.readUtf(32767);
+    }
+
+    @Nullable
+    @Override
+    public LogicalSide getExecutionSide()
+    {
+        return LogicalSide.SERVER;
+    }
+
+    @Override
+    public void onExecute(final NetworkEvent.Context ctxIn, final boolean isLogicalServer)
+    {
+        final Player player = ctxIn.getSender();
+        final StructureName sn = new StructureName(structureName);
+        if (!Structures.hasMD5(sn))
+        {
+            MessageUtils.format(new TextComponent("Can not build " + workOrderName + ": schematic missing!")).sendTo(player);
+            return;
+        }
+        if (isHut)
+        {
+            handleHut(CompatibilityUtils.getWorldFromEntity(player), player, sn, rotation, pos, mirror, state, woodType, rockType, soilType);
+        }
+        else
+        {
+            handleDecoration(CompatibilityUtils.getWorldFromEntity(player), player, sn, workOrderName, rotation, pos, mirror, builder);
         }
     }
 }

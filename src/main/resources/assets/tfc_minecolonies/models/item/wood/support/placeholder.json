@@ -1,3 +1,4 @@
 {
-  "parent": "tfc_minecolonies:block/wood/support/placeholder_inventory"
+  "__comment__": "This file was automatically created by mcresources",
+  "parent": "tfc:block/wood/support/oak_inventory"
 }

@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 public abstract class SettingsMixin implements ISettingsExtension
 {
     private String woodType = "";
-    private String stoneType = "";
+    private String rockType = "";
     private String soilType = "";
 
     @Override
@@ -24,14 +24,15 @@ public abstract class SettingsMixin implements ISettingsExtension
     }
 
     @Override
-    public String getStoneType() {
-        return stoneType;
-    }
-
-    @Override
     public String getSoilType()
     {
         return soilType;
+    }
+
+    @Override
+    public void setSoilType(String soilType)
+    {
+        this.soilType = soilType;
     }
 
     @Override
@@ -41,15 +42,15 @@ public abstract class SettingsMixin implements ISettingsExtension
     }
 
     @Override
-    public void setStoneType(String stoneType)
+    public String getRockType()
     {
-        this.stoneType = stoneType;
+        return rockType;
     }
 
     @Override
-    public void setSoilType(String soilType)
+    public void setRockType(String rockType)
     {
-        this.soilType = soilType;
+        this.rockType = rockType;
     }
 
     @Inject(method = "deserializeNBT(Lnet/minecraft/nbt/CompoundTag;)V", at = @At("HEAD"))
@@ -63,13 +64,13 @@ public abstract class SettingsMixin implements ISettingsExtension
         {
             woodType = null;
         }
-        if (nbt.contains("stone_type"))
+        if (nbt.contains("rock_type"))
         {
-            stoneType = nbt.getString("stone_type");
+            rockType = nbt.getString("rock_type");
         }
         else
         {
-            stoneType = null;
+            rockType = null;
         }
         if (nbt.contains("soil_type"))
         {
@@ -88,9 +89,9 @@ public abstract class SettingsMixin implements ISettingsExtension
         {
             nbt.putString("wood_type", woodType);
         }
-        if (stoneType != null)
+        if (rockType != null)
         {
-            nbt.putString("stone_type", stoneType);
+            nbt.putString("rock_type", rockType);
         }
         if (soilType != null)
         {

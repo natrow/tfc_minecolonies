@@ -1,8 +1,0 @@
-{
-  "parent": "block/outer_stairs",
-  "textures": {
-    "bottom": "tfc_minecolonies:block/wood/planks/placeholder",
-    "top": "tfc_minecolonies:block/wood/planks/placeholder",
-    "side": "tfc_minecolonies:block/wood/planks/placeholder"
-  }
-}
