@@ -4,6 +4,7 @@ import com.ldtteam.structurize.helpers.Settings;
 import com.natrow.tfc_minecolonies.structurize.ISettingsExtension;
 import net.minecraft.nbt.CompoundTag;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -17,6 +18,9 @@ public abstract class SettingsMixin implements ISettingsExtension
     private String rockType = "";
     private String soilType = "";
 
+    @Shadow
+    public abstract void scheduleRefresh();
+
     @Override
     public String getWoodType()
     {
@@ -24,21 +28,10 @@ public abstract class SettingsMixin implements ISettingsExtension
     }
 
     @Override
-    public String getSoilType()
-    {
-        return soilType;
-    }
-
-    @Override
-    public void setSoilType(String soilType)
-    {
-        this.soilType = soilType;
-    }
-
-    @Override
     public void setWoodType(String woodType)
     {
         this.woodType = woodType;
+        scheduleRefresh();
     }
 
     @Override
@@ -51,6 +44,20 @@ public abstract class SettingsMixin implements ISettingsExtension
     public void setRockType(String rockType)
     {
         this.rockType = rockType;
+        scheduleRefresh();
+    }
+
+    @Override
+    public String getSoilType()
+    {
+        return soilType;
+    }
+
+    @Override
+    public void setSoilType(String soilType)
+    {
+        this.soilType = soilType;
+        scheduleRefresh();
     }
 
     @Inject(method = "deserializeNBT(Lnet/minecraft/nbt/CompoundTag;)V", at = @At("HEAD"))

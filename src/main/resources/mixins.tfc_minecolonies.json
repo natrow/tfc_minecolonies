@@ -5,5 +5,5 @@
   "mixins": ["AbstractBlockHutMixin", "BlockEntityTypeAccessor", "ColonyPermissionEventHandlerMixin", "ItemStackUtilsMixin", "NetworkChannelMixin", "SettingsMixin", "TFCChestBlockEntityRendererMixin", "TileEntityColonyBuildingMixin", "ToolMixin", "ToolTypeMixin", "TreeMixin", "WorkerUtilMixin", "AI.AbstractEntityAIInteractMixin", "AI.EntityAIWorkFarmerMixin", "AI.EntityAIWorkLumberjackMixin"],
   "refmap": "mixins.tfc_minecolonies.refmap.json",
   "compatibilityLevel": "JAVA_17",
-  "client": ["WindowBuildToolMixin", "WindowMinecoloniesBuildToolMixin"]
+  "client": ["BlueprintRendererMixin", "WindowBuildToolMixin", "WindowMinecoloniesBuildToolMixin"]
 }

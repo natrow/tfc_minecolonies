@@ -2,6 +2,7 @@ package com.natrow.tfc_minecolonies;
 
 import java.util.Map;
 import java.util.stream.Collectors;
+import com.natrow.tfc_minecolonies.block.TFCMBlocks;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
@@ -21,6 +22,7 @@ public class TFCMConstants
     public static final Lazy<Map<Block, ItemStack>> LOG_TO_SAPLINGS;
     public static final Lazy<Map<Block, Block>> ANVIL_TO_ROCK;
     public static final Lazy<Map<Block, Block>> SOIL_TO_FARMLAND;
+    public static final Lazy<Map<Block, Map<String, Block>>> PLACEHOLDER_TO_WOOD;
     public static final String DROPDOWN_WOOD_ID = "woodType";
     public static final String BUTTON_NEXT_WOOD_ID = "nextWoodType";
     public static final String BUTTON_PREVIOUS_WOOD_ID = "previousWoodType";
@@ -46,6 +48,7 @@ public class TFCMConstants
             .stream()
             .flatMap(e -> e.entrySet().stream())
             .collect(Collectors.toMap(e -> e.getValue().get(), e -> TFCBlocks.SOIL.get(SoilBlockType.FARMLAND).get(e.getKey()).get())));
+        PLACEHOLDER_TO_WOOD = Lazy.of(() -> TFCMBlocks.PLACEHOLDER_WOODS.entrySet().stream().collect(Collectors.toMap(e -> e.getValue().get(), e -> TFCBlocks.WOODS.entrySet().stream().collect(Collectors.toMap(e2 -> e2.getKey().getSerializedName(), e2 -> e2.getValue().get(e.getKey()).get())))));
     }
 
     public static ResourceLocation getResourceLocation(String resource)

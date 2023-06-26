@@ -3,6 +3,7 @@ package com.natrow.tfc_minecolonies.block;
 import java.util.Locale;
 import java.util.function.Supplier;
 import com.natrow.tfc_minecolonies.TFCMConstants;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.Material;
@@ -31,11 +32,12 @@ public enum TFCMWood implements RegistryWood
         }
         else if (type == Wood.BlockType.LOOM)
         {
-            return () -> new TFCLoomBlock(ExtendedProperties.of(Material.WOOD, wood.woodColor()).sound(SoundType.WOOD).strength(2.5F).noOcclusion().flammableLikePlanks().blockEntity(TFCBlockEntities.LOOM).ticks(LoomBlockEntity::tick), TFCMConstants.getResourceLocation("block/wood/planks/" + wood.getSerializedName()));
+            return () -> new TFCLoomBlock(ExtendedProperties.of(Material.WOOD, wood.woodColor()).sound(SoundType.WOOD).strength(2.5F).noOcclusion().flammableLikePlanks().blockEntity(TFCBlockEntities.LOOM).ticks(LoomBlockEntity::tick), new ResourceLocation("tfc:block/wood/planks/oak"));
         }
 
         return type.create(wood);
     }
+
     private final String serializedName;
     private final MaterialColor woodColor;
     private final MaterialColor barkColor;
