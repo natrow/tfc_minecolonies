@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 import com.ldtteam.structurize.placement.handlers.placement.IPlacementHandler;
 import com.ldtteam.structurize.placement.handlers.placement.PlacementHandlers;
-import com.ldtteam.structurize.util.PlacementSettings;
 import com.natrow.tfc_minecolonies.TFCMConstants;
 import com.natrow.tfc_minecolonies.item.TFCMItems;
 import net.minecraft.core.BlockPos;
@@ -16,7 +15,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BedBlock;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BedPart;
 import org.jetbrains.annotations.Nullable;
@@ -34,7 +32,6 @@ import net.dries007.tfc.common.blocks.rock.RockAnvilBlock;
 import net.dries007.tfc.common.blocks.soil.FarmlandBlock;
 import net.dries007.tfc.common.blocks.soil.ISoilBlock;
 import net.dries007.tfc.common.blocks.soil.PathBlock;
-import net.dries007.tfc.common.blocks.wood.Wood;
 import net.dries007.tfc.common.items.HideItemType;
 import net.dries007.tfc.common.items.TFCItems;
 import net.dries007.tfc.util.Helpers;
@@ -57,7 +54,7 @@ public final class TFCMPlacementHandlers
         PlacementHandlers.add(new TFCFirepitPlacementHandler());
         PlacementHandlers.add(new TFCForgeHandler());
         PlacementHandlers.add(new TFCTileEntityPlacementHandler());
-        PlacementHandlers.add(new TFCPlaceholderWoodHandler());
+//        PlacementHandlers.add(new TFCPlaceholderWoodHandler());
     }
 
     /**
@@ -346,66 +343,68 @@ public final class TFCMPlacementHandlers
         }
     }
 
-    public static class TFCPlaceholderWoodHandler implements IPlacementHandler
-    {
-        @Override
-        public boolean canHandle(Level level, BlockPos blockPos, BlockState blockState)
-        {
-            return TFCMConstants.PLACEHOLDER_TO_WOOD.get().containsKey(blockState.getBlock());
-        }
+    // TODO: Placement Handler
 
-        @Override
-        public ActionProcessingResult handle(Level world, BlockPos pos, BlockState blockState, @Nullable CompoundTag tileEntityData, boolean complete, BlockPos centerPos, PlacementSettings settings)
-        {
-            if (complete)
-            {
-                world.setBlock(pos, blockState, UPDATE_FLAG);
-                return ActionProcessingResult.PASS;
-            }
-
-            final String woodType = Wood.ASH.getSerializedName(); // todo
-            final Block targetBlock = TFCMConstants.PLACEHOLDER_TO_WOOD.get().get(blockState.getBlock()).get(woodType);
-
-            final BlockState targetState = targetBlock.withPropertiesOf(blockState);
-
-            for (final IPlacementHandler placementHandler : PlacementHandlers.handlers)
-            {
-                if (placementHandler.canHandle(world, pos, targetState))
-                {
-                    return placementHandler.handle(world, pos, targetState, tileEntityData, false, centerPos, settings);
-                }
-            }
-
-            throw new RuntimeException("Couldn't find a valid placement handler for placeholder block");
-        }
-
-        @Override
-        public List<ItemStack> getRequiredItems(Level world, BlockPos pos, BlockState blockState, @Nullable CompoundTag tileEntityData, boolean complete)
-        {
-
-            if (complete)
-            {
-                List<ItemStack> itemList = new ArrayList<>();
-                itemList.add(new ItemStack(blockState.getBlock()));
-                return itemList;
-            }
-            else
-            {
-                final String woodType = Wood.ASH.getSerializedName(); // todo
-                final Block targetBlock = TFCMConstants.PLACEHOLDER_TO_WOOD.get().get(blockState.getBlock()).get(woodType);
-
-                final BlockState targetState = targetBlock.withPropertiesOf(blockState);
-
-                for (final IPlacementHandler placementHandler : PlacementHandlers.handlers)
-                {
-                    if (placementHandler.canHandle(world, pos, targetState))
-                    {
-                        return placementHandler.getRequiredItems(world, pos, targetBlock.withPropertiesOf(blockState), tileEntityData, false);
-                    }
-                }
-            }
-
-            throw new RuntimeException("Couldn't find a valid placement handler for placeholder block");
-        }
-    }
+//    public static class TFCPlaceholderWoodHandler implements IPlacementHandler
+//    {
+//        @Override
+//        public boolean canHandle(Level level, BlockPos blockPos, BlockState blockState)
+//        {
+//            return TFCMConstants.PLACEHOLDER_TO_WOOD.get().containsKey(blockState.getBlock());
+//        }
+//
+//        @Override
+//        public ActionProcessingResult handle(Level world, BlockPos pos, BlockState blockState, @Nullable CompoundTag tileEntityData, boolean complete, BlockPos centerPos, PlacementSettings settings)
+//        {
+//            if (complete)
+//            {
+//                world.setBlock(pos, blockState, UPDATE_FLAG);
+//                return ActionProcessingResult.PASS;
+//            }
+//
+//            final String woodType = Wood.ASH.getSerializedName(); // todo
+//            final Block targetBlock = TFCMConstants.PLACEHOLDER_TO_WOOD.get().get(blockState.getBlock()).get(woodType);
+//
+//            final BlockState targetState = targetBlock.withPropertiesOf(blockState);
+//
+//            for (final IPlacementHandler placementHandler : PlacementHandlers.handlers)
+//            {
+//                if (placementHandler.canHandle(world, pos, targetState))
+//                {
+//                    return placementHandler.handle(world, pos, targetState, tileEntityData, false, centerPos, settings);
+//                }
+//            }
+//
+//            throw new RuntimeException("Couldn't find a valid placement handler for placeholder block");
+//        }
+//
+//        @Override
+//        public List<ItemStack> getRequiredItems(Level world, BlockPos pos, BlockState blockState, @Nullable CompoundTag tileEntityData, boolean complete)
+//        {
+//
+//            if (complete)
+//            {
+//                List<ItemStack> itemList = new ArrayList<>();
+//                itemList.add(new ItemStack(blockState.getBlock()));
+//                return itemList;
+//            }
+//            else
+//            {
+//                final String woodType = Wood.ASH.getSerializedName(); // todo
+//                final Block targetBlock = TFCMConstants.PLACEHOLDER_TO_WOOD.get().get(blockState.getBlock()).get(woodType);
+//
+//                final BlockState targetState = targetBlock.withPropertiesOf(blockState);
+//
+//                for (final IPlacementHandler placementHandler : PlacementHandlers.handlers)
+//                {
+//                    if (placementHandler.canHandle(world, pos, targetState))
+//                    {
+//                        return placementHandler.getRequiredItems(world, pos, targetBlock.withPropertiesOf(blockState), tileEntityData, false);
+//                    }
+//                }
+//            }
+//
+//            throw new RuntimeException("Couldn't find a valid placement handler for placeholder block");
+//        }
+//    }
 }

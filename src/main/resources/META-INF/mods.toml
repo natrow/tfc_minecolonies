@@ -23,19 +23,19 @@ side = "BOTH"
 [[dependencies.tfc_minecolonies]]
 modId = "tfc"
 mandatory = true
-versionRange = "[2.2.6,)"
+versionRange = "[2.2.6]"
 ordering = "AFTER"
 side = "BOTH"
 [[dependencies.tfc_minecolonies]]
 modId = "minecolonies"
 mandatory = true
-versionRange = "[1.18.2-1.0.1215-ALPHA,)"
+versionRange = "[1.18.2-1.0.1215-ALPHA]"
 ordering = "AFTER"
 side = "BOTH"
 [[dependencies.tfc_minecolonies]]
 modId = "structurize"
 mandatory = true
-versionRange = "[1.18.2-1.0.424-ALPHA,)"
+versionRange = "[1.18.2-1.0.424-ALPHA]"
 ordering = "AFTER"
 side = "BOTH"
 [[dependencies.tfc_minecolonies]]
