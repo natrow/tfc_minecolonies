@@ -24,11 +24,40 @@ public abstract class BlueprintUtilsMixin
     private static void constructTileEntityInjector(BlockInfo info, BlueprintBlockAccess blockAccess, CallbackInfoReturnable<BlockEntity> cir, String entityId, CompoundTag compound, BlockEntity entity)
     {
         final BlockState value = entity.getBlockState();
-        if (Settings.instance.renderLightPlaceholders() && TFCMConstants.PLACEHOLDER_TO_WOOD.get().containsKey(value.getBlock()))
+        if (Settings.instance.renderLightPlaceholders())
         {
-            final String woodType = ((ISettingsExtension) (Object) Settings.instance).getWoodType().toLowerCase(Locale.ROOT);
-            final Block targetBlock = TFCMConstants.PLACEHOLDER_TO_WOOD.get().get(value.getBlock()).get(woodType);
-            entity.setBlockState(targetBlock.withPropertiesOf(value));
+            if (TFCMConstants.PLACEHOLDER_TO_WOOD.get()
+                .containsKey(value.getBlock()))
+            {
+                final String woodType = ((ISettingsExtension) (Object) Settings.instance).getWoodType()
+                    .toLowerCase(Locale.ROOT);
+                final Block targetBlock = TFCMConstants.PLACEHOLDER_TO_WOOD.get()
+                    .get(value.getBlock())
+                    .get(woodType);
+                entity.setBlockState(targetBlock.withPropertiesOf(value));
+            }
+            else if (TFCMConstants.PLACEHOLDER_TO_STONE.get()
+                .containsKey(value.getBlock()))
+            {
+                final String stoneType = ((ISettingsExtension) (Object) Settings.instance).getRockType()
+                    .toLowerCase(Locale.ROOT);
+                final Block targetBlock = TFCMConstants.PLACEHOLDER_TO_STONE.get()
+                    .get(value.getBlock())
+                    .getOrDefault(stoneType, TFCMConstants.PLACEHOLDER_TO_STONE.get()
+                        .get(value.getBlock())
+                        .get(TFCMConstants.FALLBACK_STONE));
+                entity.setBlockState(targetBlock.withPropertiesOf(value));
+            }
+            else if (TFCMConstants.PLACEHOLDER_TO_SOIL.get()
+                .containsKey(value.getBlock()))
+            {
+                final String soilType = ((ISettingsExtension) (Object) Settings.instance).getSoilType()
+                    .toLowerCase(Locale.ROOT);
+                final Block targetBlock = TFCMConstants.PLACEHOLDER_TO_SOIL.get()
+                    .get(value.getBlock())
+                    .get(soilType);
+                entity.setBlockState(targetBlock.withPropertiesOf(value));
+            }
         }
     }
 }
