@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "tfc_minecolonies:wood/vertical_support/placeholder",
+    "tfc_minecolonies:wood/horizontal_support/placeholder"
+  ]
+}

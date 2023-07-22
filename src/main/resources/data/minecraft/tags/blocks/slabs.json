@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "tfc_minecolonies:rock/raw/placeholder_slab",
+    "tfc_minecolonies:rock/bricks/placeholder_slab",
+    "tfc_minecolonies:rock/cobble/placeholder_slab",
+    "tfc_minecolonies:rock/smooth/placeholder_slab",
+    "tfc_minecolonies:rock/mossy_cobble/placeholder_slab",
+    "tfc_minecolonies:rock/mossy_bricks/placeholder_slab",
+    "tfc_minecolonies:rock/cracked_bricks/placeholder_slab",
+    "tfc_minecolonies:wood/planks/placeholder_slab",
+    "tfc_minecolonies:mud_bricks/placeholder_slab"
+  ]
+}

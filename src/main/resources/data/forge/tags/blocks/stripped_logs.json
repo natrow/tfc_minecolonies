@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "tfc_minecolonies:wood/stripped_log/placeholder",
+    "tfc_minecolonies:wood/stripped_wood/placeholder"
+  ]
+}

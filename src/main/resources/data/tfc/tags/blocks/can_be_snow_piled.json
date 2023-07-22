@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "tfc_minecolonies:rock/loose/placeholder",
+    "tfc_minecolonies:wood/fallen_leaves/placeholder"
+  ]
+}

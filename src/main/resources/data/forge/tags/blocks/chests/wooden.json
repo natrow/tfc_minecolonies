@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "tfc_minecolonies:wood/chest/placeholder",
+    "tfc_minecolonies:wood/trapped_chest/placeholder"
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "tfc_minecolonies:grass_path/placeholder",
+    "tfc_minecolonies:farmland/placeholder"
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "tfc_minecolonies:rock/cobble/placeholder",
+    "tfc_minecolonies:rock/mossy_cobble/placeholder"
+  ]
+}

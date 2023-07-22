@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "tfc_minecolonies:rock/bricks/placeholder",
+    "tfc_minecolonies:rock/mossy_bricks/placeholder",
+    "tfc_minecolonies:rock/cracked_bricks/placeholder",
+    "tfc_minecolonies:rock/chiseled/placeholder"
+  ]
+}
