@@ -12,25 +12,21 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 
-
 @Mod(TFCMConstants.MOD_ID)
-public class TFCM
-{
-    public TFCM()
-    {
-        IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+public class TFCM {
+  public TFCM() {
+    IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        TFCMBlocks.BLOCKS.register(bus);
-        TFCMItems.ITEMS.register(bus);
+    TFCMBlocks.BLOCKS.register(bus);
+    TFCMItems.ITEMS.register(bus);
 
-        TFCMPlacementHandlers.registerHandlers();
-        TFCMInteractionValidatorInitializer.registerValidators();
+    TFCMPlacementHandlers.registerHandlers();
+    TFCMInteractionValidatorInitializer.registerValidators();
 
-        TFCMCommonEventHandler.init(bus);
+    TFCMCommonEventHandler.init(bus);
 
-        if (FMLEnvironment.dist == Dist.CLIENT)
-        {
-            TFCMClientEventHandler.init(bus);
-        }
+    if (FMLEnvironment.dist == Dist.CLIENT) {
+      TFCMClientEventHandler.init(bus);
     }
+  }
 }

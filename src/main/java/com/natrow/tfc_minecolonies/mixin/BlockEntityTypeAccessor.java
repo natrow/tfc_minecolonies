@@ -8,9 +8,11 @@ import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin(BlockEntityType.class)
-public interface BlockEntityTypeAccessor
-{
-    @Accessor("validBlocks") Set<Block> accessor$getValidBlocks();
-    @Accessor("validBlocks") @Mutable
-    void accessor$setValidBlocks(Set<Block> blocks);
+public interface BlockEntityTypeAccessor {
+  @Accessor("validBlocks")
+  Set<Block> accessor$getValidBlocks();
+
+  @Accessor("validBlocks")
+  @Mutable
+  void accessor$setValidBlocks(Set<Block> blocks);
 }

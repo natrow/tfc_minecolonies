@@ -14,17 +14,20 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(value = ColonyPermissionEventHandler.class, remap = false)
-public abstract class ColonyPermissionEventHandlerMixin
-{
-    /**
-     * Prevent block interactions from being cancelled for fake players that were created by this mod
-     */
-    @Inject(method = "checkEventCancelation", at = @At("HEAD"), cancellable = true)
-    private void checkEventCancellationInjector(Action action, Player playerIn, Level world, Event event, BlockPos pos, CallbackInfoReturnable<Boolean> cir)
-    {
-        if (playerIn instanceof FakePlayer fakePlayer)
-        {
-            if (TFCMFakePlayerManager.isFakePlayer(fakePlayer)) cir.setReturnValue(false);
-        }
+public abstract class ColonyPermissionEventHandlerMixin {
+  /**
+   * Prevent block interactions from being cancelled for fake players that were created by this mod
+   */
+  @Inject(method = "checkEventCancelation", at = @At("HEAD"), cancellable = true)
+  private void checkEventCancellationInjector(
+      Action action,
+      Player playerIn,
+      Level world,
+      Event event,
+      BlockPos pos,
+      CallbackInfoReturnable<Boolean> cir) {
+    if (playerIn instanceof FakePlayer fakePlayer) {
+      if (TFCMFakePlayerManager.isFakePlayer(fakePlayer)) cir.setReturnValue(false);
     }
+  }
 }

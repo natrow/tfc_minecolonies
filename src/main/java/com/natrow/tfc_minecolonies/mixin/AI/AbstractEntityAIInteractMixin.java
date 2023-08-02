@@ -12,19 +12,29 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(value = AbstractEntityAIInteract.class, remap = false)
-public abstract class AbstractEntityAIInteractMixin<J extends AbstractJob<?, J>, B extends AbstractBuilding> extends AbstractEntityAISkill<J, B>
-{
-    protected AbstractEntityAIInteractMixin(@NotNull J job)
-    {
-        super(job);
-    }
+public abstract class AbstractEntityAIInteractMixin<
+        J extends AbstractJob<?, J>, B extends AbstractBuilding>
+    extends AbstractEntityAISkill<J, B> {
+  protected AbstractEntityAIInteractMixin(@NotNull J job) {
+    super(job);
+  }
 
-    /**
-     * Inject mining animations while workers are mining a block
-     */
-    @Inject(method = "mineBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/BlockPos;ZZLjava/lang/Runnable;)Z", at = @At(value = "INVOKE_ASSIGN", target = "Lcom/minecolonies/coremod/entity/ai/basic/AbstractEntityAIInteract;checkMiningLocation(Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/BlockPos;)Z"))
-    private void mineBlockInjector(BlockPos blockToMine, BlockPos safeStand, boolean damageTool, boolean getDrops, Runnable blockBreakAction, CallbackInfoReturnable<Boolean> cir)
-    {
-        this.worker.getCitizenItemHandler().hitBlockWithToolInHand(blockToMine);
-    }
+  /** Inject mining animations while workers are mining a block */
+  @Inject(
+      method =
+          "mineBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/BlockPos;ZZLjava/lang/Runnable;)Z",
+      at =
+          @At(
+              value = "INVOKE_ASSIGN",
+              target =
+                  "Lcom/minecolonies/coremod/entity/ai/basic/AbstractEntityAIInteract;checkMiningLocation(Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/BlockPos;)Z"))
+  private void mineBlockInjector(
+      BlockPos blockToMine,
+      BlockPos safeStand,
+      boolean damageTool,
+      boolean getDrops,
+      Runnable blockBreakAction,
+      CallbackInfoReturnable<Boolean> cir) {
+    this.worker.getCitizenItemHandler().hitBlockWithToolInHand(blockToMine);
+  }
 }

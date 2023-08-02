@@ -13,72 +13,64 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(value = TileEntityColonyBuilding.class, remap = false)
-public abstract class TileEntityColonyBuildingMixin extends AbstractTileEntityColonyBuilding implements ITileEntityColonyBuildingExtension
-{
+public abstract class TileEntityColonyBuildingMixin extends AbstractTileEntityColonyBuilding
+    implements ITileEntityColonyBuildingExtension {
 
-    private static final String TAG_WOOD_TYPE = "wood_type";
-    private static final String TAG_ROCK_TYPE = "rock_type";
-    private static final String TAG_SOIL_TYPE = "soil_type";
-    private String woodType = "";
-    private String rockType = "";
-    private String soilType = "";
-    /**
-     * Dummy constructor
-     */
-    public TileEntityColonyBuildingMixin(BlockEntityType<? extends AbstractTileEntityColonyBuilding> type, BlockPos pos, BlockState state)
-    {
-        super(type, pos, state);
-    }
+  private static final String TAG_WOOD_TYPE = "wood_type";
+  private static final String TAG_ROCK_TYPE = "rock_type";
+  private static final String TAG_SOIL_TYPE = "soil_type";
+  private String woodType = "";
+  private String rockType = "";
+  private String soilType = "";
+  /** Dummy constructor */
+  public TileEntityColonyBuildingMixin(
+      BlockEntityType<? extends AbstractTileEntityColonyBuilding> type,
+      BlockPos pos,
+      BlockState state) {
+    super(type, pos, state);
+  }
 
-    @Override
-    public String getWoodType()
-    {
-        return woodType;
-    }
+  @Override
+  public String getWoodType() {
+    return woodType;
+  }
 
-    @Override
-    public void setWoodType(String woodType)
-    {
-        this.woodType = woodType;
-    }
+  @Override
+  public void setWoodType(String woodType) {
+    this.woodType = woodType;
+  }
 
-    @Override
-    public String getRockType()
-    {
-        return rockType;
-    }
+  @Override
+  public String getRockType() {
+    return rockType;
+  }
 
-    @Override
-    public void setRockType(String rockType)
-    {
-        this.rockType = rockType;
-    }
+  @Override
+  public void setRockType(String rockType) {
+    this.rockType = rockType;
+  }
 
-    @Override
-    public String getSoilType()
-    {
-        return soilType;
-    }
+  @Override
+  public String getSoilType() {
+    return soilType;
+  }
 
-    @Override
-    public void setSoilType(String soilType)
-    {
-        this.soilType = soilType;
-    }
+  @Override
+  public void setSoilType(String soilType) {
+    this.soilType = soilType;
+  }
 
-    @Inject(method = "load", at = @At("TAIL"))
-    private void loadInjector(CompoundTag compound, CallbackInfo ci)
-    {
-        woodType = compound.getString(TAG_WOOD_TYPE);
-        rockType = compound.getString(TAG_ROCK_TYPE);
-        soilType = compound.getString(TAG_SOIL_TYPE);
-    }
+  @Inject(method = "load", at = @At("TAIL"))
+  private void loadInjector(CompoundTag compound, CallbackInfo ci) {
+    woodType = compound.getString(TAG_WOOD_TYPE);
+    rockType = compound.getString(TAG_ROCK_TYPE);
+    soilType = compound.getString(TAG_SOIL_TYPE);
+  }
 
-    @Inject(method = "saveAdditional", at = @At("TAIL"))
-    private void saveAdditionalInjector(CompoundTag compound, CallbackInfo ci)
-    {
-        compound.putString(TAG_WOOD_TYPE, woodType);
-        compound.putString(TAG_ROCK_TYPE, rockType);
-        compound.putString(TAG_SOIL_TYPE, soilType);
-    }
+  @Inject(method = "saveAdditional", at = @At("TAIL"))
+  private void saveAdditionalInjector(CompoundTag compound, CallbackInfo ci) {
+    compound.putString(TAG_WOOD_TYPE, woodType);
+    compound.putString(TAG_ROCK_TYPE, rockType);
+    compound.putString(TAG_SOIL_TYPE, soilType);
+  }
 }

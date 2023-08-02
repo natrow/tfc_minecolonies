@@ -1,16 +1,15 @@
 package com.natrow.tfc_minecolonies.structurize;
 
-public interface ISettingsExtension
-{
-    String getWoodType();
+public interface ISettingsExtension {
+  String getWoodType();
 
-    void setWoodType(String woodType);
+  void setWoodType(String woodType);
 
-    String getRockType();
+  String getRockType();
 
-    void setRockType(String rockType);
+  void setRockType(String rockType);
 
-    String getSoilType();
+  String getSoilType();
 
-    void setSoilType(String soilType);
+  void setSoilType(String soilType);
 }

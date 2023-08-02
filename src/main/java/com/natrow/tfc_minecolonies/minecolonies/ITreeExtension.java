@@ -5,9 +5,8 @@ import net.minecraft.world.level.Level;
 /**
  * @see com.natrow.tfc_minecolonies.mixin.TreeMixin
  */
-public interface ITreeExtension
-{
-    void recalcLeaves(Level level);
+public interface ITreeExtension {
+  void recalcLeaves(Level level);
 
-    int recalcWood(Level level);
+  int recalcWood(Level level);
 }

@@ -179,7 +179,7 @@
     <xs:complexType name="buttonType">
         <xs:complexContent>
             <xs:extension base="textElementType">
-                <xs:attribute name="source" type="xs:string" />
+                <xs:attribute name="source" type="xs:string"/>
                 <xs:attribute name="imageoffset" type="fixedSizePair"/>
                 <xs:attribute name="imagesize" type="fixedSizePair"/>
                 <xs:attribute name="highlight" type="xs:string"/>
