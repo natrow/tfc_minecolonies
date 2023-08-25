@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "tfc_minecolonies:rock/raw/placeholder_wall",
+    "tfc_minecolonies:rock/bricks/placeholder_wall",
+    "tfc_minecolonies:rock/cobble/placeholder_wall",
+    "tfc_minecolonies:rock/smooth/placeholder_wall",
+    "tfc_minecolonies:rock/mossy_cobble/placeholder_wall",
+    "tfc_minecolonies:rock/mossy_bricks/placeholder_wall",
+    "tfc_minecolonies:rock/cracked_bricks/placeholder_wall",
+    "tfc_minecolonies:mud_bricks/placeholder_wall"
+  ]
+}

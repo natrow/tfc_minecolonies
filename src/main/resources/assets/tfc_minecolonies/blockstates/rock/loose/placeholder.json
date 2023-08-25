@@ -1,0 +1,56 @@
+{
+  "__comment__": "This file was automatically created by mcresources",
+  "variants": {
+    "count=1": [
+      {
+        "model": "tfc:block/rock/pebble/dacite",
+        "y": 90
+      },
+      {
+        "model": "tfc:block/rock/pebble/dacite"
+      },
+      {
+        "model": "tfc:block/rock/pebble/dacite",
+        "y": 180
+      },
+      {
+        "model": "tfc:block/rock/pebble/dacite",
+        "y": 270
+      }
+    ],
+    "count=2": [
+      {
+        "model": "tfc:block/rock/rubble/dacite",
+        "y": 90
+      },
+      {
+        "model": "tfc:block/rock/rubble/dacite"
+      },
+      {
+        "model": "tfc:block/rock/rubble/dacite",
+        "y": 180
+      },
+      {
+        "model": "tfc:block/rock/rubble/dacite",
+        "y": 270
+      }
+    ],
+    "count=3": [
+      {
+        "model": "tfc:block/rock/boulder/dacite",
+        "y": 90
+      },
+      {
+        "model": "tfc:block/rock/boulder/dacite"
+      },
+      {
+        "model": "tfc:block/rock/boulder/dacite",
+        "y": 180
+      },
+      {
+        "model": "tfc:block/rock/boulder/dacite",
+        "y": 270
+      }
+    ]
+  }
+}

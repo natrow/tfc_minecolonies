@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "tfc_minecolonies:wood/planks/placeholder_fence",
+    "tfc_minecolonies:wood/planks/placeholder_log_fence"
+  ]
+}

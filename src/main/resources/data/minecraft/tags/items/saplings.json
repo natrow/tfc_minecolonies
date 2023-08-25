@@ -18,6 +18,7 @@
     "tfc:wood/sapling/spruce",
     "tfc:wood/sapling/sycamore",
     "tfc:wood/sapling/white_cedar",
-    "tfc:wood/sapling/willow"
+    "tfc:wood/sapling/willow",
+    "tfc_minecolonies:wood/sapling/placeholder"
   ]
 }

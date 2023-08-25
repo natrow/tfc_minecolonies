@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "tfc_minecolonies:rock/cobble/placeholder",
+    "tfc_minecolonies:rock/gravel/placeholder",
+    "tfc_minecolonies:rock/mossy_cobble/placeholder",
+    "tfc_minecolonies:dirt/placeholder",
+    "tfc_minecolonies:grass/placeholder",
+    "tfc_minecolonies:grass_path/placeholder",
+    "tfc_minecolonies:clay/placeholder",
+    "tfc_minecolonies:clay_grass/placeholder",
+    "tfc_minecolonies:farmland/placeholder",
+    "tfc_minecolonies:rooted_dirt/placeholder",
+    "tfc_minecolonies:mud/placeholder"
+  ]
+}

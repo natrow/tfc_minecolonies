@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "tfc_minecolonies:dirt/placeholder",
+    "tfc_minecolonies:rooted_dirt/placeholder"
+  ]
+}

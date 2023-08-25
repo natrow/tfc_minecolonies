@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "tfc_minecolonies:firewood"
+    "tfc_minecolonies:firewood",
+    "#tfc_minecolonies:placeholder_logs"
   ]
 }
