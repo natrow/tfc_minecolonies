@@ -2,6 +2,7 @@ package com.natrow.tfc_minecolonies.structurize;
 
 import static com.ldtteam.structurize.api.util.constant.Constants.UPDATE_FLAG;
 
+import com.ldtteam.structurize.helpers.Settings;
 import com.ldtteam.structurize.placement.handlers.placement.IPlacementHandler;
 import com.ldtteam.structurize.placement.handlers.placement.PlacementHandlers;
 import com.ldtteam.structurize.util.PlacementSettings;
@@ -383,73 +384,50 @@ public final class TFCMPlacementHandlers {
     @Override
     public boolean canHandle(Level level, BlockPos blockPos, BlockState blockState) {
       return TFCMConstants.PLACEHOLDER_TO_WOOD.get().containsKey(blockState.getBlock())
-          | TFCMConstants.PLACEHOLDER_TO_STONE.get().containsKey(blockState.getBlock())
-          | TFCMConstants.PLACEHOLDER_TO_SOIL.get().containsKey(blockState.getBlock());
+              | TFCMConstants.PLACEHOLDER_TO_STONE.get().containsKey(blockState.getBlock())
+              | TFCMConstants.PLACEHOLDER_TO_SOIL.get().containsKey(blockState.getBlock());
       // todo : DO support
     }
 
     @Override
     public ActionProcessingResult handle(
-        Level world,
-        BlockPos pos,
-        BlockState blockState,
-        @Nullable CompoundTag tileEntityData,
-        boolean complete,
-        BlockPos centerPos,
-        PlacementSettings settings) {
+            Level world,
+            BlockPos pos,
+            BlockState blockState,
+            @Nullable CompoundTag tileEntityData,
+            boolean complete,
+            BlockPos centerPos,
+            PlacementSettings settings) {
       throw new RuntimeException("Unimplemented...");
     }
 
     @Override
     public List<ItemStack> getRequiredItems(
-        Level world,
-        BlockPos pos,
-        BlockState blockState,
-        @Nullable CompoundTag tileEntityData,
-        boolean complete) {
+            Level world,
+            BlockPos pos,
+            BlockState blockState,
+            @Nullable CompoundTag tileEntityData,
+            boolean complete) {
 
-      if (!complete) {
-        throw new RuntimeException(
-            "getRequiredItems(complete = false) called from unknown context");
-      }
+      String woodType = ((ISettingsExtension) (Object) Settings.instance).getWoodType();
+      String stoneType = ((ISettingsExtension) (Object) Settings.instance).getRockType();
+      String soilType = ((ISettingsExtension) (Object) Settings.instance).getSoilType();
+
+      BlockState targetBlock = complete ? blockState :
+              PlaceholderConversions.convertPlaceholder(
+                              blockState.getBlock(), woodType, stoneType, soilType)
+                      .withPropertiesOf(blockState);
 
       // find default handler implementation
       for (final IPlacementHandler placementHandler : PlacementHandlers.handlers) {
-        if (placementHandler.canHandle(world, pos, blockState)) {
+        if (placementHandler.canHandle(world, pos, targetBlock)) {
           if (placementHandler instanceof TFCMPlaceholderHandler) {
             continue; // skip to avoid recursion
           }
-          return placementHandler.getRequiredItems(world, pos, blockState, tileEntityData, true);
+          return placementHandler.getRequiredItems(world, pos, targetBlock, tileEntityData, true);
         }
       }
 
-      throw new RuntimeException("Couldn't find a valid placement handler for placeholder block");
-    }
-
-    public List<ItemStack> getRequiredItemsWithCtx(
-        Level world,
-        BlockPos pos,
-        BlockState blockState,
-        @Nullable CompoundTag tileEntityData,
-        PlacementSettings settings) {
-
-      String woodType = ((ISettingsExtension) settings).getWoodType();
-      String stoneType = ((ISettingsExtension) settings).getRockType();
-      String soilType = ((ISettingsExtension) settings).getSoilType();
-
-      BlockState targetBlock =
-          PlaceholderConversions.convertPlaceholder(
-                  blockState.getBlock(), woodType, stoneType, soilType)
-              .withPropertiesOf(blockState);
-
-      for (final IPlacementHandler placementHandler : PlacementHandlers.handlers) {
-        if (placementHandler.canHandle(world, pos, targetBlock)) {
-          if (placementHandler instanceof TFCMPlaceholderHandler) {
-            throw new RuntimeException("Repeating loop in getRequiredItems(), " + targetBlock);
-          }
-          return placementHandler.getRequiredItems(world, pos, targetBlock, tileEntityData, false);
-        }
-      }
       throw new RuntimeException("Couldn't find a valid placement handler for placeholder block");
     }
   }

@@ -12,6 +12,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -20,9 +21,12 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin(value = Settings.class, remap = false)
 public abstract class SettingsMixin implements ISettingsExtension {
-  private String woodType = "";
-  private String rockType = "";
-  private String soilType = "";
+  @Unique
+  private String tfc_minecolonies$woodType = "";
+  @Unique
+  private String tfc_minecolonies$rockType = "";
+  @Unique
+  private String tfc_minecolonies$soilType = "";
   @Shadow private Blueprint blueprint;
   @Shadow private String structureName;
   @Shadow private BlockPos pos;
@@ -32,53 +36,53 @@ public abstract class SettingsMixin implements ISettingsExtension {
 
   @Override
   public String getWoodType() {
-    return woodType;
+    return tfc_minecolonies$woodType;
   }
 
   @Override
   public void setWoodType(String woodType) {
-    this.woodType = woodType;
+    this.tfc_minecolonies$woodType = woodType;
     scheduleRefresh();
   }
 
   @Override
   public String getRockType() {
-    return rockType;
+    return tfc_minecolonies$rockType;
   }
 
   @Override
   public void setRockType(String rockType) {
-    this.rockType = rockType;
+    this.tfc_minecolonies$rockType = rockType;
     scheduleRefresh();
   }
 
   @Override
   public String getSoilType() {
-    return soilType;
+    return tfc_minecolonies$soilType;
   }
 
   @Override
   public void setSoilType(String soilType) {
-    this.soilType = soilType;
+    this.tfc_minecolonies$soilType = soilType;
     scheduleRefresh();
   }
 
   @Inject(method = "deserializeNBT(Lnet/minecraft/nbt/CompoundTag;)V", at = @At("HEAD"))
   private void deserializeNBTInjector(CompoundTag nbt, CallbackInfo ci) {
     if (nbt.contains("wood_type")) {
-      woodType = nbt.getString("wood_type");
+      tfc_minecolonies$woodType = nbt.getString("wood_type");
     } else {
-      woodType = null;
+      tfc_minecolonies$woodType = null;
     }
     if (nbt.contains("rock_type")) {
-      rockType = nbt.getString("rock_type");
+      tfc_minecolonies$rockType = nbt.getString("rock_type");
     } else {
-      rockType = null;
+      tfc_minecolonies$rockType = null;
     }
     if (nbt.contains("soil_type")) {
-      soilType = nbt.getString("soil_type");
+      tfc_minecolonies$soilType = nbt.getString("soil_type");
     } else {
-      soilType = null;
+      tfc_minecolonies$soilType = null;
     }
   }
 
@@ -87,41 +91,14 @@ public abstract class SettingsMixin implements ISettingsExtension {
       at = @At("RETURN"),
       locals = LocalCapture.CAPTURE_FAILEXCEPTION)
   private void serializeNBTInjector(CallbackInfoReturnable<CompoundTag> cir, CompoundTag nbt) {
-    if (woodType != null) {
-      nbt.putString("wood_type", woodType);
+    if (tfc_minecolonies$woodType != null) {
+      nbt.putString("wood_type", tfc_minecolonies$woodType);
     }
-    if (rockType != null) {
-      nbt.putString("rock_type", rockType);
+    if (tfc_minecolonies$rockType != null) {
+      nbt.putString("rock_type", tfc_minecolonies$rockType);
     }
-    if (soilType != null) {
-      nbt.putString("soil_type", soilType);
+    if (tfc_minecolonies$soilType != null) {
+      nbt.putString("soil_type", tfc_minecolonies$soilType);
     }
-  }
-
-  @Inject(method = "getActiveStructure", at = @At("HEAD"), cancellable = true)
-  private void getActiveStructureInjector(CallbackInfoReturnable<Blueprint> cir) {
-    if (this.blueprint == null
-        && this.structureName != null
-        && !this.structureName.isEmpty()
-        && pos != null) {
-      PlacementSettings settings =
-          new PlacementSettings(
-              Settings.instance.getMirror(),
-              BlockUtils.getRotation(Settings.instance.getRotation()));
-      ((ISettingsExtension) settings)
-          .setWoodType(((ISettingsExtension) (Object) Settings.instance).getWoodType());
-      ((ISettingsExtension) settings)
-          .setRockType(((ISettingsExtension) (Object) Settings.instance).getRockType());
-      ((ISettingsExtension) settings)
-          .setSoilType(((ISettingsExtension) (Object) Settings.instance).getSoilType());
-
-      final IStructureHandler structure =
-          new CreativeStructureHandler(
-              Minecraft.getInstance().level, new BlockPos(0, 0, 0), structureName, settings, true);
-      if (structure.hasBluePrint()) {
-        this.blueprint = structure.getBluePrint();
-      }
-    }
-    cir.setReturnValue(this.blueprint);
   }
 }
