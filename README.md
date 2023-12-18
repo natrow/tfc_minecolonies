@@ -37,4 +37,3 @@ To get involved please join our [Discord Server](https://discord.gg/u2Ztpykver)
 ## Authors
 
  - natrow
- - Gaffgarion
