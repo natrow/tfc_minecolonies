@@ -33,6 +33,9 @@ minecraft {
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
 
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+
             mods {
                 "${mod_id}" {
                     source sourceSets.main
@@ -65,8 +68,26 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
     maven {
-        name = "Jared's maven"
+        name = "Jared's Maven"
         url = "https://maven.blamejared.com/"
+        content {
+            includeGroup "mezz.jei"
+            includeGroup "vazkii.patchouli"
+        }
+    }
+    maven {
+        name = "LDT Team Maven"
+        url = "https://ldtteam.jfrog.io/artifactory/ldtteam/"
+        content {
+            includeGroup "com.ldtteam"
+        }
+    }
+    maven {
+        name = "Modrinth Maven"
+        url = "https://api.modrinth.com/maven"
+        content {
+            includeGroup "maven.modrinth"
+        }
     }
 }
 
@@ -74,12 +95,22 @@ dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
+
+    runtimeOnly fg.deobf("com.ldtteam:minecolonies:${minecraft_version}-${minecolonies_version}")
+    runtimeOnly fg.deobf("com.ldtteam:structurize:${minecraft_version}-${structurize_version}")
+    runtimeOnly fg.deobf("com.ldtteam:blockui:${minecraft_version}-${blockui_version}")
+    // domum only has one version for 1.20.1 at the time of writing
+    runtimeOnly fg.deobf("com.ldtteam:domum_ornamentum:1.20-${domum_ornamentum_version}:universal")
+
+    runtimeOnly fg.deobf("maven.modrinth:terrafirmacraft:${terrafirmacraft_version}")
+    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${minecraft_version}-${patchouli_version}-FORGE")
 }
 
 tasks.named('processResources', ProcessResources).configure {
     var replaceProperties = [
             minecraft_version: minecraft_version, minecraft_version_range: minecraft_version_range,
             forge_version: forge_version, forge_version_range: forge_version_range,
+            minecolonies_version: minecolonies_version, terrafirmacraft_version: terrafirmacraft_version,
             loader_version_range: loader_version_range,
             mod_id: mod_id, mod_name: mod_name, mod_license: mod_license, mod_version: mod_version,
             mod_authors: mod_authors, mod_description: mod_description,

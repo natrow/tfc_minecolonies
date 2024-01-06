@@ -28,5 +28,15 @@ description='''${mod_description}'''
     versionRange="${minecraft_version_range}"
     ordering="NONE"
     side="BOTH"
-
-# TODO - TFC & Minecolonies dependency
+[[dependencies.${mod_id}]]
+    modId="minecolonies"
+    mandatory=true
+    versionRange="${minecolonies_version}"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.${mod_id}]]
+    modId="tfc"
+    mandatory=true
+    versionRange="${terrafirmacraft_version}"
+    ordering="NONE"
+    side="BOTH"
