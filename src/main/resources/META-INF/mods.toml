@@ -1,42 +1,43 @@
-modLoader="javafml" #mandatory
-loaderVersion="${loader_version_range}"
-license="${mod_license}"
-issueTrackerURL="https://github.com/natrow/tfc_minecolonies/issues"
+modLoader = "javafml"
+loaderVersion = "[47,)"
+license = "GPL-3.0-or-later"
+issueTrackerURL = "https://github.com/natrow/tfc_minecolonies/issues"
+
+# TFCM
 [[mods]]
-modId="${mod_id}"
-version="${mod_version}"
-displayName="${mod_name}"
-# A URL to query for updates for this mod. See the JSON update specification https://docs.minecraftforge.net/en/latest/misc/updatechecker/
-#updateJSONURL="https://change.me.example.invalid/updates.json" #optional
-displayURL="https://github.com/natrow/tfc_minecolonies"
-logoFile="${mod_id}.png"
-# A text field displayed in the mod UI
-#credits="" #optional
-authors="${mod_authors}"
+modId = "tfcm"
+version = "${file.jarVersion}"
+displayName = "TerraFirmaMineColonies"
+displayURL = "https://github.com/natrow/tfc_minecolonies"
+logoFile = "tfcm.png"
+authors = "natrow"
+description = '''Provides handmade compatibility between TerraFirmaCraft and MineColonies'''
 
-description='''${mod_description}'''
+# Dependencies
+[[dependencies.tfcm]]
+modId = "minecolonies"
+mandatory = true
+versionRange = "[1.1.395-BETA,)"
+ordering = "AFTER"
+side = "BOTH"
 
-[[dependencies.${mod_id}]]
-    modId="forge"
-    mandatory=true
-    versionRange="${forge_version_range}"
-    ordering="NONE"
-    side="BOTH"
-[[dependencies.${mod_id}]]
-    modId="minecraft"
-    mandatory=true
-    versionRange="${minecraft_version_range}"
-    ordering="NONE"
-    side="BOTH"
-[[dependencies.${mod_id}]]
-    modId="minecolonies"
-    mandatory=true
-    versionRange="${minecolonies_version}"
-    ordering="NONE"
-    side="BOTH"
-[[dependencies.${mod_id}]]
-    modId="tfc"
-    mandatory=true
-    versionRange="${terrafirmacraft_version}"
-    ordering="NONE"
-    side="BOTH"
+[[dependencies.tfcm]]
+modId = "tfc"
+mandatory = true
+versionRange = "[3.1.4-beta,)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.tfcm]]
+modId = "forge"
+mandatory = true
+versionRange = "[47.1.3,47.1.6),[47.1.81,47.2.0),[47.2.6,)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.tfcm]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.20.1,1.20.2)"
+ordering = "AFTER"
+side = "BOTH"
