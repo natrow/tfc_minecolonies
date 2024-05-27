@@ -15,16 +15,19 @@ val forgeVersion: String = "47.1.3"
 
 // Dependency versions
 val jeiVersion: String = "15.2.0.21"
-val mineColoniesVersion: String = "1.1.565-BETA"
-val structurizeVersion: String = "1.0.675-BETA"
-val blockUIVersion: String = "1.0.128-BETA"
-val domumOrnamentumVersion: String = "1.0.151-BETA"
+val mineColoniesVersion: String = "1.1.580-BETA"
+val structurizeVersion: String = "1.0.733-RELEASE"
+val blockUIVersion: String = "1.0.139-BETA"
+val domumOrnamentumVersion: String = "1.0.184-BETA"
 val terraFirmaCraftVersion: String = "3.2.3"
 val patchouliVersion: String = "81"
 
 // Development properties
-val mappingsChannel: String = "parchment"
-val mappingsVersion: String = "2023.09.03-1.20.1"
+//val mappingsChannel: String = "parchment"
+//val mappingsVersion: String = "2023.09.03-1.20.1"
+
+val mappingsChannel: String = "official"
+val mappingsVersion: String = "1.20.1"
 
 println("Using mappings $mappingsChannel / $mappingsVersion with version $modVersion")
 
@@ -57,7 +60,7 @@ dependencies {
     runtimeOnly(fg.deobf("com.ldtteam:minecolonies:$minecraftVersion-$mineColoniesVersion"))
     runtimeOnly(fg.deobf("com.ldtteam:structurize:$minecraftVersion-$structurizeVersion"))
     runtimeOnly(fg.deobf("com.ldtteam:blockui:$minecraftVersion-$blockUIVersion"))
-    runtimeOnly(fg.deobf("com.ldtteam:domum_ornamentum:1.20-$domumOrnamentumVersion:universal"))
+    runtimeOnly(fg.deobf("com.ldtteam:domum_ornamentum:$minecraftVersion-$domumOrnamentumVersion:universal"))
 
     runtimeOnly(fg.deobf("maven.modrinth:terrafirmacraft:$terraFirmaCraftVersion"))
     runtimeOnly(fg.deobf("vazkii.patchouli:Patchouli:$minecraftVersion-$patchouliVersion-FORGE"))
