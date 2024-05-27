@@ -1,5 +1,5 @@
-modLoader = "javafml"
-loaderVersion = "[47,)"
+modLoader = "kotlinforforge"
+loaderVersion = "[4.10,)"
 license = "GPL-3.0-or-later"
 issueTrackerURL = "https://github.com/natrow/tfc_minecolonies/issues"
 

@@ -4,6 +4,8 @@ plugins {
     id("net.minecraftforge.gradle") version "[6.0,6.2)"
     id("org.parchmentmc.librarian.forgegradle") version "1.+"
     id("org.spongepowered.mixin") version "0.7.+"
+    kotlin("jvm") version "1.9.22"
+    kotlin("plugin.serialization") version "1.9.22"
 }
 
 val modId: String = "tfcm"
@@ -22,6 +24,7 @@ val blockUIVersion: String = "1.0.139-BETA"
 val domumOrnamentumVersion: String = "1.0.184-BETA"
 val terraFirmaCraftVersion: String = "3.2.3"
 val patchouliVersion: String = "81"
+val kotlinForForgeVersion: String = "4.10.0"
 
 // Development properties
 val mappingsChannel: String = "parchment"
@@ -51,6 +54,7 @@ repositories {
     maven(url = "https://maven.blamejared.com/") // Patchouli
     maven(url = "https://ldtteam.jfrog.io/artifactory/ldtteam/") // MineColonies
     maven(url = "https://api.modrinth.com/maven") // Modrinth (TFC)
+    maven(url = "https://thedarkcolour.github.io/KotlinForForge/") // Kotlin Forge
     flatDir {
         dirs("libs")
     }
@@ -68,6 +72,8 @@ dependencies {
 
     runtimeOnly(fg.deobf("maven.modrinth:terrafirmacraft:$terraFirmaCraftVersion"))
     runtimeOnly(fg.deobf("vazkii.patchouli:Patchouli:$minecraftVersion-$patchouliVersion-FORGE"))
+
+    implementation("thedarkcolour:kotlinforforge:$kotlinForForgeVersion")
 }
 
 
