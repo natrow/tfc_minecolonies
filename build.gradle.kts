@@ -3,6 +3,7 @@ plugins {
     id("idea")
     id("net.minecraftforge.gradle") version "[6.0,6.2)"
     id("org.parchmentmc.librarian.forgegradle") version "1.+"
+    id("org.spongepowered.mixin") version "0.7.+"
 }
 
 val modId: String = "tfcm"
@@ -23,11 +24,8 @@ val terraFirmaCraftVersion: String = "3.2.3"
 val patchouliVersion: String = "81"
 
 // Development properties
-//val mappingsChannel: String = "parchment"
-//val mappingsVersion: String = "2023.09.03-1.20.1"
-
-val mappingsChannel: String = "official"
-val mappingsVersion: String = "1.20.1"
+val mappingsChannel: String = "parchment"
+val mappingsVersion: String = "2023.09.03-1.20.1"
 
 println("Using mappings $mappingsChannel / $mappingsVersion with version $modVersion")
 
@@ -39,6 +37,12 @@ base {
 
 java {
     toolchain.languageVersion = JavaLanguageVersion.of(17)
+}
+
+idea {
+    module {
+        excludeDirs.add(file("run"))
+    }
 }
 
 repositories {
@@ -72,13 +76,15 @@ minecraft {
 
     runs {
         all {
+            args("-mixin.config=$modId.mixins.json")
+
             property("forge.logging.console.level", "debug")
             property("forge.enabledGameTestNamespaces", modId)
 
             property("mixin.env.remapRefMap", "true")
             property("mixin.env.refMapRemappingFile", "$projectDir/build/createSrgToMcp/output.srg")
 
-            jvmArgs("-ea", "-Xmx4G", "-Xms4G")
+            jvmArgs("-Xmx4G", "-Xms4G")
 
             mods.create(modId) {
                 source(sourceSets.main.get())
@@ -101,6 +107,10 @@ minecraft {
     }
 }
 
+mixin {
+    add(sourceSets.main.get(), "$modId.refmap.json")
+}
+
 tasks {
     processResources {
         // this can do string substitutions on mod resources, currently unused
@@ -109,6 +119,7 @@ tasks {
     jar {
         manifest {
             attributes["Implementation-Version"] = project.version
+            attributes["MixinConfigs"] = "$modId.mixins.json"
         }
     }
 }
