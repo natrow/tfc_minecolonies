@@ -1,5 +1,6 @@
 package com.natrow.tfcm
 
+import com.natrow.tfcm.structurize.PlacementHandlers
 import net.minecraft.client.Minecraft
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.config.ModConfig
@@ -33,6 +34,8 @@ object TFCM {
         )
 
         registerConfig(ModConfig.Type.SERVER, Config.SERVER_SPEC)
+
+        PlacementHandlers // access object to call constructor
 
         println(obj)
     }

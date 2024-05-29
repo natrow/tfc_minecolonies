@@ -51,10 +51,10 @@ idea {
 repositories {
     mavenCentral()
     mavenLocal()
+    maven(url = "https://thedarkcolour.github.io/KotlinForForge/") // Kotlin Forge
     maven(url = "https://maven.blamejared.com/") // Patchouli
     maven(url = "https://ldtteam.jfrog.io/artifactory/ldtteam/") // MineColonies
     maven(url = "https://api.modrinth.com/maven") // Modrinth (TFC)
-    maven(url = "https://thedarkcolour.github.io/KotlinForForge/") // Kotlin Forge
     flatDir {
         dirs("libs")
     }
@@ -63,17 +63,17 @@ repositories {
 dependencies {
     minecraft("net.minecraftforge", "forge", version = "$minecraftVersion-$forgeVersion")
 
+    implementation("thedarkcolour:kotlinforforge:$kotlinForForgeVersion")
+
     runtimeOnly(fg.deobf("mezz.jei:jei-$minecraftVersion-forge:$jeiVersion"))
 
     runtimeOnly(fg.deobf("com.ldtteam:minecolonies:$minecraftVersion-$mineColoniesVersion"))
-    runtimeOnly(fg.deobf("com.ldtteam:structurize:$minecraftVersion-$structurizeVersion"))
+    implementation(fg.deobf("com.ldtteam:structurize:$minecraftVersion-$structurizeVersion"))
     runtimeOnly(fg.deobf("com.ldtteam:blockui:$minecraftVersion-$blockUIVersion"))
     runtimeOnly(fg.deobf("com.ldtteam:domum_ornamentum:$minecraftVersion-$domumOrnamentumVersion:universal"))
 
-    runtimeOnly(fg.deobf("maven.modrinth:terrafirmacraft:$terraFirmaCraftVersion"))
+    implementation(fg.deobf("maven.modrinth:terrafirmacraft:$terraFirmaCraftVersion"))
     runtimeOnly(fg.deobf("vazkii.patchouli:Patchouli:$minecraftVersion-$patchouliVersion-FORGE"))
-
-    implementation("thedarkcolour:kotlinforforge:$kotlinForForgeVersion")
 }
 
 

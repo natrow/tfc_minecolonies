@@ -65,7 +65,7 @@ class ServerConfig(builder: ForgeConfigSpec.Builder) {
     val stoneStrictness: Strictness by builder.comment(
         """
         How strict stone blocks must be to the schematic's original.
-        Close here includes stone in the same geological category (sedimentary, metamorphic, etc).
+        Close here includes stone in the same geological category (sedimentary, metamorphic, etc.).
         
         Allowed values: EXACT, CLOSE, ANY. Default: EXACT
         """.trimIndent()
