@@ -19,58 +19,19 @@ object Config {
     }
 }
 
-enum class Strictness {
-    EXACT,
-    CLOSE,
-    ANY
-}
-
 class ServerConfig(builder: ForgeConfigSpec.Builder) {
     init {
         builder.comment("Server configuration for TerraFirmaMineColonies").push("server")
     }
 
-    val replaceBlocks: Boolean by builder.comment(
+    val firepitLog: String by builder.comment(
         """
-        Whether to replace blocks with the schematic's original.
-        If false, the blocks in the builder's inventory are used.
-        If true, the schematic's original blocks are used.
-        Enabling this could be seen as cheating.
+        Which wood type can be used by the builder to create fire pits.
         
-        Allowed values: true, false. Default: false
+        Allowed values: any item. Default: "tfc:wood/log/oak"
         """.trimIndent()
     )
-        .define("replaceBlocks", false)
-
-    val soilStrictness: Strictness by builder.comment(
-        """
-        How strict soil blocks must be to the schematic's original.
-        Close here includes nearby soil types.
-        
-        Allowed values: EXACT, CLOSE, ANY. Default: EXACT
-        """.trimIndent()
-    )
-        .define("soilStrictness", Strictness.EXACT)
-
-    val woodStrictness: Strictness by builder.comment(
-        """
-        How strict wood blocks must be to the schematic's original.
-        TBD: Determine definition of close in this context...
-        
-        Allowed values: EXACT, CLOSE, ANY. Default: EXACT
-        """.trimIndent()
-    )
-        .define("woodStrictness", Strictness.EXACT)
-
-    val stoneStrictness: Strictness by builder.comment(
-        """
-        How strict stone blocks must be to the schematic's original.
-        Close here includes stone in the same geological category (sedimentary, metamorphic, etc.).
-        
-        Allowed values: EXACT, CLOSE, ANY. Default: EXACT
-        """.trimIndent()
-    )
-        .define("stoneStrictness", Strictness.EXACT)
+        .define("firepitLog", "tfc:wood/log/oak")
 
     init {
         builder.pop()

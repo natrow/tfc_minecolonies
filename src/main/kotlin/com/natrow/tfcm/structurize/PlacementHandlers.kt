@@ -3,6 +3,8 @@ package com.natrow.tfcm.structurize
 import com.ldtteam.structurize.api.util.constant.Constants
 import com.ldtteam.structurize.placement.handlers.placement.IPlacementHandler
 import com.ldtteam.structurize.placement.handlers.placement.PlacementHandlers
+import com.natrow.tfcm.Config
+import com.natrow.tfcm.TFCM
 import net.dries007.tfc.common.blocks.StainedWattleBlock
 import net.dries007.tfc.common.blocks.TFCBlocks
 import net.dries007.tfc.common.blocks.ThatchBedBlock
@@ -17,6 +19,8 @@ import net.dries007.tfc.util.Helpers
 import net.minecraft.core.BlockPos
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.nbt.Tag
+import net.minecraft.resources.ResourceLocation
+import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.level.Level
@@ -24,6 +28,7 @@ import net.minecraft.world.level.block.BedBlock
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.properties.BedPart
+import net.minecraftforge.registries.ForgeRegistries
 
 /**
  * Placement handlers fix behavior when a builder needs to place blocks from Minecolonies
@@ -219,9 +224,17 @@ class FirepitPlacementHandler : IPlacementHandler {
         tileEntityData: CompoundTag?,
         complete: Boolean
     ): MutableList<ItemStack> {
+        var logItem: Item = ForgeRegistries.ITEMS.getValue(ResourceLocation(Config.SERVER.firepitLog))!!
+        if (logItem == Items.AIR) {
+            TFCM.LOGGER.log(
+                org.apache.logging.log4j.Level.WARN,
+                "Invalid item ID for firepitLog. Using fallback value."
+            )
+            logItem = TFCBlocks.WOODS[Wood.OAK]!![Wood.BlockType.LOG]!!.get().asItem()
+        }
+
         val list = mutableListOf(
-            ItemStack(TFCBlocks.WOODS[Wood.OAK]!![Wood.BlockType.LOG]!!.get().asItem()),
-            ItemStack(Items.STICK, 3)
+            ItemStack(logItem), ItemStack(Items.STICK, 3)
         )
 
         if (blockState.block is PotBlock) {

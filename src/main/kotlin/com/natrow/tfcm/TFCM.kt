@@ -17,11 +17,9 @@ import thedarkcolour.kotlinforforge.forge.runForDist
 object TFCM {
     const val ID = "tfcm"
 
-    private val LOGGER: Logger = LogManager.getLogger(ID)
+    val LOGGER: Logger = LogManager.getLogger(ID)
 
     init {
-        LOGGER.log(Level.INFO, "Hello World!")
-
         val obj = runForDist(
             clientTarget = {
                 MOD_BUS.addListener(::onClientStartup)

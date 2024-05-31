@@ -25,6 +25,8 @@ val domumOrnamentumVersion: String = "1.0.184-BETA"
 val terraFirmaCraftVersion: String = "3.2.3"
 val patchouliVersion: String = "81"
 val kotlinForForgeVersion: String = "4.10.0"
+val embeddiumVersion: String = "0.3.19"
+val mixinExtrasVersion: String = "0.3.6"
 
 // Development properties
 val mappingsChannel: String = "parchment"
@@ -60,14 +62,22 @@ repositories {
     }
 }
 
+jarJar.enable()
+
 dependencies {
     minecraft("net.minecraftforge", "forge", version = "$minecraftVersion-$forgeVersion")
+
+    annotationProcessor("io.github.llamalad7:mixinextras-common:$mixinExtrasVersion")
+    implementation(jarJar("io.github.llamalad7:mixinextras-forge:$mixinExtrasVersion") {
+        jarJar.ranged(this, "[0.3.6,)")
+    })
 
     implementation("thedarkcolour:kotlinforforge:$kotlinForForgeVersion")
 
     runtimeOnly(fg.deobf("mezz.jei:jei-$minecraftVersion-forge:$jeiVersion"))
+    runtimeOnly(fg.deobf("maven.modrinth:embeddium:$embeddiumVersion+mc1.20.1"))
 
-    runtimeOnly(fg.deobf("com.ldtteam:minecolonies:$minecraftVersion-$mineColoniesVersion"))
+    implementation(fg.deobf("com.ldtteam:minecolonies:$minecraftVersion-$mineColoniesVersion"))
     implementation(fg.deobf("com.ldtteam:structurize:$minecraftVersion-$structurizeVersion"))
     runtimeOnly(fg.deobf("com.ldtteam:blockui:$minecraftVersion-$blockUIVersion"))
     runtimeOnly(fg.deobf("com.ldtteam:domum_ornamentum:$minecraftVersion-$domumOrnamentumVersion:universal"))
