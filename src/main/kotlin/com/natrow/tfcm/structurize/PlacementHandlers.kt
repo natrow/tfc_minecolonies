@@ -12,6 +12,7 @@ import net.dries007.tfc.common.blocks.devices.*
 import net.dries007.tfc.common.blocks.rock.Rock
 import net.dries007.tfc.common.blocks.rock.RockAnvilBlock
 import net.dries007.tfc.common.blocks.soil.ISoilBlock
+import net.dries007.tfc.common.blocks.soil.SoilBlockType
 import net.dries007.tfc.common.blocks.wood.Wood
 import net.dries007.tfc.common.items.HideItemType
 import net.dries007.tfc.common.items.TFCItems
@@ -85,10 +86,9 @@ class ThatchBedPlacementHandler : IPlacementHandler {
         complete: Boolean
     ): MutableList<ItemStack> {
         return if (blockState.getValue(BedBlock.PART) == BedPart.HEAD) {
-            mutableListOf(
-                ItemStack(TFCBlocks.THATCH.get().asItem(), 2),
-                ItemStack(TFCItems.HIDES[HideItemType.RAW]!![HideItemType.Size.LARGE]!!.get().asItem())
-            )
+            val list = MutableList(2) { _ -> ItemStack(TFCBlocks.THATCH.get().asItem()) }
+            list.add(ItemStack(TFCItems.HIDES[HideItemType.RAW]!![HideItemType.Size.LARGE]!!.get().asItem()))
+            list
         } else {
             mutableListOf()
         }
@@ -157,21 +157,37 @@ class WattlePlacementHandler : IPlacementHandler {
         tileEntityData: CompoundTag?,
         complete: Boolean
     ): MutableList<ItemStack> {
-        var numSticks = 0
-        if (blockState.getValue(StainedWattleBlock.TOP)) numSticks++
-        if (blockState.getValue(StainedWattleBlock.BOTTOM)) numSticks++
-        if (blockState.getValue(StainedWattleBlock.LEFT)) numSticks++
-        if (blockState.getValue(StainedWattleBlock.RIGHT)) numSticks++
-        return mutableListOf(ItemStack(blockState.block.asItem()), ItemStack(Items.STICK, numSticks))
+        val list = mutableListOf(ItemStack(blockState.block.asItem()))
+        if (blockState.getValue(StainedWattleBlock.TOP)) list.add(ItemStack(Items.STICK))
+        if (blockState.getValue(StainedWattleBlock.BOTTOM)) list.add(ItemStack(Items.STICK))
+        if (blockState.getValue(StainedWattleBlock.LEFT)) list.add(ItemStack(Items.STICK))
+        if (blockState.getValue(StainedWattleBlock.RIGHT)) list.add(ItemStack(Items.STICK))
+        return list
     }
 }
 
 /**
  * Soil blocks require the right type of dirt
+ *
+ * Clay blocks require 3 clay balls (the max drop rate)
  */
 class SoilPlacementHandler : IPlacementHandler {
+    private val clayBlocks: Set<Block> by lazy {
+        TFCBlocks.SOIL.filterKeys { it == SoilBlockType.CLAY_GRASS || it == SoilBlockType.CLAY }.values.flatMap { it.values }
+            .map { it.get() }
+            .toSet()
+    }
+    private val kaolinClayBlocks: Map<Block, Int> by lazy {
+        mapOf(
+            TFCBlocks.RED_KAOLIN_CLAY.get() to 2,
+            TFCBlocks.PINK_KAOLIN_CLAY.get() to 3,
+            TFCBlocks.WHITE_KAOLIN_CLAY.get() to 4,
+            TFCBlocks.KAOLIN_CLAY_GRASS.get() to 2,
+        )
+    }
+
     override fun canHandle(world: Level, pos: BlockPos, blockState: BlockState): Boolean {
-        return blockState.block is ISoilBlock
+        return blockState.block is ISoilBlock || blockState.block in clayBlocks || blockState.block in kaolinClayBlocks
     }
 
     override fun handle(
@@ -193,7 +209,11 @@ class SoilPlacementHandler : IPlacementHandler {
         tileEntityData: CompoundTag?,
         complete: Boolean
     ): MutableList<ItemStack> {
-        return mutableListOf(ItemStack((blockState.block as ISoilBlock).dirt.block.asItem()))
+        return when (blockState.block) {
+            in clayBlocks -> MutableList(3) { _ -> ItemStack(Items.CLAY_BALL) }
+            in kaolinClayBlocks -> MutableList(kaolinClayBlocks[blockState.block]!!) { _ -> ItemStack(TFCItems.KAOLIN_CLAY.get()) }
+            else -> mutableListOf(ItemStack((blockState.block as ISoilBlock).dirt.block.asItem()))
+        }
     }
 }
 
@@ -233,9 +253,8 @@ class FirepitPlacementHandler : IPlacementHandler {
             logItem = TFCBlocks.WOODS[Wood.OAK]!![Wood.BlockType.LOG]!!.get().asItem()
         }
 
-        val list = mutableListOf(
-            ItemStack(logItem), ItemStack(Items.STICK, 3)
-        )
+        val list = MutableList(3) { _ -> ItemStack(Items.STICK) }
+        list.add(ItemStack(logItem))
 
         if (blockState.block is PotBlock) {
             list.add(ItemStack(TFCItems.POT.get()))
@@ -276,7 +295,7 @@ class ForgePlacementHandler : IPlacementHandler {
         tileEntityData: CompoundTag?,
         complete: Boolean
     ): MutableList<ItemStack> {
-        return mutableListOf(ItemStack(Items.CHARCOAL, 8))
+        return MutableList(8) { _ -> ItemStack(Items.CHARCOAL) }
     }
 }
 

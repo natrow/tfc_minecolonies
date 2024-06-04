@@ -17,14 +17,14 @@ description = '''Provides handmade compatibility between TerraFirmaCraft and Min
 [[dependencies.tfcm]]
 modId = "minecolonies"
 mandatory = true
-versionRange = "[1.1.395-BETA,)"
+versionRange = "[1.1.586-BETA,)"
 ordering = "AFTER"
 side = "BOTH"
 
 [[dependencies.tfcm]]
 modId = "tfc"
 mandatory = true
-versionRange = "[3.1.4-beta,)"
+versionRange = "[3.2.3,)"
 ordering = "AFTER"
 side = "BOTH"
 

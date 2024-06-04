@@ -18,7 +18,7 @@ val forgeVersion: String = "47.1.3"
 
 // Dependency versions
 val jeiVersion: String = "15.2.0.21"
-val mineColoniesVersion: String = "1.1.580-BETA"
+val mineColoniesVersion: String = "1.1.586-BETA"
 val structurizeVersion: String = "1.0.733-RELEASE"
 val blockUIVersion: String = "1.0.139-BETA"
 val domumOrnamentumVersion: String = "1.0.184-BETA"
