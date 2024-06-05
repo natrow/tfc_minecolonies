@@ -17,11 +17,12 @@ val minecraftVersion: String = "1.20.1"
 val forgeVersion: String = "47.1.3"
 
 // Dependency versions
-val jeiVersion: String = "15.2.0.21"
+val jeiVersion: String = "15.3.0.4"
 val mineColoniesVersion: String = "1.1.586-BETA"
 val structurizeVersion: String = "1.0.733-RELEASE"
 val blockUIVersion: String = "1.0.139-BETA"
 val domumOrnamentumVersion: String = "1.0.184-BETA"
+val dataGeneratorsVersion: String = "0.1.54-ALPHA"
 val terraFirmaCraftVersion: String = "3.2.3"
 val patchouliVersion: String = "81"
 val kotlinForForgeVersion: String = "4.10.0"
@@ -55,7 +56,7 @@ repositories {
     mavenLocal()
     maven(url = "https://thedarkcolour.github.io/KotlinForForge/") // Kotlin Forge
     maven(url = "https://maven.blamejared.com/") // Patchouli
-    maven(url = "https://ldtteam.jfrog.io/artifactory/ldtteam/") // MineColonies
+    maven(url = "https://ldtteam.jfrog.io/ldtteam/modding/") // MineColonies
     maven(url = "https://api.modrinth.com/maven") // Modrinth (TFC)
     flatDir {
         dirs("libs")
@@ -80,12 +81,12 @@ dependencies {
     implementation(fg.deobf("com.ldtteam:minecolonies:$minecraftVersion-$mineColoniesVersion"))
     implementation(fg.deobf("com.ldtteam:structurize:$minecraftVersion-$structurizeVersion"))
     runtimeOnly(fg.deobf("com.ldtteam:blockui:$minecraftVersion-$blockUIVersion"))
-    runtimeOnly(fg.deobf("com.ldtteam:domum_ornamentum:$minecraftVersion-$domumOrnamentumVersion:universal"))
+    implementation(fg.deobf("com.ldtteam:domum_ornamentum:$minecraftVersion-$domumOrnamentumVersion:universal"))
+    implementation(fg.deobf("com.ldtteam:datagenerators:1.19.3-$dataGeneratorsVersion:universal"))
 
     implementation(fg.deobf("maven.modrinth:terrafirmacraft:$terraFirmaCraftVersion"))
     runtimeOnly(fg.deobf("vazkii.patchouli:Patchouli:$minecraftVersion-$patchouliVersion-FORGE"))
 }
-
 
 minecraft {
     mappings(mappingsChannel, mappingsVersion)
@@ -120,7 +121,26 @@ minecraft {
             workingDirectory(project.file("run/gametest"))
             arg("--nogui")
         }
+
+        register("data") {
+            workingDirectory(project.file("run/data"))
+            args(
+                "--mod",
+                modId,
+                "--all",
+                "--output",
+                file("src/generated/resources"),
+                "--existing",
+                file("src/main/resources"),
+                "--existing-mod",
+                "tfc",
+            )
+        }
     }
+}
+
+sourceSets.main.get().resources {
+    srcDir("src/generated/resources")
 }
 
 mixin {

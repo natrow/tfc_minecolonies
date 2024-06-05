@@ -1,0 +1,10 @@
+{
+  "values": [
+    "#forge:stone",
+    "#forge:cobblestone",
+    "#minecraft:stone_bricks",
+    "#tfc:mud_bricks",
+    "#forge:sandstone",
+    "#tfcm:alabaster"
+  ]
+}

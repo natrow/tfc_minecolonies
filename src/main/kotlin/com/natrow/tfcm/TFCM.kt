@@ -1,7 +1,10 @@
 package com.natrow.tfcm
 
+import com.natrow.tfcm.datagen.DomumTagsProvider
+import com.natrow.tfcm.datagen.TFCMTagsProvider
 import com.natrow.tfcm.structurize.PlacementHandlers
 import net.minecraft.client.Minecraft
+import net.minecraftforge.data.event.GatherDataEvent
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.config.ModConfig
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent
@@ -20,6 +23,8 @@ object TFCM {
     val LOGGER: Logger = LogManager.getLogger(ID)
 
     init {
+        MOD_BUS.addListener(::gatherData)
+
         val obj = runForDist(
             clientTarget = {
                 MOD_BUS.addListener(::onClientStartup)
@@ -46,5 +51,19 @@ object TFCM {
     @Suppress("UNUSED_PARAMETER")
     private fun onServerStartup(event: FMLDedicatedServerSetupEvent) {
         LOGGER.log(Level.INFO, "Server starting...")
+    }
+
+    private fun gatherData(event: GatherDataEvent) {
+        // TFCM tags
+        event.generator.addProvider(
+            event.includeServer(),
+            TFCMTagsProvider(event.generator.packOutput, event.lookupProvider, event.existingFileHelper)
+        )
+
+        // Domum Ornamentum tags
+        event.generator.addProvider(
+            event.includeServer(),
+            DomumTagsProvider(event.generator.packOutput, event.lookupProvider, event.existingFileHelper)
+        )
     }
 }
