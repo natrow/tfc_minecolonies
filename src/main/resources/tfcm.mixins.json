@@ -3,7 +3,9 @@
   "minVersion": "0.8",
   "package": "com.natrow.tfcm.mixin",
   "compatibilityLevel": "JAVA_17",
-  "mixins": [],
+  "mixins": [
+    "minecolonies.ai.EntityAIWorkFarmerMixin"
+  ],
   "client": [],
   "refmap": "tfcm.refmap.json"
 }

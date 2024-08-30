@@ -1,0 +1,9 @@
+{
+  "interaction.tfcm.crop_cold": "I can't plant %s in the field at (%d, %d, %d) because the weather is too cold. Try growing something else.",
+  "interaction.tfcm.crop_dry": "I can't plant %s in the field at (%d, %d, %d) because the soil is too dry. Try irrigating the field or growing something else.",
+  "interaction.tfcm.crop_hot": "I can't plant %s in the field at (%d, %d, %d) because the weather is too hot. Try growing something else.",
+  "interaction.tfcm.crop_tall": "I can't plant %s in the field at (%d, %d, %d) because there isn't enough room. Try removing blocks above the soil or growing something else.",
+  "interaction.tfcm.crop_water": "I can't plant %s in the field at (%d, %d, %d) because they only grow in water. Try flooding the field or growing something else.",
+  "interaction.tfcm.crop_wet": "I can't plant %s in the field at (%d, %d, %d) because the soil is too damp. Try removing irrigation or growing something else.",
+  "request.tfcm.sticks": "Sticks"
+}

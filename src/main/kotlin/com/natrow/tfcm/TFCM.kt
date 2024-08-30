@@ -1,7 +1,9 @@
 package com.natrow.tfcm
 
 import com.natrow.tfcm.datagen.DomumTagsProvider
+import com.natrow.tfcm.datagen.TFCMLanguageProvider
 import com.natrow.tfcm.datagen.TFCMTagsProvider
+import com.natrow.tfcm.minecolonies.InteractionValidators
 import com.natrow.tfcm.structurize.PlacementHandlers
 import net.minecraft.client.Minecraft
 import net.minecraftforge.data.event.GatherDataEvent
@@ -39,6 +41,7 @@ object TFCM {
         registerConfig(ModConfig.Type.SERVER, Config.SERVER_SPEC)
 
         PlacementHandlers // access object to call constructor
+        InteractionValidators
 
         println(obj)
     }
@@ -54,16 +57,24 @@ object TFCM {
     }
 
     private fun gatherData(event: GatherDataEvent) {
+        val output = event.generator.packOutput
+
         // TFCM tags
         event.generator.addProvider(
             event.includeServer(),
-            TFCMTagsProvider(event.generator.packOutput, event.lookupProvider, event.existingFileHelper)
+            TFCMTagsProvider(output, event.lookupProvider, event.existingFileHelper)
         )
 
         // Domum Ornamentum tags
         event.generator.addProvider(
             event.includeServer(),
-            DomumTagsProvider(event.generator.packOutput, event.lookupProvider, event.existingFileHelper)
+            DomumTagsProvider(output, event.lookupProvider, event.existingFileHelper)
+        )
+
+        // TFCM localization
+        event.generator.addProvider(
+            event.includeClient(),
+            TFCMLanguageProvider(output)
         )
     }
 }

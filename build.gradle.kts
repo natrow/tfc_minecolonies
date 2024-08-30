@@ -31,7 +31,7 @@ val mixinExtrasVersion: String = "0.3.6"
 
 // Development properties
 val mappingsChannel: String = "parchment"
-val mappingsVersion: String = "2023.09.03-1.20.1"
+val mappingsVersion: String = "2023.09.03"
 
 println("Using mappings $mappingsChannel / $mappingsVersion with version $modVersion")
 
@@ -68,7 +68,7 @@ jarJar.enable()
 dependencies {
     minecraft("net.minecraftforge", "forge", version = "$minecraftVersion-$forgeVersion")
 
-    annotationProcessor("io.github.llamalad7:mixinextras-common:$mixinExtrasVersion")
+    compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:$mixinExtrasVersion")!!)
     implementation(jarJar("io.github.llamalad7:mixinextras-forge:$mixinExtrasVersion") {
         jarJar.ranged(this, "[0.3.6,)")
     })
@@ -89,7 +89,7 @@ dependencies {
 }
 
 minecraft {
-    mappings(mappingsChannel, mappingsVersion)
+    mappings(mappingsChannel, "$mappingsVersion-$minecraftVersion")
 
     runs {
         all {
