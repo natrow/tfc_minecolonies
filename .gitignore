@@ -20,6 +20,16 @@ build
 # other
 eclipse
 run
+runs
+run-data
 
-# Files from Forge MDK
-forge*changelog.txt
+repo
+
+# Kotlin
+.kotlin
+
+# prettier
+.prettierrc.yaml
+yarn.lock
+package.json
+node_modules
