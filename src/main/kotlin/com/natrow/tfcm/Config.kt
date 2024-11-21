@@ -1,4 +1,4 @@
-package com.example.examplemod
+package com.natrow.tfcm
 
 import java.util.stream.Collectors
 import net.minecraft.core.registries.BuiltInRegistries
@@ -12,7 +12,7 @@ import net.neoforged.neoforge.common.ModConfigSpec
 // An example config class. This is not required, but it's a good idea to have one to keep your
 // config organized.
 // Demonstrates how to use Neo's config APIs
-@EventBusSubscriber(modid = ExampleMod.MODID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = TFCM.MODID, bus = EventBusSubscriber.Bus.MOD)
 object Config {
   private val BUILDER: ModConfigSpec.Builder = ModConfigSpec.Builder()
 
@@ -29,7 +29,7 @@ object Config {
   // a list of strings that are treated as resource locations for items
   private val ITEM_STRINGS: ModConfigSpec.ConfigValue<List<String>> =
       BUILDER.comment("A list of items to log on common setup.")
-          .defineListAllowEmpty("items", listOf("minecraft:iron_ingot"), ::validateItemName)
+          .defineListAllowEmpty("items", listOf("minecraft:iron_ingot"), Config::validateItemName)
 
   val SPEC: ModConfigSpec = BUILDER.build()
 
