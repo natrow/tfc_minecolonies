@@ -2,7 +2,7 @@ plugins {
     id 'java-library'
     id 'maven-publish'
     id 'net.neoforged.moddev' version '1.0.21'
-    id "org.jetbrains.kotlin.jvm" version ("2.0.21")
+    id "org.jetbrains.kotlin.jvm" version("2.0.21")
 }
 
 tasks.named('wrapper', Wrapper).configure {
@@ -21,7 +21,19 @@ repositories {
     mavenLocal()
     maven {
         name = "Kotlin for Forge"
-        setUrl("https://thedarkcolour.github.io/KotlinForForge/")
+        url = "https://thedarkcolour.github.io/KotlinForForge/"
+    }
+    maven {
+        name = "Jared's maven"
+        url = "https://maven.blamejared.com/"
+    }
+    maven {
+        name = "LDTTeam Modding"
+        url = "https://ldtteam.jfrog.io/ldtteam/modding/"
+    }
+    maven {
+        name = "CurseForge Maven"
+        url = "https://www.cursemaven.com"
     }
 }
 
@@ -120,27 +132,18 @@ dependencies {
     // Since Kotlin is its own JVM language with its own standard library, a custom language loader needs to be used, i.e. KFF
     implementation("thedarkcolour:kotlinforforge-neoforge:$kff_version")
 
-    // Example optional mod dependency with JEI
-    // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
-    // compileOnly "mezz.jei:jei-${mc_version}-common-api:${jei_version}"
-    // compileOnly "mezz.jei:jei-${mc_version}-neoforge-api:${jei_version}"
-    // We add the full version to localRuntime, not runtimeOnly, so that we do not publish a dependency on it
-    // localRuntime "mezz.jei:jei-${mc_version}-neoforge:${jei_version}"
+    // JEI
+    runtimeOnly("mezz.jei:jei-$minecraft_version-neoforge:$jei_version")
 
-    // Example mod dependency using a mod jar from ./libs with a flat dir repository
-    // This maps to ./libs/coolmod-${mc_version}-${coolmod_version}.jar
-    // The group id is ignored when searching -- in this case, it is "blank"
-    // implementation "blank:coolmod-${mc_version}:${coolmod_version}"
+    // MineColonies (dependencies pulled in automagically, add as needed)
+    implementation("com.ldtteam:minecolonies:$minecolonies_version-1.21.1-snapshot")
 
-    // Example mod dependency using a file as dependency
-    // implementation files("libs/coolmod-${mc_version}-${coolmod_version}.jar")
-
-    // Example project dependency using a sister or child project:
-    // implementation project(":myproject")
-
-    // For more info:
-    // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
-    // http://www.gradle.org/docs/current/userguide/dependency_management.html
+    // TerraFirmaCraft
+    implementation("net.dries007.tfc:TerraFirmaCraft") {
+        version {
+            branch = '1.21.x'
+        }
+    }
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
