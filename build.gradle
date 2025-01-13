@@ -87,7 +87,7 @@ neoForge {
             // gameDirectory = project.file('run-data')
 
             // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
-            programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+            programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath(), '--existing-mod', 'tfc'
         }
 
         // applies to all the run configs above
@@ -136,7 +136,8 @@ dependencies {
     runtimeOnly("mezz.jei:jei-$minecraft_version-neoforge:$jei_version")
 
     // MineColonies (dependencies pulled in automagically, add as needed)
-    implementation("com.ldtteam:minecolonies:$minecolonies_version-1.21.1-snapshot")
+    implementation("com.ldtteam:minecolonies:$minecolonies_version-$minecraft_version-snapshot")
+    implementation("com.ldtteam:domum-ornamentum:$domum_version-$minecraft_version-snapshot")
 
     // TerraFirmaCraft
     implementation("net.dries007.tfc:TerraFirmaCraft") {
