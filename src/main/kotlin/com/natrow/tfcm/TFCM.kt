@@ -2,6 +2,7 @@ package com.natrow.tfcm
 
 import com.mojang.logging.LogUtils
 import com.natrow.tfcm.datagen.TFCMTagsProvider
+import com.natrow.tfcm.structurize.PlacementHandlers
 import net.neoforged.bus.api.IEventBus
 import net.neoforged.fml.ModContainer
 import net.neoforged.fml.common.Mod
@@ -19,6 +20,8 @@ class TFCM(modEventBus: IEventBus, modContainer: ModContainer) {
     modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC)
 
     modEventBus.addListener(::gatherData)
+
+    PlacementHandlers
   }
 
   private fun gatherData(event: GatherDataEvent) {

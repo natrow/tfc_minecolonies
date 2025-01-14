@@ -138,6 +138,7 @@ dependencies {
     // MineColonies (dependencies pulled in automagically, add as needed)
     implementation("com.ldtteam:minecolonies:$minecolonies_version-$minecraft_version-snapshot")
     implementation("com.ldtteam:domum-ornamentum:$domum_version-$minecraft_version-snapshot")
+    implementation("com.ldtteam:structurize:$structurize_version-$minecraft_version-snapshot")
 
     // TerraFirmaCraft
     implementation("net.dries007.tfc:TerraFirmaCraft") {
