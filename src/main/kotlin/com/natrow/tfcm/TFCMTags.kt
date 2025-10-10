@@ -17,6 +17,6 @@ object TFCMTags {
   }
 
   private fun <T> create(registry: ResourceKey<Registry<T>>, name: String): TagKey<T> {
-    return TagKey.create(registry, ResourceLocation.fromNamespaceAndPath(TFCM.MODID, name))
+    return TagKey.create(registry, ResourceLocation.fromNamespaceAndPath(TFCM.ID, name))
   }
 }

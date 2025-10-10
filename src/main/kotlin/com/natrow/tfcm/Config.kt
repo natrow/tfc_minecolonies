@@ -8,7 +8,7 @@ import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.fml.event.config.ModConfigEvent
 import net.neoforged.neoforge.common.ModConfigSpec
 
-@EventBusSubscriber(modid = TFCM.MODID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber
 object Config {
   private val BUILDER: ModConfigSpec.Builder = ModConfigSpec.Builder()
 
@@ -25,7 +25,9 @@ object Config {
   }
 
   @SubscribeEvent
-  fun onLoad(event: ModConfigEvent) {
+  fun onLoad(event: ModConfigEvent.Loading) {
+    TFCM.LOGGER.info("Loading TFCM config {}", event.config.fileName)
+
     firepit_log = BuiltInRegistries.ITEM[ResourceLocation.parse(FIREPIT_LOG.get())]
   }
 }

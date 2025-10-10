@@ -1,8 +1,9 @@
 plugins {
     id 'java-library'
     id 'maven-publish'
-    id 'net.neoforged.moddev' version '1.0.21'
-    id "org.jetbrains.kotlin.jvm" version("2.0.21")
+    id 'idea'
+    id 'net.neoforged.moddev' version '2.0.113'
+    id "org.jetbrains.kotlin.jvm" version("2.2.20")
 }
 
 tasks.named('wrapper', Wrapper).configure {
@@ -24,7 +25,7 @@ repositories {
         url = "https://thedarkcolour.github.io/KotlinForForge/"
     }
     maven {
-        name = "Jared's maven"
+        name = "Jared's Maven"
         url = "https://maven.blamejared.com/"
     }
     maven {
@@ -34,6 +35,10 @@ repositories {
     maven {
         name = "CurseForge Maven"
         url = "https://www.cursemaven.com"
+    }
+    maven {
+        name = "Modrinth"
+        url = "https://api.modrinth.com/maven"
     }
 }
 
@@ -141,11 +146,10 @@ dependencies {
     implementation("com.ldtteam:structurize:$structurize_version-$minecraft_version-snapshot")
 
     // TerraFirmaCraft
-    implementation("net.dries007.tfc:TerraFirmaCraft") {
-        version {
-            branch = '1.21.x'
-        }
-    }
+    implementation("maven.modrinth:terrafirmacraft:$terrafirmacraft_version")
+
+    // Patchouli
+    runtimeOnly("vazkii.patchouli:Patchouli:$minecraft_version-$patchouli_version-NEOFORGE")
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.

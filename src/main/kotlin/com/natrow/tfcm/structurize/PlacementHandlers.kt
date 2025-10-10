@@ -29,16 +29,15 @@ import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.properties.BedPart
 
 /** Placement handlers fix behavior when a builder needs to place blocks from Minecolonies */
-object PlacementHandlers {
-  init {
-    PlacementHandlers.add(ThatchBedPlacementHandler())
-    PlacementHandlers.add(StoneAnvilPlacementHandler())
-    PlacementHandlers.add(WattlePlacementHandler())
-    PlacementHandlers.add(SoilPlacementHandler())
-    PlacementHandlers.add(FirepitPlacementHandler())
-    PlacementHandlers.add(ForgePlacementHandler())
-    PlacementHandlers.add(TileEntityPlacementHandler())
-  }
+fun registerPlacementHandlers() {
+  PlacementHandlers.add(ThatchBedPlacementHandler())
+  PlacementHandlers.add(StoneAnvilPlacementHandler())
+  PlacementHandlers.add(WattlePlacementHandler())
+  PlacementHandlers.add(SoilPlacementHandler())
+  PlacementHandlers.add(FirepitPlacementHandler())
+  PlacementHandlers.add(ForgePlacementHandler())
+  PlacementHandlers.add(IngotPilePlacementHandler())
+  PlacementHandlers.add(InventoryBlockPlacementHandler())
 }
 
 /** Thatch beds are similar to normal beds but require 2 thatch and 1 large hide */
@@ -288,12 +287,10 @@ class ForgePlacementHandler : IPlacementHandler {
   }
 }
 
-/**
- * Several tile entities have hidden inventories that aren't detected by Minecolonies automatically.
- */
-class TileEntityPlacementHandler : IPlacementHandler {
+/** Handles Ingot Piles */
+class IngotPilePlacementHandler : IPlacementHandler {
   override fun canHandle(world: Level, pos: BlockPos, blockState: BlockState): Boolean {
-    return blockState.block is SheetPileBlock || blockState.block is IngotPileBlock
+    return blockState.block is IngotPileBlock
   }
 
   override fun handle(
@@ -325,6 +322,48 @@ class TileEntityPlacementHandler : IPlacementHandler {
     if (tileEntityData != null) {
       Helpers.readItemStacksFromNbt(
           world.registryAccess(), list, tileEntityData.getList("stacks", Tag.TAG_COMPOUND.toInt()))
+    }
+    return list
+  }
+}
+
+/** Handles DeviceBLock (InventoryBlockEntity) */
+class InventoryBlockPlacementHandler : IPlacementHandler {
+  override fun canHandle(world: Level, pos: BlockPos, blockState: BlockState): Boolean {
+    return blockState.block is DeviceBlock
+  }
+
+  override fun handle(
+      world: Level,
+      pos: BlockPos,
+      blockState: BlockState,
+      tileEntityData: CompoundTag?,
+      complete: Boolean,
+      centerPos: BlockPos,
+      settings: RotationMirror
+  ): IPlacementHandler.ActionProcessingResult {
+    world.setBlock(pos, blockState, Constants.UPDATE_FLAG)
+    if (tileEntityData != null) {
+      PlacementHandlers.handleTileEntityPlacement(tileEntityData, world, pos, settings)
+      return IPlacementHandler.ActionProcessingResult.SUCCESS
+    } else {
+      return IPlacementHandler.ActionProcessingResult.DENY
+    }
+  }
+
+  override fun getRequiredItems(
+      world: Level,
+      pos: BlockPos,
+      blockState: BlockState,
+      tileEntityData: CompoundTag?,
+      complete: Boolean
+  ): List<ItemStack?> {
+    val list: MutableList<ItemStack> = mutableListOf()
+    if (tileEntityData != null) {
+      Helpers.readItemStacksFromNbt(
+          world.registryAccess(),
+          list,
+          tileEntityData.getCompound("inventory").getList("Items", Tag.TAG_COMPOUND.toInt()))
     }
     return list
   }

@@ -1,0 +1,10 @@
+{
+  "values": [
+    "#c:stones",
+    "#c:cobblestones",
+    "#minecraft:stone_bricks",
+    "#tfc:mud_bricks",
+    "#c:sandstone/blocks",
+    "#tfcm:alabaster"
+  ]
+}

@@ -33,3 +33,6 @@ repo
 yarn.lock
 package.json
 node_modules
+
+# generated
+/src/generated/resources/.cache/**

@@ -17,7 +17,7 @@ class TFCMTagsProvider(
     output: PackOutput,
     lookupProvider: CompletableFuture<HolderLookup.Provider>,
     existingFileHelper: ExistingFileHelper?
-) : BlockTagsProvider(output, lookupProvider, TFCM.MODID, existingFileHelper) {
+) : BlockTagsProvider(output, lookupProvider, TFCM.ID, existingFileHelper) {
   override fun addTags(lookupProvider: HolderLookup.Provider) {
     // no alabaster tag exists by default in TFC
     this.tag(TFCMTags.Blocks.ALABASTER)

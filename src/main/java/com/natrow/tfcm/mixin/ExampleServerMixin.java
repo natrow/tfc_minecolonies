@@ -32,7 +32,7 @@ public abstract class ExampleServerMixin
   @Inject(method = "loadLevel", at = @At("TAIL"))
   public void examplemod$loadLevel(CallbackInfo ci) {
     System.out.println(
-      "Example Mixin ran from server startup (modid: " + TFCM.MODID + ")"
+      "Example Mixin ran from server startup (modid: " + TFCM.ID + ")"
     );
   }
 }
